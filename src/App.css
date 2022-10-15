@@ -1,18 +1,39 @@
+html,
+body,
+#root {
+  height: 100%;
+}
+
 .App {
   text-align: center;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+  height: 50px;
+  position: sticky;
+  z-index: 5;
+  top: 0px;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  color: rgb(13, 2, 2);
+}
+
+.App-main {
+  flex: 1 1 auto;
+  align-items: center;
+  justify-content: center;
+  color: rgb(9, 0, 0);
+  background: rgb(236, 239, 241);
 }
 
 .App-footer {
-  
+  height: 50px;
+  background-image: linear-gradient(to right, rgb(63, 81, 181), rgb(100, 181, 246));
+  align-items: center;
+  justify-content: center;
+  color: white;
 }
