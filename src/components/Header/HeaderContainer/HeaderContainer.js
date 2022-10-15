@@ -5,7 +5,7 @@ import logo from './logo.png';
 import InputSearch from './InputSearch.js'
 import Settings from './Settings';
 import Button from './Button';
-
+import wallet from './walletIcon.png';
 
 
 export default function HeaderContainer() {
@@ -16,11 +16,15 @@ export default function HeaderContainer() {
                 <Link className="" to='/exchanges'>Exchanges</Link>
                 <Link className="" to='/swap'>Swap</Link>
             </div>
-            <Link className="" to='/'><img className="logo" src={logo} alt="LOGO"></img></Link>
             <InputSearch />
+            <Link className="" to='/'><img className="logo" src={logo} alt="LOGO"></img></Link>
             <Settings />
-            <Button action="Login"/>
-            <Button action="Add Wallet"/>
+            <div className="Buttons">
+                <Link className="Wallet" to='/wallet'><img className="wallet" src={wallet} alt="wallet"></img></Link>
+                <Button action="Login" />
+                <Button action="Add Wallet" />
+            </div>
+
         </div>
     )
 }

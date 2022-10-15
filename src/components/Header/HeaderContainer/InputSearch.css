@@ -1,14 +1,15 @@
 .InputSearch {
     display: flex;
     background-color: #2f3640;
-    height: 30px;
-    border-radius: 30px;
-    padding: 7px;
+    height: 25px;
+    border-radius: 25px;
+    padding: 6px;
+    
 }
 
 .Search-btn {
-    width: 30px;
-    height: 30px;
+    width: 25px;
+    height: 25px;
     border-radius: 50%;
     background-color: #2f3640;
     display: flex;
@@ -20,7 +21,7 @@
 }
 
 .Search-btn i {
-    font-size: 20px;
+    font-size: 15px;
 }
 
 .InputSearch:hover .Search-text, .Search-text:focus {
@@ -35,7 +36,7 @@
     padding: 0;
     color: #ffffff;
     transition: 0.4s;
-    line-height: 30px;
+    line-height: 25px;
     width: 0;
     font-weight: bold;
 

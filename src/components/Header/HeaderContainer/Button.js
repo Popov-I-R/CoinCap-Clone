@@ -5,9 +5,9 @@ import "./Button.css"
 export default function Button(props) {
     return (
         <div className="Nav-item Nav-button">
-            <button className="Btn" type="button">
+            <a className="Btn" type="button">
                 {props.action}
-            </button>
+            </a>
         </div>
     )
 }
