@@ -11,17 +11,6 @@ body,
   flex-direction: column;
 }
 
-.App-header {
-  height: 50px;
-  position: sticky;
-  z-index: 5;
-  top: 0px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: rgb(13, 2, 2);
-}
-
 .App-main {
   flex: 1 1 auto;
   align-items: center;
