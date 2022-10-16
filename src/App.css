@@ -18,11 +18,3 @@ body,
   color: rgb(9, 0, 0);
   background: rgb(236, 239, 241);
 }
-
-.App-footer {
-  height: 50px;
-  background-image: linear-gradient(to right, rgb(63, 81, 181), rgb(100, 181, 246));
-  align-items: center;
-  justify-content: center;
-  color: white;
-}
