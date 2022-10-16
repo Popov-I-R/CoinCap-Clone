@@ -7,7 +7,7 @@ function App() {
   return (
     <BrowserRouter >
       <div className="App">
-        <Header />
+        <Header/>
         <div className="App-main">
           <Routes>
             <Route path='*' element={<div>Error</div>} />
