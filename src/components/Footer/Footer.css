@@ -4,21 +4,17 @@
     align-items: flex-start;
     color: white;
     padding: 1em;
-
     display: flex;
     flex-flow: row wrap;
     justify-content: space-around;
   }
 
-
   .Footer-Container {
     box-sizing: border-box;
     width: 260px; 
     height: 100%; 
-    /* margin: auto;   */
     padding-top: 1rem;
     padding-bottom: 1rem;
-
   }
 
   .Social-Media-Icons > a {

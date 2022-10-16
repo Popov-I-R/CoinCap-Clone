@@ -1,13 +1,12 @@
 import React from "react";
 import "./Footer.css";
 
+
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-
 import AppStoreLogo from "../Icons/Footer/App_Store.png"
 import GooglePlayLogo from "../Icons/Footer/Google_Play.png"
-
 import {FaFacebookSquare, FaTwitter} from 'react-icons/fa';
 import FooterLink from "./FooterLink";
 import FooterColumnTitle from "./FooterColumnTitle";
@@ -17,6 +16,7 @@ import LogoLinkComponent from "./LogoLinkComponent";
 export default function Footer() {
   return (
     <Container className="Footer-Body">
+      {/* <div className="Main-Wrapper"> */}
       <Row className="Footer-Container" xs="auto">
         <FooterColumnTitle>COINCAP.IO</FooterColumnTitle>
           <FooterLink link="https://coincap.io/methodology">Methodology</FooterLink>
@@ -37,7 +37,6 @@ export default function Footer() {
           CoinMarketCap, LLC or any of its goods and services.
         </Col>
       </Row>
-
       <Row className="Footer-Container" xs="auto">
         <FooterColumnTitle>FOLLOW US</FooterColumnTitle>
         <Col className="Social-Media-Icons">
@@ -50,6 +49,7 @@ export default function Footer() {
         <LogoLinkComponent link={"https://play.google.com/store/apps/details?id=io.coinCap.coinCap"} logo={GooglePlayLogo} className="Logo-Footer" alt="Google-play-logo"></LogoLinkComponent>
         <LogoLinkComponent link={"https://apps.apple.com/us/app/coincap/id1074052280?ign-mpt=uo%3D4"} logo={AppStoreLogo} className="Logo-Footer" alt="App-store-logo"></LogoLinkComponent>
       </Row>
+      {/* </div> */}
     </Container>
   );
 }
