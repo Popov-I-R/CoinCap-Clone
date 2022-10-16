@@ -1,0 +1,23 @@
+
+.Nav-button {
+    display: flex;
+    align-items: center;
+    height: 30px;
+    margin-top: 1px;
+    transition: 0.5s;
+}
+.Nav-button a {
+    margin: 5px 10px;
+    padding: 5px 15px;
+    border-radius: 20px;
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 15px -3px;
+    background: rgb(24, 198, 131) !important;
+    height: 25px;
+    color: #ffffff;
+}
+
+.Nav-button :hover{
+    cursor: pointer;
+    margin-top: 0px;
+    transition: 0.2s;
+}

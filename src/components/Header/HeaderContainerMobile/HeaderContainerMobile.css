@@ -1,11 +1,12 @@
-.Header-container {
+.Header-container-mobile {
     min-width: 80vw;
     display: flex;
     justify-content: space-between;
     align-items: center;
     height: 63px;
     text-decoration: none;
-    
+    background-color: aquamarine;
+    display: none;
 }
 
 .logo {
@@ -62,7 +63,8 @@
 }
 
 @media only screen and (max-width: 1000px)  {
-    .Header-container {
-      display: none;
+    .Header-container-mobile {
+      display: block;
     }
+
   }
