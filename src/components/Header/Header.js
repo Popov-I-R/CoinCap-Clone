@@ -1,5 +1,5 @@
 import React from 'react'
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
@@ -8,7 +8,7 @@ import IconButton from '@mui/material/IconButton';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
-import ListItemText from '@mui/material/ListItemText';
+// import ListItemText from '@mui/material/ListItemText';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
@@ -17,7 +17,6 @@ import { Link } from 'react-router-dom';
 import "./Header.css"
 import Settings from './SettingsGear/Settings';
 import InputSearch from './SearchBar/InputSearch';
-import { useState } from 'react';
 
 // Icons
 import headerLogo from "./header_logo.svg"
@@ -33,14 +32,9 @@ import {MdStarBorder} from "react-icons/md"
 // Mobile Select Control Start 
 
 import MobileSelectCurrency from './MobileMenuSelectComponents/MobileSelectCurrency';
-
+import MobileSelectLanguage from './MobileMenuSelectComponents/MobileSelectLanguage';
 
 // Mobile select control end 
-
-
-
-
-
 
 const setupHeaderMobileIcon = (name) => {
   if (name === "Coins") {
@@ -71,7 +65,6 @@ const checkPage = (page) => {
 }
 
 const drawerWidth = 200;
-// navitems е за листа за изскачащото меню, мисля тук да сложим и watchlist-a. 
 const navItems = ['Coins', 'Exchanges', 'Swap', 'Watchlist'];
 const navItemsMobile = ['Coins', 'Exchanges', 'Swap','API','Settings','My Watchlist','My Portfolio'];
 
@@ -83,7 +76,6 @@ function Header(props) {
   };
 
   const drawer = (
-
     <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
       <List>
         {navItemsMobile.map((item) => (
@@ -119,17 +111,18 @@ function Header(props) {
             </Button>
           </Box>
       <Divider />
-      <MobileSelectCurrency></MobileSelectCurrency>
+      <MobileSelectCurrency/>
+      <MobileSelectLanguage/>
     </Box>
   );
 
   const container = window !== undefined ? () => window().document.body : undefined;
 
   return (
-    <Box sx={{ display: 'flex' }}>
-      <AppBar component="nav" sx={{ display: 'flex', justifyContent: "centre", bgcolor: "white", color: "black" }} >
-        <Toolbar sx={{ margin: "0vw 6vw" }}>
-          <Box sx={{ display: { xs: 'none', sm: 'block' } }} >
+    <Box sx={{ display: 'flex', minHeight: "62px" }}>
+      <AppBar component="nav" sx={{ display: 'flex', justifyContent: "centre", bgcolor: "white", color: "black", minHeight: "62px"}} >
+        <Toolbar sx={{ margin: "0vw 6vw", minHeight: "62px"  }}>
+          <Box sx={{ display: { xs: 'none', sm: 'none', md:'block' } }} >
             {navItems.map((item) => (
               <Button key={item} sx={{ color: 'black' }} 
               style = {{
@@ -140,7 +133,7 @@ function Header(props) {
             ))}
           </Box>
 
-          <Box sx={{ display: { xs: 'block', sm: 'none' } }}>
+          <Box sx={{ display: { xs: 'block', sm: 'block',md: 'none' } }}>
             <InputSearch />
           </Box>
 
@@ -149,7 +142,7 @@ function Header(props) {
             variant="h6"
             align="center"
             component="div"
-            sx={{ flexGrow: 1, display: { sm: 'block' } }}
+            sx={{ flexGrow: 1, display: {sm: 'block' } }}
           >
             <Button
               style={{
@@ -175,23 +168,22 @@ function Header(props) {
               aria-label="open drawer"
               edge="start"
               onClick={handleDrawerToggle}
-              sx={{ display: { sm: 'none' } }}
+              sx={{ display: {xs:'block', sm: 'block', md:'none' }}}
             >
               <FormatAlignJustifyIcon />
             </IconButton>
           </Box>
 
-
-          <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
+          <Box sx={{ display: { xs: 'none', sm: 'none',md: 'block' } }}>
             <InputSearch />
           </Box>
-          <Box sx={{ display: { xs: 'none', sm: 'block' } }}
+          <Box sx={{ display: { xs: 'none', sm: 'none',md: 'block'  } }}
             style={{
               padding: "10px 20px"
             }}>
             <Settings />
           </Box>
-          <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
+          <Box sx={{ display: {  xs: 'none', sm: 'none',md: 'block'  } }}>
             <Button className="Connect-wallet"
               style={{
                 borderRadius: 40,
@@ -208,16 +200,19 @@ function Header(props) {
         </Toolbar>
       </AppBar>
       <Box component="nav">
-        <Drawer
+        <Drawer 
+          // BackdropProps={{ invisible: true}}
           container={container}
           variant="temporary"
           open={mobileOpen}
           onClose={handleDrawerToggle}
           ModalProps={{
             keepMounted: true,
+            width: "200px",
+            // disableEnforceFocus: true  => Лоша, практика, но в норигиналният сайт също е така. 
           }}
           sx={{
-            display: { xs: 'block', sm: 'none' },
+            display: { xs: 'block', sm: 'block' },
             '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
           }}
         >

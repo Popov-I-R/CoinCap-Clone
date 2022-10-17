@@ -17,4 +17,9 @@ body,
   justify-content: center;
   color: rgb(9, 0, 0);
   background: rgb(236, 239, 241);
+  padding: 0vw 7vw;
+}
+
+.FixedHeigthHeader {
+  min-height: 64px;
 }
