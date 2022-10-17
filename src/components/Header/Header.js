@@ -114,9 +114,11 @@ function Header(props) {
           className='Menu-button'
           onClick={(e) => {
             if (e.target.style.transform === "") {
+              e.target.style.transformOrigin = "center";
               e.target.style.transform = "rotateY(360deg)";
               e.target.style.transition = "1s";
             } else {
+              e.target.style.transformOrigin = "center";
               e.target.style.transform = "";
               e.target.style.transition = "1s";
             }
