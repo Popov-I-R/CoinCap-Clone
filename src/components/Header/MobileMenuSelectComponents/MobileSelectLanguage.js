@@ -5,29 +5,29 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
 
-export default function MobileSelectCurrency() {
-  const [currency, setCurrency] = React.useState('');
+export default function MobileSelectLanguage() {
+  const [language, setLanguage] = React.useState('');
 
   const handleChange = (event) => {
-    setCurrency(event.target.value);
+    setLanguage(event.target.value);
   };
 
   return (
       <FormControl sx={{ m: 1, minWidth: 180 }}>
-        <InputLabel id="Mobile-Currency-Select">Currency</InputLabel>
+        <InputLabel id="Mobile-Language-Select">Language</InputLabel>
         <Select
-          labelId="Mobile-Currency-Select"
-          id="Mobile-Currency-Select"
-          value={currency}
+          labelId="Mobile-Language-Select"
+          id="Mobile-Language-Select"
+          value={language}
           onChange={handleChange}
           minwidth="200px"
-          label="Currency"
+          label="Language"
         >
           <MenuItem value="Euro">
             <em>Euro</em>
           </MenuItem>
-          <MenuItem value={"USD"}>USD</MenuItem>
-          <MenuItem value={"BGN"}>BGN</MenuItem>
+          <MenuItem value={"BG"}>BG</MenuItem>
+          <MenuItem value={"EN"}>EN</MenuItem>
 
         </Select>
       </FormControl>
