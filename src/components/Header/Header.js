@@ -12,18 +12,68 @@ import ListItemText from '@mui/material/ListItemText';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
+
 import { Link } from 'react-router-dom';
-import headerLogo from "./header_logo.svg"
 import "./Header.css"
 import Settings from './SettingsGear/Settings';
 import InputSearch from './SearchBar/InputSearch';
 import { useState } from 'react';
+
+// Icons
+import headerLogo from "./header_logo.svg"
+import { FaBitcoin } from 'react-icons/fa';
+import { FaExchangeAlt } from "react-icons/fa"
+import {FaRegNewspaper} from "react-icons/fa"
+import {MdSettings} from "react-icons/md"
 import FormatAlignJustifyIcon from '@mui/icons-material/FormatAlignJustify';
+import {TbExchange} from "react-icons/tb"
+import {GiProgression} from "react-icons/gi"
+import {MdStarBorder} from "react-icons/md"
+
+// Mobile Select Control Start 
+
+import MobileSelectCurrency from './MobileMenuSelectComponents/MobileSelectCurrency';
 
 
-const drawerWidth = 240;
+// Mobile select control end 
+
+
+
+
+
+
+const setupHeaderMobileIcon = (name) => {
+  if (name === "Coins") {
+      return <FaBitcoin/>      
+  } else if(name === "Exchanges"){
+    return <FaExchangeAlt/> 
+  } else if (name === "Swap") {
+    return <TbExchange/> 
+  } else if (name === "API") {
+    return <FaRegNewspaper/> 
+  } else if (name === "Settings") {
+    return <MdSettings/> 
+  } else if(name === "My Watchlist"){
+    return <MdStarBorder/> 
+  } else if(name === "My Portfolio"){
+    return <GiProgression/> 
+  }
+
+  return false;
+}
+
+const checkPage = (page) => {
+  if (page === "Coins") {
+    return <Link className="Nav-Link" to='/'>Coins</Link>
+  } else {
+    return <Link className="Nav-Link" to={page.toLowerCase()}>{page}</Link>
+  }
+}
+
+const drawerWidth = 200;
 // navitems е за листа за изскачащото меню, мисля тук да сложим и watchlist-a. 
-const navItems = ['Coins', 'Exchanges', 'Swap'];
+const navItems = ['Coins', 'Exchanges', 'Swap', 'Watchlist'];
+const navItemsMobile = ['Coins', 'Exchanges', 'Swap','API','Settings','My Watchlist','My Portfolio'];
 
 function Header(props) {
   const { window } = props;
@@ -35,46 +85,45 @@ function Header(props) {
   const drawer = (
 
     <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
-      <Typography variant="h6" sx={{ my: 2 }}>
-        CoinCap
-      </Typography>
-      <Divider />
       <List>
-        {navItems.map((item) => (
+        {navItemsMobile.map((item) => (
           <ListItem key={item} disablePadding>
             <ListItemButton sx={{ textAlign: 'center' }}>
-              <ListItemText primary={item} />
+              {/* <ListItemText primary={item} />  */}
+            <ListItemButton className='Flex-Column' sx={{ textAlign: 'center'}}>
+            <div className='Mobile-Icons-Header'> 
+              {setupHeaderMobileIcon(item)}
+            </div>
+            <div className='Mobile-Links-Header'>
+             {checkPage(item)}
+            </div>
+              {/* <ListItemText primary={item} /> */}
+            </ListItemButton>
             </ListItemButton>
           </ListItem>
         ))}
       </List>
-      <Box >
-        {/* По този начин долу се стилизират компонентите */}
-        <Button
-          style={{
-            borderRadius: 35,
-            backgroundColor: "rgb(24, 198, 131",
-            padding: "10px 16px",
-            fontSize: "12px",
-            boxShadow: "rgb(0 0 0 / 40%) 0px 2px 15px -3px",
-          }}
-          variant="contained"
-        >
-          Connect Wallet
-        </Button>
-      </Box>
+      
+          <Box sx={{ display: { xs: 'block', sm: 'none' } }}>
+            <Button className="Connect-wallet"
+              style={{
+                borderRadius: 40,
+                backgroundColor: "rgb(24, 198, 131",
+                padding: "7px 16px",
+                fontSize: "12px",
+                boxShadow: "rgb(0 0 0 / 40%) 0px 2px 15px -3px",
+              }}
+              variant="contained"
+            >
+              Connect Wallet
+            </Button>
+          </Box>
+      <Divider />
+      <MobileSelectCurrency></MobileSelectCurrency>
     </Box>
   );
 
   const container = window !== undefined ? () => window().document.body : undefined;
-
-  const checkPage = (page) => {
-    if (page === "Coins") {
-      return <Link className="Nav-Link" to='/'>Coins</Link>
-    } else {
-      return <Link className="Nav-Link" to={page.toLowerCase()}>{page}</Link>
-    }
-  }
 
   return (
     <Box sx={{ display: 'flex' }}>
@@ -106,7 +155,7 @@ function Header(props) {
               style={{
                 borderRadius: 30
               }}>
-              <Link className="" to='/'><img className="logoSize" src={headerLogo} alt="LOGO"></img></Link>
+              <Link className="" to='/'><img className="MobileLogoSize" src={headerLogo} alt="LOGO"></img></Link>
             </Button>
           </Typography>
 
@@ -138,14 +187,12 @@ function Header(props) {
           <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
             <InputSearch />
           </Box>
-
           <Box sx={{ display: { xs: 'none', sm: 'block' } }}
             style={{
               padding: "10px 20px"
             }}>
             <Settings />
           </Box>
-
           <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
             <Button className="Connect-wallet"
               style={{
