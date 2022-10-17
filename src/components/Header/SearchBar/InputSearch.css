@@ -1,33 +1,36 @@
 .InputSearch {
     display: flex;
-    background-color: #2f3640;
+    background-color: white;
     height: 20px;
+    border: white solid 1px;
     border-radius: 20px;
     padding: 6px;
     transition: 0.4s;
     
 }
 
+.InputSearch:hover {
+    transition: 0.8s;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+}
+.focused {
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+}
+
 .Search-btn {
     width: 20px;
     height: 20px;
     border-radius: 50%;
-    background-color: #2f3640;
     display: flex;
     justify-content: center;
     align-items: center;
     transition: 0.4s;
-    color: #ffffff;
+    color: #2f3640;
     cursor: pointer;
 }
 
 .Search-btn i {
-    font-size: 15px;
-}
-
-.InputSearch:hover .Search-text, .Search-text:focus {
-    width: 150px;
-    padding: 0 4px;
+    font-size: 17px;
 }
 
 .Search-text {
@@ -35,19 +38,16 @@
     outline: none;
     background: none;
     padding: 0;
-    color: #ffffff;
+    color: #2f3640;
     transition: 0.4s;
     line-height: 20px;
     width: 0;
     font-weight: bold;
 
 }
-
-.InputSearch:hover .Search-btn {
-    color: #ffffff;
-    background: linear-gradient(45deg, rgb(63, 81, 181), rgb(100, 181, 246));
+.InputSearch:hover .Search-text, .Search-text:focus {
+    width: 150px;
+    padding: 0 5px;
 }
 
-.InputSearch:hover .Search-btn:hover {
-    background: linear-gradient(45deg, rgb(42, 55, 131), rgb(60, 138, 201));
-}
+

@@ -129,11 +129,11 @@ function Header(props) {
     <Box sx={{ display: 'flex' }}>
       <AppBar component="nav" sx={{ display: 'flex', justifyContent: "centre", bgcolor: "white", color: "black" }} >
         <Toolbar sx={{ margin: "0vw 6vw" }}>
-          <Box sx={{ display: { xs: 'none', sm: 'block' } }} >
+          <Box  sx={{ display: { xs: 'none', sm: 'block' } }} >
             {navItems.map((item) => (
-              <Button key={item} sx={{ color: 'black' }} 
+              <Button className='Nav-Link-container' key={item} sx={{ color: 'black' }} 
               style = {{
-                fontSize: "11px"
+                fontSize: "12px"
               }}>
                 {checkPage(item)}
               </Button>
