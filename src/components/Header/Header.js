@@ -12,12 +12,14 @@ import ListItemText from '@mui/material/ListItemText';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
-import { FaBeer } from 'react-icons/fa'; // Така добавяме иконите от react-icons, а от сайта им можеш да избираш коя ти е харесала
 import { Link } from 'react-router-dom';
 import headerLogo from "./header_logo.svg"
 import "./Header.css"
-import { styled, alpha } from '@mui/material/styles';
-import InputBase from '@mui/material/InputBase';
+import Settings from './SettingsGear/Settings';
+import InputSearch from './SearchBar/InputSearch';
+import { useState } from 'react';
+import FormatAlignJustifyIcon from '@mui/icons-material/FormatAlignJustify';
+
 
 const drawerWidth = 240;
 // navitems е за листа за изскачащото меню, мисля тук да сложим и watchlist-a. 
@@ -31,7 +33,7 @@ function Header(props) {
   };
 
   const drawer = (
-    
+
     <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
       <Typography variant="h6" sx={{ my: 2 }}>
         CoinCap
@@ -47,18 +49,18 @@ function Header(props) {
         ))}
       </List>
       <Box >
-      {/* По този начин долу се стилизират компонентите */}
-        <Button 
-            style={{
-                borderRadius: 35,
-                backgroundColor: "rgb(24, 198, 131",
-                padding: "10px 16px",
-                fontSize: "12px",
-                boxShadow: "rgb(0 0 0 / 40%) 0px 2px 15px -3px",
-            }}
-            variant="contained"
+        {/* По този начин долу се стилизират компонентите */}
+        <Button
+          style={{
+            borderRadius: 35,
+            backgroundColor: "rgb(24, 198, 131",
+            padding: "10px 16px",
+            fontSize: "12px",
+            boxShadow: "rgb(0 0 0 / 40%) 0px 2px 15px -3px",
+          }}
+          variant="contained"
         >
-            Connect Wallet
+          Connect Wallet
         </Button>
       </Box>
     </Box>
@@ -66,116 +68,94 @@ function Header(props) {
 
   const container = window !== undefined ? () => window().document.body : undefined;
 
-  const Search = styled('div')(({ theme }) => ({
-    position: 'relative',
-    borderRadius: theme.shape.borderRadius,
-    backgroundColor: alpha(theme.palette.common.white, 0.15),
-    '&:hover': {
-      backgroundColor: alpha(theme.palette.common.white, 0.25),
-    },
-    marginLeft: 0,
-    width: '100%',
-    [theme.breakpoints.up('sm')]: {
-      marginLeft: theme.spacing(1),
-      width: 'auto',
-    },
-  }));
-  
-  const SearchIconWrapper = styled('div')(({ theme }) => ({
-    padding: theme.spacing(0, 2),
-    height: '100%',
-    position: 'absolute',
-    pointerEvents: 'none',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  }));
-
-  const StyledInputBase = styled(InputBase)(({ theme }) => ({
-    
-    color: 'inherit',
-    '& .MuiInputBase-input': {
-      padding: theme.spacing(1, 1, 1, 0),
-    
-      paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-      transition: theme.transitions.create('width'),
-      width: '100%',
-      [theme.breakpoints.up('sm')]: {
-        width: '12ch',
-        '&:focus': {
-          width: '20ch',
-        },
-      },
-    },
-  }));
-
-
   const checkPage = (page) => {
-    if(page === "Coins" ) {
-       return  <Link className="" to='/'>Coins</Link>
+    if (page === "Coins") {
+      return <Link className="Nav-Link" to='/'>Coins</Link>
     } else {
-       return <Link to={page.toLowerCase()}>{page}</Link>
+      return <Link className="Nav-Link" to={page.toLowerCase()}>{page}</Link>
     }
   }
 
   return (
     <Box sx={{ display: 'flex' }}>
-      <AppBar component="nav" sx={{ bgcolor: "white" ,color: "black"}} >
-        <Toolbar>
-        {/* Тук работим с линковете от масива, трябваше да сложа тази функция долу, защото иначе сме false при homePage,защото в рутера бях направил да не излиза нищо в URL-a, като е там. */}
-        <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
+      <AppBar component="nav" sx={{ display: 'flex', justifyContent: "centre", bgcolor: "white", color: "black" }} >
+        <Toolbar sx={{ margin: "0vw 6vw" }}>
+          <Box sx={{ display: { xs: 'none', sm: 'block' } }} >
             {navItems.map((item) => (
-              <Button key={item}  sx={{ color: 'black' }}>
-              {checkPage(item)}
+              <Button key={item} sx={{ color: 'black' }} 
+              style = {{
+                fontSize: "11px"
+              }}>
+                {checkPage(item)}
               </Button>
             ))}
-        </Box>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            edge="start"
-            onClick={handleDrawerToggle}
-            sx={{ mr: 2, display: { sm: 'none' } }}
-          >
-            {/* Тази иконка трябва да се смени с по-подходяща :D Сложим я за демото, че да се вижда, като я разцъкваш */}
-            <FaBeer/>
-          </IconButton>
+          </Box>
+
+          <Box sx={{ display: { xs: 'block', sm: 'none' } }}>
+            <InputSearch />
+          </Box>
+
           <Typography
+            className="Logo-icon"
             variant="h6"
-            align="center" 
+            align="center"
             component="div"
-            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
+            sx={{ flexGrow: 1, display: { sm: 'block' } }}
           >
-            <img src={headerLogo}  className="logoSize" alt="Coincap Logo"></img>
+            <Button
+              style={{
+                borderRadius: 30
+              }}>
+              <Link className="" to='/'><img className="logoSize" src={headerLogo} alt="LOGO"></img></Link>
+            </Button>
           </Typography>
 
-        {/* От тук ти почва searchbar-a  */}
-          <Box sx={{border: "1px solid black"}}>
-          <Search>
-            <SearchIconWrapper>
-                          {/* Това за иконака важи и тук  */}
-            <FaBeer />
-            </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="Search…"
-              inputProps={{ 'aria-label': 'search' }}
-            />
-
-          </Search>
+          <Box 
+          className='Menu-button'
+          onClick={(e) => {
+            if (e.target.style.transform === "") {
+              e.target.style.transform = "rotateY(360deg)";
+              e.target.style.transition = "1s";
+            } else {
+              e.target.style.transform = "";
+              e.target.style.transition = "1s";
+            }
+          }}>
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              edge="start"
+              onClick={handleDrawerToggle}
+              sx={{ display: { sm: 'none' } }}
+            >
+              <FormatAlignJustifyIcon />
+            </IconButton>
           </Box>
-          {/* Този бокс е за connect wallet-a  */}
+
+
           <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
-            <Button
+            <InputSearch />
+          </Box>
+
+          <Box sx={{ display: { xs: 'none', sm: 'block' } }}
             style={{
-                borderRadius: 35,
+              padding: "10px 20px"
+            }}>
+            <Settings />
+          </Box>
+
+          <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
+            <Button className="Connect-wallet"
+              style={{
+                borderRadius: 40,
                 backgroundColor: "rgb(24, 198, 131",
-                padding: "10px 16px",
+                padding: "7px 16px",
                 fontSize: "12px",
                 boxShadow: "rgb(0 0 0 / 40%) 0px 2px 15px -3px",
-            }}
-            variant="contained"
-        >
-            Connect Wallet
+              }}
+              variant="contained"
+            >
+              Connect Wallet
             </Button>
           </Box>
         </Toolbar>

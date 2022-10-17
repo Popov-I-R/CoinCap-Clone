@@ -1,4 +1,14 @@
+.Nav-Link {
+  text-decoration: none;
+  color: #2f3640;
+}
 
-  .logoSize {
-    width: 100px;
-  }
+.logoSize {
+  width: 100px;
+}
+
+.Connect-wallet:hover {
+  margin-top: -2px;
+  transition: 0.2s;
+}
+
