@@ -6,6 +6,7 @@ export default function InputSearch() {
     return (
         <div className="Nav-item InputSearch">
             <input 
+            autoComplete="off"
             onFocus={(e)=>{
                 let container = e.target.parentElement;
                 container.classList.add("focused");
@@ -15,8 +16,8 @@ export default function InputSearch() {
                 container.classList.remove("focused");
             }} 
             className="Search-text" type="text" placeholder="Search.." name="search"></input>
-            <a class="Search-btn">
-                <i class="fa-solid fa-magnifying-glass"></i>
+            <a className="Search-btn">
+                <i className="fa-solid fa-magnifying-glass"></i>
             </a>
         </div>
     )

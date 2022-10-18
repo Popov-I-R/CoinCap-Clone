@@ -40,3 +40,37 @@
         transform: rotate(359deg);
     }
 }
+
+.Modal-settings:focus {
+    outline: none;
+}
+
+
+
+.Close-settings-div {
+    display: flex;
+    justify-content: space-between;
+    color: white;
+    margin: 0 0 10% 0;
+}
+
+.setLogoDiv {
+    display: flex;
+}
+
+.setLogoDiv h1 {
+    margin: 0 5%;
+    font-size: 22px;
+}
+
+.settings-logo {
+    height: 35px;
+}
+
+.Close-settings-btn {
+    transform: rotate(45deg);
+}
+
+.Close-settings-btn:hover {
+    cursor: pointer;
+}
