@@ -16,6 +16,9 @@ export default function MobileSelectCurrency() {
       <FormControl sx={{ m: 1, minWidth: 180 }}>
         <InputLabel id="Mobile-Currency-Select">Currency</InputLabel>
         <Select
+        sx={{
+          backgroundColor: "white",
+        }}
           labelId="Mobile-Currency-Select"
           id="Mobile-Currency-Select"
           value={currency}

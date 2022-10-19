@@ -13,23 +13,26 @@ export default function MobileSelectLanguage() {
   };
 
   return (
-      <FormControl sx={{ m: 1, minWidth: 180 }}>
-        <InputLabel id="Mobile-Language-Select">Language</InputLabel>
-        <Select
-          labelId="Mobile-Language-Select"
-          id="Mobile-Language-Select"
-          value={language}
-          onChange={handleChange}
-          minwidth="200px"
-          label="Language"
-        >
-          <MenuItem value="Euro">
-            <em>Euro</em>
-          </MenuItem>
-          <MenuItem value={"BG"}>BG</MenuItem>
-          <MenuItem value={"EN"}>EN</MenuItem>
+    <FormControl sx={{ m: 1, minWidth: 180 }}>
+      <InputLabel id="Mobile-Language-Select">Language</InputLabel>
+      <Select
+        sx={{
+          backgroundColor: "white",
+        }}
+        labelId="Mobile-Language-Select"
+        id="Mobile-Language-Select"
+        value={language}
+        onChange={handleChange}
+        minwidth="200px"
+        label="Language"
+      >
+        <MenuItem value="Euro">
+          <em>Euro</em>
+        </MenuItem>
+        <MenuItem value={"BG"}>BG</MenuItem>
+        <MenuItem value={"EN"}>EN</MenuItem>
 
-        </Select>
-      </FormControl>
+      </Select>
+    </FormControl>
   );
 }
