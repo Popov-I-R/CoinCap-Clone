@@ -1,7 +1,7 @@
 import React from 'react'
 import BlueBarAdaptive from './BlueBarUnderHeader/BlueBarAdaptive'
 import "./Home.css"
-import MainTable from './TableComponent'
+import MainTable from './TableComponent/MainTableComponent'
 
 
 export default function Home() {

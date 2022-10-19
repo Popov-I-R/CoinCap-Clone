@@ -1,5 +1,4 @@
 import * as React from 'react';
-import PropTypes from 'prop-types';
 import { alpha } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Table from '@mui/material/Table';
@@ -13,11 +12,9 @@ import TableSortLabel from '@mui/material/TableSortLabel';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
-import Checkbox from '@mui/material/Checkbox';
 import { visuallyHidden } from '@mui/utils';
-import {MdStarBorder} from "react-icons/md"
 import FavoriteBorder from '@mui/icons-material/FavoriteBorder';
-import Favorite from '@mui/icons-material/Favorite';
+import RowComponent from './MainTableRowComponent';
 
 // just for the tests 
 function createData(rank, logoNameSymbolArray, price, marketCap, supply,volume,change) {
@@ -28,14 +25,26 @@ function createData(rank, logoNameSymbolArray, price, marketCap, supply,volume,c
     marketCap,
     supply,
     volume,
-    change
+    change,
+    history: [
+      {
+        date: '2020-01-05',
+        customerId: '11091700',
+        amount: 3,
+      },
+      {
+        date: '2020-01-02',
+        customerId: 'Anonymous',
+        amount: 1,
+      },
+    ],
   };
 }
 
 const rows = [
 // this is just for the test 
     //Rank /    Name(logo,name,sumbol)             /Price               /MarketC   /Supply/        Volume              /Change
-createData(1,     ["logo","name","symbol"],   23223,              37426,                   1918,      1104,           19),
+createData(1,     ["logo","name","symbol"],   23223,              37426,                   1918,      1104,           19,["arr"]),
 createData(2,     ["logo","name","symbol"],   1951094,            37426,                   1918,       1104,      299),
 createData(3,     ["logo","name","symbol"],   152232,             37426,                     1918,     114,           399),
 ];
@@ -102,8 +111,8 @@ const headCells = [
 ];
 
 function MainTableHead(props) {
-  const { order, orderBy, onRequestSort } =
-    props;
+  const { order, orderBy, onRequestSort } = props;
+
   const createSortHandler = (property) => (event) => {
     onRequestSort(event, property);
   };
@@ -112,19 +121,9 @@ function MainTableHead(props) {
     <TableHead>
       <TableRow>
         <TableCell padding="checkbox">
-        <MdStarBorder
-            color="black"
-            xs = {{align: "center"}}
+        <FavoriteBorder 
+            xs = {{align: "center", }}
         />
-          {/* <Checkbox
-            color="primary"
-            indeterminate={numSelected > 0 && numSelected < rowCount}
-            checked={rowCount > 0 && numSelected === rowCount}
-            
-            inputProps={{
-              'aria-label': 'select all desserts',
-            }}
-          /> */}
         </TableCell>
         {headCells.map((headCell) => (
           <TableCell
@@ -152,17 +151,16 @@ function MainTableHead(props) {
   );
 }
 
-MainTableHead.propTypes = {
-  numSelected: PropTypes.number.isRequired,
-  onRequestSort: PropTypes.func.isRequired,
-  order: PropTypes.oneOf(['asc', 'desc']).isRequired,
-  orderBy: PropTypes.string.isRequired,
+// MainTableHead.propTypes = {
+//   numSelected: PropTypes.number.isRequired,
+//   onRequestSort: PropTypes.func.isRequired,
+//   order: PropTypes.oneOf(['asc', 'desc']).isRequired,
+//   orderBy: PropTypes.string.isRequired,
   
-};
+// };
 
 const CurrentTableToolbar = (props) => {
   const { numSelected } = props;
-
   return (
     <Toolbar
       sx={{
@@ -197,14 +195,10 @@ const CurrentTableToolbar = (props) => {
   );
 };
 
-CurrentTableToolbar.propTypes = {
-  numSelected: PropTypes.number.isRequired,
-};
-
 export default function MainTable() {
   const [order, setOrder] = React.useState('asc');
-  const [orderBy, setOrderBy] = React.useState('calories');
-  const [selected, setSelected] = React.useState([]);
+  const [orderBy, setOrderBy] = React.useState('rank');
+  const [selected, setSelected] = React.useState([]); // Watchlist array test 
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
@@ -213,11 +207,13 @@ export default function MainTable() {
   };
 
   const handleClick = (event, rank) => {
+    event.stopPropagation()
+  
     const selectedIndex = selected.indexOf(rank);
-    let newSelected = [];
+    let newSelected = []; 
     
     if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, rank);
+      newSelected = [...selected,rank];
     } 
     else  {
       newSelected = newSelected.concat(
@@ -229,21 +225,23 @@ export default function MainTable() {
   };
 
   const isSelected = (rank) => selected.indexOf(rank) !== -1;
+  
   return (
-    <Box sx={{ width: '100%' }}>
+
+<Box sx={{ width: '100%' }}>
       <Paper sx={{ width: '100%', mb: 2, }}>
         <CurrentTableToolbar numSelected={selected.length} />
         <TableContainer>
           <Table
             sx={{ minWidth: 750,columns: 2 }}
             aria-labelledby="tableTitle"
+            aria-label="collapsible table"
           >
             <MainTableHead
               numSelected={selected.length}
               order={order}
               orderBy={orderBy}
               onRequestSort={handleRequestSort}
-              
             />
             <TableBody>
               {rows.slice().sort(getComparator(order, orderBy))
@@ -251,40 +249,13 @@ export default function MainTable() {
                   const isItemSelected = isSelected(row.rank);
                   const labelId = {'aria-label': 'Checkbox Heart'};
                   return (
-                    <TableRow
-                      hover
-                    //   onClick={(event) => handleClick(event, row.rank)} Тук е удобно да направя функцията за колапс бокс-а
-                      role="checkbox"
-                      tabIndex={-1}
-                      key={row.rank}
-                    >
-                      <TableCell padding="checkbox">
-                      <Checkbox
-                      checked={isItemSelected}
-                      onClick={(event) => handleClick(event, row.rank)}
-                       {...labelId} icon={<FavoriteBorder />} checkedIcon={<Favorite />} />
-                      </TableCell>
-                      <TableCell
-                        component="th"
-                        id={labelId}
-                        scope="row"
-                        padding="none"
-                      >
-                        {row.rank}
-                      </TableCell>
-                      <TableCell align="right">{row.logoNameSymbolArray}</TableCell>
-                      <TableCell align="right">{row.price}</TableCell>
-                      <TableCell align="right">{row.marketCap}</TableCell>
-                      <TableCell align="right">{row.supply}</TableCell>
-                      <TableCell align="right">{row.volume}</TableCell>
-                      <TableCell align="right">{row.change}</TableCell>
-                    </TableRow>
+                    <RowComponent key={row.rank} row={row} handleClick={handleClick} labelId={labelId} isItemSelected={isItemSelected}/>
                   );
                 })}
             </TableBody>
           </Table>
         </TableContainer>
       </Paper>
-    </Box>
+    </Box> 
   );
 }
