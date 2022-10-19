@@ -10,7 +10,6 @@ import setIcon from "./setIcon.png"
 import { useState } from 'react';
 
 
-
 const style = {
     position: 'absolute',
     top: "35%",
@@ -22,35 +21,6 @@ const style = {
 
 
 export default function Settings() {
-
-    // const [style, setStyle] = useState(styleToUpdate);
-
-    // const mediaQuerySmaller = '(max-width: 700px)';
-    // const mediaQueryBigger = '(min-width: 710px)';
-    // const mediaQueryListSmaller = window.matchMedia(mediaQuerySmaller);
-    // const mediaQueryListBigger = window.matchMedia(mediaQueryBigger);
-
-    // mediaQueryListSmaller.addEventListener('change', event => {
-    //     setStyle({
-    //         position: 'absolute',
-    //         top: "35%",
-    //         left: "0%",
-    //         transform: "translate(-50%, -50%)",
-    //         width: 350,
-    //         p: 4,
-    //     })
-    // })
-
-    // mediaQueryListBigger.addEventListener('change', event => {
-    //     setStyle({
-    //         position: 'absolute',
-    //         top: "35%",
-    //         left: "50%",
-    //         transform: "translate(-50%, -50%)",
-    //         width: 350,
-    //         p: 4,
-    //     })
-    // })
 
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
@@ -72,6 +42,9 @@ export default function Settings() {
                 onClose={handleClose}
                 closeAfterTransition
                 BackdropComponent={Backdrop}
+                sx={{
+                    backdropFilter: "blur(5px)"
+                  }}
                 BackdropProps={{
                     timeout: 500,
                 }}
