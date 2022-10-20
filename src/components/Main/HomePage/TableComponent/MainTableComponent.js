@@ -6,7 +6,6 @@ import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
-// import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import TableSortLabel from '@mui/material/TableSortLabel';
 import Toolbar from '@mui/material/Toolbar';
@@ -15,39 +14,117 @@ import Paper from '@mui/material/Paper';
 import { visuallyHidden } from '@mui/utils';
 import FavoriteBorder from '@mui/icons-material/FavoriteBorder';
 import RowComponent from './MainTableRowComponent';
+import { useState } from 'react';
 
-// just for the tests 
-function createData(rank, logoNameSymbolArray, price, marketCap, supply,volume,change) {
-  return {
-    rank,
-    logoNameSymbolArray,
-    price,
-    marketCap,
-    supply,
-    volume,
-    change,
-    history: [
-      {
-        date: '2020-01-05',
-        customerId: '11091700',
-        amount: 3,
-      },
-      {
-        date: '2020-01-02',
-        customerId: 'Anonymous',
-        amount: 1,
-      },
+
+
+let arrOfFakeResponse  = [
+  {
+    uuid: "Qwsogvtv82FCd",
+    symbol: "BTC", // za arr 
+    name: "Bitcoin", // za arr
+    color: "#f7931A", // za arr 
+    iconUrl: "https://cdn.coinranking.com/bOabBYkcX/bitcoin_btc.svg", // za arr 
+    marketCap: "367904651022",
+    price: "19177.88890978937",
+    change: "0.15",
+    rank: 1,
+    sparkline: [
+      "19200.057101513456",
+      "19322.11879539638",
+      "19234.05318990269",
+      "19315.282269506035",
+      "19302.0040214545",
+      "19312.562588969293",
+      "19333.89087979287",
+      "19294.127385748583",
+      "19313.32856048934",
+      "19293.408134642585",
+      "19296.371661777073",
+      "19285.11912438783",
+      "19267.54487247283",
+      "19240.755881837256",
+      "19238.319211398735",
+      "19205.321914211218",
+      "19208.79169363669",
+      "19233.47751076396",
+      "19205.51321622781",
+      "19197.75745282478",
+      "19180.38642598224",
+      "19179.36903724825",
+      "19179.68078630328",
+      "19215.919949727795",
+      "19194.294560919294"
     ],
-  };
-}
+    volume: "26251389928"
+  },
+  {
+    uuid: "razxDUgYGNAdQ",
+    symbol: "ETH",
+    name: "Ethereum",
+    color: "#3C3C3D",
+    iconUrl: "https://cdn.coinranking.com/rk4RKHOuW/eth.svg",
+    marketCap: "158147399041",
+    price: "1296.2000810831187",
+    change: "-0.96",
+    rank: 2,
+    sparkline: [
+      "1309.4412263860181",
+      "1300.1705059968745",
+      "1301.1146328233747",
+      "1310.6058949854137",
+      "1311.0273286722522",
+      "1312.4528987881476",
+      "1311.0053012736375",
+      "1307.1678278763889",
+      "1306.49337126147",
+      "1305.4533402530644",
+      "1305.5144149636178",
+      "1303.4929633526224",
+      "1302.0584709835566",
+      "1298.1088653249703",
+      "1299.452376708154",
+      "1298.6314899823558",
+      "1302.893945654682",
+      "1303.6531037274274",
+      "1298.7884511140978",
+      "1299.3765452760015",
+      "1300.0892176589753",
+      "1298.3705805781005",
+      "1298.6490172700576",
+      "1300.9524391273824",
+      "1298.7471551417475"
+    ],
+   volume: "8383280048"
+  }
+]
 
-const rows = [
-// this is just for the test 
-    //Rank /    Name(logo,name,sumbol)             /Price               /MarketC   /Supply/        Volume              /Change
-createData(1,     ["logo","name","symbol"],   23223,              37426,                   1918,      1104,           19,["arr"]),
-createData(2,     ["logo","name","symbol"],   1951094,            37426,                   1918,       1104,      299),
-createData(3,     ["logo","name","symbol"],   152232,             37426,                     1918,     114,           399),
-];
+
+
+// function createData(rank, logoNameSymbolArray, price, marketCap, supply,volume,change) {
+//   return {
+//     rank,
+//     logoNameSymbolArray,
+//     price,
+//     marketCap,
+//     supply,
+//     volume,
+//     change,
+//     history: [
+//       {
+//         date: '2020-01-05',
+//         customerId: '11091700',
+//         amount: 3,
+//       },
+//       {
+//         date: '2020-01-02',
+//         customerId: 'Anonymous',
+//         amount: 1,
+//       },
+//     ],
+//   };
+// }
+
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -91,12 +168,6 @@ const headCells = [
     label: 'MarketCap',
   },
   {
-    id: 'supply',
-    numeric: true,
-    disablePadding: false,
-    label: 'Supply',
-  },
-  {
     id: 'volume',
     numeric: true,
     disablePadding: false,
@@ -107,6 +178,12 @@ const headCells = [
     numeric: true,
     disablePadding: false,
     label: 'Change',
+  },
+  {
+    id: 'LastTwentyFourHours',
+    numeric: false,
+    disablePadding: false,
+    label: 'Last 24 Hours',
   },
 ];
 
@@ -150,14 +227,6 @@ function MainTableHead(props) {
     </TableHead>
   );
 }
-
-// MainTableHead.propTypes = {
-//   numSelected: PropTypes.number.isRequired,
-//   onRequestSort: PropTypes.func.isRequired,
-//   order: PropTypes.oneOf(['asc', 'desc']).isRequired,
-//   orderBy: PropTypes.string.isRequired,
-  
-// };
 
 const CurrentTableToolbar = (props) => {
   const { numSelected } = props;
@@ -244,7 +313,7 @@ export default function MainTable() {
               onRequestSort={handleRequestSort}
             />
             <TableBody>
-              {rows.slice().sort(getComparator(order, orderBy))
+              {arrOfFakeResponse.slice().sort(getComparator(order, orderBy))
                 .map((row, index) => {
                   const isItemSelected = isSelected(row.rank);
                   const labelId = {'aria-label': 'Checkbox Heart'};

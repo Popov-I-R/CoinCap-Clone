@@ -20,7 +20,7 @@ export default function CollapseTable(props) {
                   <TableCell align="right">Total price ($)</TableCell>
                 </TableRow>
               </TableHead>
-              <TableBody>
+              {/* <TableBody>
                 {props.row.history.map((historyRow, row) => (
                   <TableRow key={historyRow.date}>
                     <TableCell component="th" scope="row">
@@ -34,7 +34,7 @@ export default function CollapseTable(props) {
                     </TableCell>
                   </TableRow>
                 ))}
-              </TableBody>
+              </TableBody> */}
             </Table>
           </Box>
         </Collapse>
