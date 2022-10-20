@@ -6,7 +6,7 @@
   height: 60px;
 }
 .Nav-Link {
-  text-transform: capitalize;
+  text-transform : capitalize;
 }
 
 .logoSize {
@@ -18,6 +18,16 @@
 }
 
 /* MOBILE START  */
+body > div.MuiDrawer-root.MuiDrawer-modal.MuiModal-root.css-mvd1hw-MuiModal-root-MuiDrawer-root > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-elevation16.MuiDrawer-paper.MuiDrawer-paperAnchorLeft.css-4t3x6l-MuiPaper-root-MuiDrawer-paper > div > ul > li {
+  display: flex;
+  justify-content: center; 
+}
+
+.List-item-link{
+  color:#2f3640;
+  text-decoration: none;
+  width: 100%;
+}
 
 .Flex-Column {
   width: 100%;
