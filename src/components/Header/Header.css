@@ -1,12 +1,9 @@
-.Nav-Link {
-  text-decoration: none;
-  color: #2f3640;
-}
 .Nav-Link-container {
   height: 60px;
 }
 .Nav-Link {
   text-transform: capitalize;
+  font-size: 14px;
 }
 
 .logoSize {

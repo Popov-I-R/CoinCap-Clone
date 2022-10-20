@@ -1,11 +1,8 @@
-import CollapseTable from "./CollapseTableComponent";
 import { useState } from "react";
 import { TableRow, TableCell } from "@mui/material";
 import Checkbox from "@mui/material/Checkbox";
 import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
 import Favorite from "@mui/icons-material/Favorite";
-import SparkLine from "./SparklineComponent/SparklineComponent";
-import "./SparklineComponent/Sparkline.css"
 import "./TableComponent.css"
 
 export default function RowComponent(props) {
@@ -15,19 +12,10 @@ export default function RowComponent(props) {
     <>
       <TableRow
         hover
-        onClick={() => setOpen(!open)}
+        // onClick={() => setOpen(!open)}
         role="checkbox"
         tabIndex={-1}
       >
-        <TableCell padding="checkbox">
-          <Checkbox
-            checked={props.isItemSelected}
-            onClick={(event) => props.handleClick(event, props.row.rank)}
-            {...labelId}
-            icon={<FavoriteBorder />}
-            checkedIcon={<Favorite />}
-          />
-        </TableCell>
         <TableCell align="center" component="th"  id={props.labelId} scope="row" padding="none">
           {props.row.rank}
         </TableCell>
@@ -44,20 +32,13 @@ export default function RowComponent(props) {
           </div>
         </div>
         </TableCell>
-        <TableCell align="right">{`$${Number(props.row.price).toFixed(2)}`}</TableCell>
-        <TableCell align="right">{`$${Number(props.row.marketCap).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`}</TableCell>
+        <TableCell align="right">{props.row.numberOfCoins}</TableCell>
         <TableCell align="right">{`$${Number(props.row.volume).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`}</TableCell>
-        <TableCell align="right">{`${props.row.change}%`}</TableCell>
+        <TableCell align="right">{`${props.row.marketShare} %`}</TableCell>
+        <TableCell align="right">{props.row.recommended === true ? "Препоръчано" : "Не"}</TableCell>
         <TableCell align="right">
-        <SparkLine data={props.row.sparkline} change={props.row.change}></SparkLine>
         </TableCell>
       </TableRow>
-      <CollapseTable
-        row={props.row}
-        open={open}
-        handleClickOpen={props.handleClickOpen}
-        keyC={`${props.row.rank}collapse`}
-      ></CollapseTable>
     </>
   );
 }

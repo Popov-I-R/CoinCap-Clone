@@ -28,8 +28,13 @@
     width: 33.3%;
 }
 
-.Desktop-blue-bar-item h5, .Desktop-blue-bar-item h2 {
+.Desktop-blue-bar-item h5  {
     margin: 0;
-    font-weight: 200;
     text-align: center;
+}
+
+.Desktop-blue-bar-item h2 {
+    margin: 0;
+    text-align: center;
+    font-weight: 200;
 }

@@ -1,5 +1,4 @@
 import React from 'react'
-// import PropTypes from 'prop-types';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
@@ -8,7 +7,6 @@ import IconButton from '@mui/material/IconButton';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
-// import ListItemText from '@mui/material/ListItemText';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
@@ -17,7 +15,6 @@ import { Link } from 'react-router-dom';
 import "./Header.css"
 import Settings from './SettingsGear/Settings';
 import InputSearch from './SearchBar/InputSearch';
-
 // Icons
 import headerLogo from "./header_logo.svg"
 import { FaBitcoin } from 'react-icons/fa';
@@ -30,7 +27,6 @@ import {GiProgression} from "react-icons/gi"
 import {MdStarBorder} from "react-icons/md"
 
 // Mobile Select Control Start 
-
 import MobileSelectCurrency from './MobileMenuSelectComponents/MobileSelectCurrency';
 import MobileSelectLanguage from './MobileMenuSelectComponents/MobileSelectLanguage';
 
@@ -124,7 +120,7 @@ function Header(props) {
         <Toolbar sx={{ margin: "0vw 6vw", minHeight: "62px"  }}>
           <Box sx={{ display: { xs: 'none', sm: 'none', md:'block' } }} >
             {navItems.map((item) => (
-              <Button className='Nav-Link-container' key={item} sx={{ color: 'black' }} 
+              <Button className='Nav-Link-container' key={item}
               style = {{
                 fontSize: "12px"
               }}>
@@ -132,11 +128,9 @@ function Header(props) {
               </Button>
             ))}
           </Box>
-
           <Box sx={{ display: { xs: 'block', sm: 'block',md: 'none' } }}>
             <InputSearch />
           </Box>
-
           <Typography
             className="Logo-icon"
             variant="h6"
@@ -151,7 +145,6 @@ function Header(props) {
               <Link className="" to='/'><img className="MobileLogoSize" src={headerLogo} alt="LOGO"></img></Link>
             </Button>
           </Typography>
-
           <Box 
           className='Menu-button'
           onClick={(e) => {
@@ -175,7 +168,6 @@ function Header(props) {
               <FormatAlignJustifyIcon />
             </IconButton>
           </Box>
-
           <Box sx={{ display: { xs: 'none', sm: 'none',md: 'block' } }}>
             <InputSearch />
           </Box>

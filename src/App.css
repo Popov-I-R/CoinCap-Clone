@@ -1,7 +1,71 @@
-html,
-body,
-#root {
+@import url(https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic&subset=latin);
+
+html, body, #root {
   height: 100%;
+}
+
+body {
+  margin: 0;
+  overflow-x: hidden;
+  min-width: 320px;
+  background: #fff;
+  font-size: 14px;
+  line-height: 1.4285em;
+  color: rgba(0, 0, 0, 0.87);
+}
+
+body,h1,h2,h3,h4,h5 {
+  padding: 0;
+  font-family: Lato, Helvetica Neue, Arial, Helvetica, sans-serif;
+}
+
+h1,h2,h3,h4,h5 {
+  line-height: 1.28571429em;
+  margin: calc(2rem - 0.14285714em) 0 1rem;
+  font-weight: 700;
+}
+
+img {
+  border-style: none;
+}
+
+svg:not(:root) {
+  overflow: hidden;
+}
+
+h1 {
+  min-height: 1rem;
+  font-size: 2rem;
+}
+
+h2 {
+  font-size: 1.71428571rem;
+}
+
+h3 {
+  font-size: 1.28571429rem;
+}
+
+h4 {
+  font-size: 1.07142857rem;
+}
+
+h5 {
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+a, a:hover {
+  font-family: Lato, Helvetica, Arial, sans-serif;
+  text-decoration: none;
+  color: black;
+}
+
+p {
+  font-family: Lato, Helvetica, Arial, sans-serif;
+  font-size: 11px;
+  margin: 0 0 1em;
+  line-height: 1.4285em;
 }
 
 .App {
