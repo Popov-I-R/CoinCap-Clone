@@ -17,11 +17,11 @@ function App() {
           <Routes>
             <Route path='*' element={<div>Error</div>} />
             <Route path='/' element={<Home/>}/>
-            <Route path='/home' element={<Navigate to="/" replace />} />
+            <Route path='/coins' element={<Navigate to="/" replace />} />
             <Route path='/exchanges' element={<Exchanges/>} />
             <Route path='/swap' element={<Swap/>} />
-            <Route path='/watchlist' element={<Watchlist/>} />
-            <Route path='/portfolio' element={<Portfolio/>} />
+            <Route path='/mywatchlist' element={<Watchlist/>} />
+            <Route path='/myportfolio' element={<Portfolio/>} />
           </Routes>
         </div>
         <Footer />

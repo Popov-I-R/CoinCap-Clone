@@ -43,7 +43,7 @@ export default function Settings() {
                 closeAfterTransition
                 BackdropComponent={Backdrop}
                 sx={{
-                    backdropFilter: "blur(5px)"
+                    backdropFilter: "blur(5px)",
                   }}
                 BackdropProps={{
                     timeout: 500,
