@@ -1,30 +1,28 @@
-import * as React from 'react';
-import { alpha } from '@mui/material/styles';
-import Box from '@mui/material/Box';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import TableSortLabel from '@mui/material/TableSortLabel';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import Paper from '@mui/material/Paper';
-import { visuallyHidden } from '@mui/utils';
-import FavoriteBorder from '@mui/icons-material/FavoriteBorder';
-import RowComponent from './MainTableRowComponent';
-import { useState } from 'react';
+import * as React from "react";
+import { alpha } from "@mui/material/styles";
+import Box from "@mui/material/Box";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import TableSortLabel from "@mui/material/TableSortLabel";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import Paper from "@mui/material/Paper";
+import { visuallyHidden } from "@mui/utils";
+import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
+import RowComponent from "./TableRowComponent";
+import { useState } from "react";
 
-
-
-let arrOfFakeResponse  = [
+let arrOfFakeResponse = [
   {
     uuid: "Qwsogvtv82FCd",
-    symbol: "BTC", // za arr 
+    symbol: "BTC", // za arr
     name: "Bitcoin", // za arr
-    color: "#f7931A", // za arr 
-    iconUrl: "https://cdn.coinranking.com/bOabBYkcX/bitcoin_btc.svg", // za arr 
+    color: "#f7931A", // za arr
+    iconUrl: "https://cdn.coinranking.com/bOabBYkcX/bitcoin_btc.svg", // za arr
     marketCap: "367904651022",
     price: "19177.88890978937",
     change: "0.15",
@@ -54,9 +52,9 @@ let arrOfFakeResponse  = [
       "19179.36903724825",
       "19179.68078630328",
       "19215.919949727795",
-      "19194.294560919294"
+      "19194.294560919294",
     ],
-    volume: "26251389928"
+    volume: "26251389928",
   },
   {
     uuid: "razxDUgYGNAdQ",
@@ -67,7 +65,7 @@ let arrOfFakeResponse  = [
     marketCap: "158147399041",
     price: "1296.2000810831187",
     change: "-0.96",
-    rank: 2,
+    rank: 111,
     sparkline: [
       "1309.4412263860181",
       "1300.1705059968745",
@@ -93,13 +91,11 @@ let arrOfFakeResponse  = [
       "1298.3705805781005",
       "1298.6490172700576",
       "1300.9524391273824",
-      "1298.7471551417475"
+      "1298.7471551417475",
     ],
-   volume: "8383280048"
-  }
-]
-
-
+    volume: "8383280048",
+  },
+];
 
 // function createData(rank, logoNameSymbolArray, price, marketCap, supply,volume,change) {
 //   return {
@@ -125,7 +121,6 @@ let arrOfFakeResponse  = [
 //   };
 // }
 
-
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
     return -1;
@@ -137,53 +132,53 @@ function descendingComparator(a, b, orderBy) {
 }
 
 function getComparator(order, orderBy) {
-  return order === 'desc'
+  return order === "desc"
     ? (a, b) => descendingComparator(a, b, orderBy)
     : (a, b) => -descendingComparator(a, b, orderBy);
 }
 
 const headCells = [
   {
-    id: 'rank',
+    id: "rank",
     numeric: true,
-    disablePadding: true,
-    label: 'rank',
+    disablePadding: false,
+    label: "Rank",
   },
   {
-    id: 'name',
+    id: "name",
     numeric: false,
     disablePadding: false,
-    label: 'Name',
+    label: "Name",
   },
   {
-    id: 'price',
+    id: "price",
     numeric: true,
     disablePadding: false,
-    label: 'Price',
+    label: "Price",
   },
   {
-    id: 'marketCap',
+    id: "marketCap",
     numeric: true,
     disablePadding: false,
-    label: 'MarketCap',
+    label: "MarketCap",
   },
   {
-    id: 'volume',
+    id: "volume",
     numeric: true,
     disablePadding: false,
-    label: 'Volume',
+    label: "Volume",
   },
   {
-    id: 'change',
+    id: "change",
     numeric: true,
     disablePadding: false,
-    label: 'Change',
+    label: "Change",
   },
   {
-    id: 'LastTwentyFourHours',
+    id: "LastTwentyFourHours",
     numeric: false,
     disablePadding: false,
-    label: 'Last 24 Hours',
+    label: "Last 24 Hours",
   },
 ];
 
@@ -197,27 +192,25 @@ function MainTableHead(props) {
   return (
     <TableHead>
       <TableRow>
-        <TableCell padding="checkbox">
-        <FavoriteBorder 
-            xs = {{align: "center", }}
-        />
+        <TableCell align="center" padding="checkbox">
+          <FavoriteBorder align="center" />
         </TableCell>
         {headCells.map((headCell) => (
           <TableCell
             key={headCell.id}
-            align={headCell.numeric ? 'right' : 'left'}
-            padding={headCell.disablePadding ? 'none' : 'normal'}
+            align={headCell.numeric ? "right" : "left"}
+            padding={headCell.disablePadding ? "none" : "normal"}
             sortDirection={orderBy === headCell.id ? order : false}
           >
             <TableSortLabel
               active={orderBy === headCell.id}
-              direction={orderBy === headCell.id ? order : 'asc'}
+              direction={orderBy === headCell.id ? order : "asc"}
               onClick={createSortHandler(headCell.id)}
             >
               {headCell.label}
               {orderBy === headCell.id ? (
                 <Box component="span" sx={visuallyHidden}>
-                  {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
+                  {order === "desc" ? "sorted descending" : "sorted ascending"}
                 </Box>
               ) : null}
             </TableSortLabel>
@@ -237,13 +230,16 @@ const CurrentTableToolbar = (props) => {
         pr: { xs: 1, sm: 1 },
         ...(numSelected > 0 && {
           bgcolor: (theme) =>
-            alpha(theme.palette.primary.main, theme.palette.action.activatedOpacity),
+            alpha(
+              theme.palette.primary.main,
+              theme.palette.action.activatedOpacity
+            ),
         }),
       }}
     >
       {numSelected > 0 ? (
         <Typography
-          sx={{ flex: '1 1 100%' }}
+          sx={{ flex: "1 1 100%" }}
           color="inherit"
           variant="subtitle1"
           component="div"
@@ -252,7 +248,7 @@ const CurrentTableToolbar = (props) => {
         </Typography>
       ) : (
         <Typography
-          sx={{ flex: '1 1 100%' }}
+          sx={{ flex: "1 1 100%" }}
           variant="h6"
           id="tableTitle"
           component="div"
@@ -265,44 +261,42 @@ const CurrentTableToolbar = (props) => {
 };
 
 export default function MainTable() {
-  const [order, setOrder] = React.useState('asc');
-  const [orderBy, setOrderBy] = React.useState('rank');
-  const [selected, setSelected] = React.useState([]); // Watchlist array test 
+  const [order, setOrder] = React.useState("asc");
+  const [orderBy, setOrderBy] = React.useState("rank");
+  const [selected, setSelected] = React.useState([]); // Watchlist array test
 
   const handleRequestSort = (event, property) => {
-    const isAsc = orderBy === property && order === 'asc';
-    setOrder(isAsc ? 'desc' : 'asc');
+    const isAsc = orderBy === property && order === "asc";
+    setOrder(isAsc ? "desc" : "asc");
     setOrderBy(property);
   };
 
   const handleClick = (event, rank) => {
-    event.stopPropagation()
-  
+    event.stopPropagation();
+
     const selectedIndex = selected.indexOf(rank);
-    let newSelected = []; 
-    
+    let newSelected = [];
+
     if (selectedIndex === -1) {
-      newSelected = [...selected,rank];
-    } 
-    else  {
+      newSelected = [...selected, rank];
+    } else {
       newSelected = newSelected.concat(
         selected.slice(0, selectedIndex),
-        selected.slice(selectedIndex + 1),
+        selected.slice(selectedIndex + 1)
       );
     }
     setSelected(newSelected);
   };
 
   const isSelected = (rank) => selected.indexOf(rank) !== -1;
-  
-  return (
 
-<Box sx={{ width: '100%' }}>
-      <Paper sx={{ width: '100%', mb: 2, }}>
-        <CurrentTableToolbar numSelected={selected.length} />
+  return (
+    <Box sx={{ width: "100%" }}>
+      <Paper sx={{ width: "100%", mb: 2 }}>
+        {/* <CurrentTableToolbar numSelected={selected.length} /> */}
         <TableContainer>
           <Table
-            sx={{ minWidth: 750,columns: 2 }}
+            sx={{ minWidth: 750, columns: 8, background: "#FAFAFA" }}
             aria-labelledby="tableTitle"
             aria-label="collapsible table"
           >
@@ -312,19 +306,27 @@ export default function MainTable() {
               orderBy={orderBy}
               onRequestSort={handleRequestSort}
             />
-            <TableBody>
-              {arrOfFakeResponse.slice().sort(getComparator(order, orderBy))
+            <TableBody sx={{ background: "white" }}>
+              {arrOfFakeResponse
+                .slice()
+                .sort(getComparator(order, orderBy))
                 .map((row, index) => {
                   const isItemSelected = isSelected(row.rank);
-                  const labelId = {'aria-label': 'Checkbox Heart'};
+                  const labelId = { "aria-label": "Checkbox Heart" };
                   return (
-                    <RowComponent key={row.rank} row={row} handleClick={handleClick} labelId={labelId} isItemSelected={isItemSelected}/>
+                    <RowComponent
+                      key={row.rank}
+                      row={row}
+                      handleClick={handleClick}
+                      labelId={labelId}
+                      isItemSelected={isItemSelected}
+                    />
                   );
                 })}
             </TableBody>
           </Table>
         </TableContainer>
       </Paper>
-    </Box> 
+    </Box>
   );
 }
