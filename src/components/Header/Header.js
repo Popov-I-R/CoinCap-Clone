@@ -238,7 +238,6 @@ function Header(props) {
           <Box sx={{ display: { xs: "block", sm: "block", md: "none" } }}>
             <InputSearch />
           </Box>
-
           <Typography
             className="Logo-icon"
             variant="h6"

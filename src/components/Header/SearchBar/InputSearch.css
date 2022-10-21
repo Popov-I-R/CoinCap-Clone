@@ -6,7 +6,6 @@
     border-radius: 20px;
     padding: 6px;
     transition: 0.4s;
-    
 }
 
 .InputSearch:hover {
@@ -43,7 +42,6 @@
     line-height: 20px;
     width: 0;
     font-weight: bold;
-
 }
 .InputSearch:hover .Search-text, .Search-text:focus {
     width: 150px;
