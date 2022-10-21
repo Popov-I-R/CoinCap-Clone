@@ -104,7 +104,9 @@ function Header(props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const handleDrawerToggle = () => {
-    setMobileOpen(!mobileOpen);
+    if(!open){
+      setMobileOpen(!mobileOpen);
+    }
   };
 
   const [open, setOpen] = React.useState(false);
