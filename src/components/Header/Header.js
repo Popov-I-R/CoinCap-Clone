@@ -81,7 +81,7 @@ const checkPage = (page) => {
     return <Link className="Nav-Link">Settings</Link>;
   } else {
     return (
-      <Link className="Nav-Link" to={page.toLowerCase().split(" ").join("")}>
+      <Link className="Nav-Link" to={page.toLowerCase().split(" ").join("-")}>
         {page}
       </Link>
     );
@@ -119,7 +119,7 @@ function Header(props) {
             {item !== "Settings" ? (
               <Link
                 className="List-item-link"
-                to={item.toLowerCase().split(" ").join("")}
+                to={item.toLowerCase().split(" ").join("-")}
               >
                 <ListItemButton sx={{ textAlign: "center" }}>
                   {/* <ListItemText primary={item} />  */}

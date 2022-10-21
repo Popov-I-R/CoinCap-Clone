@@ -20,8 +20,8 @@ function App() {
             <Route path='/coins' element={<Navigate to="/" replace />} />
             <Route path='/exchanges' element={<Exchanges/>} />
             <Route path='/swap' element={<Swap/>} />
-            <Route path='/mywatchlist' element={<Watchlist/>} />
-            <Route path='/myportfolio' element={<Portfolio/>} />
+            <Route path='/my-watchlist' element={<Watchlist/>} />
+            <Route path='/my-portfolio' element={<Portfolio/>} />
           </Routes>
         </div>
         <Footer />
