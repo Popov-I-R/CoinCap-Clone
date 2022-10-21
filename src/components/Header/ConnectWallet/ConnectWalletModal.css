@@ -1,7 +1,7 @@
-/* .Connect-wallet-button:hover {
+.Connect-wallet-button:hover {
     margin-top: -2px;
     transition: 0.2s;
-} */
+}
 
 .Modal-connect-wallet:focus {
     outline: none;

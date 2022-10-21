@@ -14,10 +14,12 @@ import ReportGmailerrorredIcon from "@mui/icons-material/ReportGmailerrorred";
 import { FormGroup, FormControlLabel, Checkbox } from "@mui/material";
 import LockIcon from "../../Icons/Lock-Icon-PNG-Graphic-Cave.png";
 import DollarsBackground from "./backgroundDollars.png";
+import { useDispatch, useSelector } from "react-redux";
+import { setWalletModalOpen } from "../../../store/ModalsDrowerSlice";
 
 const style = {
   position: "absolute",
-  maxWidth: 340,
+  maxWidth: 460,
   height: 400,
   backgroundImage: `url(${DollarsBackground})`,
   borderRadius: "20px",
@@ -27,8 +29,16 @@ const style = {
 
 export default function ConnectWalletModal() {
   const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const handleOpen = () => setOpen(!open);
+
+  // const drowerModalSlice = useSelector(
+  //   (state) => state.drowerModalSlice.walletModalOpen
+  // );
+  // const dispatch = useDispatch();
+
+  // const toOpenToClose = (e) => {
+  //   dispatch(setWalletModalOpen());
+  // };
 
   const [typeOfPasswordField, setTypeOfPasswordField] = useState("password");
   const [flagForShowPassword, setFlagForShowPassword] = useState(true);
@@ -63,10 +73,10 @@ export default function ConnectWalletModal() {
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
         open={open}
-        onClose={handleClose}
+        onClose={handleOpen}
         closeAfterTransition
         BackdropComponent={Backdrop}
-        sx={{display:"flex", justifyContent:"center", alignItems:"center"}}
+        sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
         BackdropProps={{
           timeout: 500,
         }}
@@ -79,13 +89,17 @@ export default function ConnectWalletModal() {
 
             <div className="LogRegCntnr Login-container">
               <h2>Sign in</h2>
-              <Box sx={{ display: "flex", alignItems: "flex-end" }}>
+              <Box
+                className="Login-container-box"
+                sx={{ display: "flex", alignItems: "flex-end" }}
+              >
                 <AccountCircle
                   sx={{ color: "action.active", mr: 1, my: 0.5 }}
                 />
                 <TextField
+                  id="log-username"
+                  className="Log-reg-input-field"
                   fullWidth
-                  id="input-with-sx"
                   label="Login here"
                   variant="standard"
                 />
@@ -93,19 +107,20 @@ export default function ConnectWalletModal() {
 
               <Box sx={{ display: "flex", alignItems: "flex-end" }}>
                 {flagForShowPassword ? (
-                  <VisibilityIcon
+                  <VisibilityOffIcon
                     onClick={showHidePassword}
                     sx={{ color: "action.active", mr: 1, my: 0.5 }}
                   />
                 ) : (
-                  <VisibilityOffIcon
+                  <VisibilityIcon
                     onClick={showHidePassword}
                     sx={{ color: "action.active", mr: 1, my: 0.5 }}
                   />
                 )}
                 <TextField
+                  id="log-password"
+                  className="Log-reg-input-field"
                   fullWidth
-                  id="input-with-sx"
                   label="Password here"
                   variant="standard"
                   type={typeOfPasswordField}
@@ -121,8 +136,7 @@ export default function ConnectWalletModal() {
               </FormGroup>
 
               <Button
-                className="Connect-wallet-button"
-                onClick={handleOpen}
+                className="Sign-in-button"
                 style={{
                   borderRadius: 10,
                   backgroundColor: "rgb(24, 198, 131)",
@@ -130,7 +144,7 @@ export default function ConnectWalletModal() {
                   fontSize: "12px",
                   boxShadow: "rgb(0 0 0 / 40%) 0px 2px 15px -3px",
                   width: "100%",
-                  margin: "0 0 5px 0"
+                  margin: "0 0 5px 0",
                 }}
                 variant="contained"
               >
@@ -158,8 +172,9 @@ export default function ConnectWalletModal() {
                   sx={{ color: "action.active", mr: 1, my: 0.5 }}
                 />
                 <TextField
+                  id="reg-username"
+                  className="Log-reg-input-field"
                   fullWidth
-                  id="input-with-sx"
                   label="Login here"
                   variant="standard"
                 />
@@ -167,19 +182,20 @@ export default function ConnectWalletModal() {
 
               <Box sx={{ display: "flex", alignItems: "flex-end" }}>
                 {flagForShowPassword ? (
-                  <VisibilityIcon
+                  <VisibilityOffIcon
                     onClick={showHidePassword}
                     sx={{ color: "action.active", mr: 1, my: 0.5 }}
                   />
                 ) : (
-                  <VisibilityOffIcon
+                  <VisibilityIcon
                     onClick={showHidePassword}
                     sx={{ color: "action.active", mr: 1, my: 0.5 }}
                   />
                 )}
                 <TextField
+                  id="reg-password"
+                  className="Log-reg-input-field"
                   fullWidth
-                  id="input-with-sx"
                   label="Password here"
                   variant="standard"
                   type={typeOfPasswordField}
@@ -190,8 +206,9 @@ export default function ConnectWalletModal() {
                   sx={{ color: "action.active", mr: 1, my: 0.5 }}
                 />
                 <TextField
+                  id="reg-password-repeat"
+                  className="Log-reg-input-field"
                   fullWidth
-                  id="input-with-sx"
                   label="Confirm password"
                   variant="standard"
                   type={typeOfPasswordField}
@@ -199,8 +216,7 @@ export default function ConnectWalletModal() {
               </Box>
 
               <Button
-                className="Connect-wallet-button"
-                onClick={handleOpen}
+                className="Sign-up-button"
                 style={{
                   borderRadius: 10,
                   backgroundColor: "rgb(24, 198, 131)",
@@ -208,7 +224,7 @@ export default function ConnectWalletModal() {
                   fontSize: "12px",
                   boxShadow: "rgb(0 0 0 / 40%) 0px 2px 15px -3px",
                   width: "100%",
-                  margin: "20px 0 5px 0"
+                  margin: "20px 0 5px 0",
                 }}
                 variant="contained"
               >

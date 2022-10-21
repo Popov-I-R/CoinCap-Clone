@@ -105,7 +105,12 @@ function Header(props) {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const handleDrawerToggle = () => {
     if(!open){
-      setMobileOpen(!mobileOpen);
+      setMobileOpen(false);
+    }
+  };
+  const handleDrawerOpen = () => {
+    if(!open){
+      setMobileOpen(true);
     }
   };
 
@@ -195,7 +200,7 @@ function Header(props) {
         </Fade>
       </Modal>
 
-      <Box sx={{ display: { xs: "block", sm: "block" }, margin: "0 0 25px 0" }}>
+      <Box sx={{ display: { xs: "block", sm: "block" }, width:"100%", margin: "5px 0 25px 0" }}>
         <ConnectWalletModal />
       </Box>
       <Divider />
@@ -278,7 +283,7 @@ function Header(props) {
               color="inherit"
               aria-label="open drawer"
               edge="start"
-              onClick={handleDrawerToggle}
+              onClick={handleDrawerOpen}
               sx={{ display: { xs: "block", sm: "block", md: "none" } }}
             >
               <FormatAlignJustifyIcon />
