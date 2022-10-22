@@ -1,3 +1,4 @@
+// TESTS request data for main table
 // import React, { useState, useEffect } from "react";
 
 // function GetRequestHooks() {
@@ -29,7 +30,7 @@
 
 // export { GetRequestHooks };
 
-// TEST TWO 
+// TEST request data for main chart  
 
 import React, { useState, useEffect } from "react";
 
@@ -47,7 +48,7 @@ function GetRequestHooks() {
     
     fetch(`https://coinranking1.p.rapidapi.com/coin/Qwsogvtv82FCd/history?referenceCurrencyUuid=yhjMzLPhuIDl&timePeriod=24h`, options)
       .then((response) => response.json())
-      .then((data) => console.log(data));
+      .then((data) => console.log(data.data.history));
 
 
   }, []);
