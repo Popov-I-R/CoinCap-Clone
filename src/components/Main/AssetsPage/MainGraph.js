@@ -8,14 +8,11 @@ let symbol = "BTC";
 let dataUrl =
   "https://coinranking1.p.rapidapi.com/coin/Qwsogvtv82FCd/history?referenceCurrencyUuid=yhjMzLPhuIDl&timePeriod=5y";
 
-function LineFour() {
+function MainGraph() {
   const [appState, setAppState] = useState({
     loading: false,
     data: null,
   });
-
-//  raboti - ne triee 
-
 
   useEffect(() => {
     setAppState({ loading: true });
@@ -43,7 +40,6 @@ function LineFour() {
   let data = appState.data;
 
   const options = {
-   
     rangeSelector:{
         enabled: true,
         allButtonsEnabled: true,
@@ -127,7 +123,6 @@ function LineFour() {
         tooltip: {
           valueDecimals: 2,
         },
-        // showInLegend: true
       }, 
     ],
   };
@@ -144,4 +139,4 @@ function LineFour() {
   );
 }
 
-export default LineFour;
+export default MainGraph;

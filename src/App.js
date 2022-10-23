@@ -7,6 +7,7 @@ import Portfolio from "./components/Main/PortfolioPage/Portfolio";
 import Watchlist from "./components/Main/WatchlistPage/Watchlist";
 import Swap from "./components/Main/SwapPage/Swap";
 import Exchanges from "./components/Main/ExchagesPage/Exchanges";
+import Assets from "./components/Main/AssetsPage/Assets";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
             <Route path='/swap' element={<Swap/>} />
             <Route path='/my-watchlist' element={<Watchlist/>} />
             <Route path='/my-portfolio' element={<Portfolio/>} />
+            <Route path='/assets' element={<Assets/>} />
           </Routes>
         </div>
         <Footer />
