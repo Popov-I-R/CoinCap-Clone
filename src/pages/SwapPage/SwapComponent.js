@@ -1,6 +1,6 @@
 import React from "react";
 import "./SwapComponent.css";
-import shuffle from "../../Icons/shuffle.svg";
+import shuffle from "../../components/Icons/shuffle.svg";
 import { useState } from "react";
 
 
