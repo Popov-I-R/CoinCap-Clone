@@ -1,4 +1,5 @@
 import React from "react";
+import { useSelector } from "react-redux";
 // import PropTypes from 'prop-types';
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -90,6 +91,7 @@ const checkPage = (page) => {
 
 const drawerWidth = 215;
 const navItems = ["Coins", "Exchanges", "Swap", "My watchlist"];
+const navItemsNoAutorisation = ["Coins", "Exchanges", "Swap"];
 const navItemsMobile = [
   "Coins",
   "Exchanges",
@@ -99,17 +101,24 @@ const navItemsMobile = [
   "My Watchlist",
   "My Portfolio",
 ];
+const navItemsMobileNoAutorisation = [
+  "Coins",
+  "Exchanges",
+  "Swap",
+  "API",
+  "Settings",
+];
 
 function Header(props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const handleDrawerToggle = () => {
-    if(!open){
+    if (!open) {
       setMobileOpen(false);
     }
   };
   const handleDrawerOpen = () => {
-    if(!open){
+    if (!open) {
       setMobileOpen(true);
     }
   };
@@ -118,47 +127,94 @@ function Header(props) {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
+  const isLogin = useSelector((state) => state.disabler.isLogin);
+
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
       <List>
-        {navItemsMobile.map((item) => (
-          <ListItem key={item} disablePadding>
-            {item !== "Settings" ? (
-              <Link
-                className="List-item-link"
-                to={item.toLowerCase().split(" ").join("-")}
-              >
-                <ListItemButton sx={{ textAlign: "center" }}>
-                  {/* <ListItemText primary={item} />  */}
+        {isLogin
+          ? navItemsMobile.map((item) => (
+              <ListItem key={item} disablePadding>
+                {item !== "Settings" ? (
+                  <Link
+                    className="List-item-link"
+                    to={item.toLowerCase().split(" ").join("-")}
+                  >
+                    <ListItemButton sx={{ textAlign: "center" }}>
+                      {/* <ListItemText primary={item} />  */}
+                      <ListItemButton
+                        className="Flex-Column"
+                        sx={{ textAlign: "center" }}
+                      >
+                        <div className="Mobile-Icons-Header">
+                          {setupHeaderMobileIcon(item)}
+                        </div>
+                        <div className="Mobile-Links-Header">{item}</div>
+                        {/* <ListItemText primary={item} /> */}
+                      </ListItemButton>
+                    </ListItemButton>
+                  </Link>
+                ) : (
                   <ListItemButton
-                    className="Flex-Column"
+                    onClick={handleOpen}
                     sx={{ textAlign: "center" }}
                   >
-                    <div className="Mobile-Icons-Header">
-                      {setupHeaderMobileIcon(item)}
-                    </div>
-                    <div className="Mobile-Links-Header">{item}</div>
-                    {/* <ListItemText primary={item} /> */}
+                    {/* <ListItemText primary={item} />  */}
+                    <ListItemButton
+                      className="Flex-Column"
+                      sx={{ textAlign: "center" }}
+                    >
+                      <div className="Mobile-Icons-Header">
+                        {setupHeaderMobileIcon(item)}
+                      </div>
+                      <div className="Mobile-Links-Header">{item}</div>
+                      {/* <ListItemText primary={item} /> */}
+                    </ListItemButton>
                   </ListItemButton>
-                </ListItemButton>
-              </Link>
-            ) : (
-              <ListItemButton onClick={handleOpen} sx={{ textAlign: "center" }}>
-                {/* <ListItemText primary={item} />  */}
-                <ListItemButton
-                  className="Flex-Column"
-                  sx={{ textAlign: "center" }}
-                >
-                  <div className="Mobile-Icons-Header">
-                    {setupHeaderMobileIcon(item)}
-                  </div>
-                  <div className="Mobile-Links-Header">{item}</div>
-                  {/* <ListItemText primary={item} /> */}
-                </ListItemButton>
-              </ListItemButton>
-            )}
-          </ListItem>
-        ))}
+                )}
+              </ListItem>
+            ))
+          : navItemsMobileNoAutorisation.map((item) => (
+              <ListItem key={item} disablePadding>
+                {item !== "Settings" ? (
+                  <Link
+                    className="List-item-link"
+                    to={item.toLowerCase().split(" ").join("-")}
+                  >
+                    <ListItemButton sx={{ textAlign: "center" }}>
+                      {/* <ListItemText primary={item} />  */}
+                      <ListItemButton
+                        className="Flex-Column"
+                        sx={{ textAlign: "center" }}
+                      >
+                        <div className="Mobile-Icons-Header">
+                          {setupHeaderMobileIcon(item)}
+                        </div>
+                        <div className="Mobile-Links-Header">{item}</div>
+                        {/* <ListItemText primary={item} /> */}
+                      </ListItemButton>
+                    </ListItemButton>
+                  </Link>
+                ) : (
+                  <ListItemButton
+                    onClick={handleOpen}
+                    sx={{ textAlign: "center" }}
+                  >
+                    {/* <ListItemText primary={item} />  */}
+                    <ListItemButton
+                      className="Flex-Column"
+                      sx={{ textAlign: "center" }}
+                    >
+                      <div className="Mobile-Icons-Header">
+                        {setupHeaderMobileIcon(item)}
+                      </div>
+                      <div className="Mobile-Links-Header">{item}</div>
+                      {/* <ListItemText primary={item} /> */}
+                    </ListItemButton>
+                  </ListItemButton>
+                )}
+              </ListItem>
+            ))}
       </List>
 
       <Modal
@@ -200,7 +256,13 @@ function Header(props) {
         </Fade>
       </Modal>
 
-      <Box sx={{ display: { xs: "block", sm: "block" }, width:"100%", margin: "5px 0 25px 0" }}>
+      <Box
+        sx={{
+          display: { xs: "block", sm: "block" },
+          width: "100%",
+          margin: "5px 0 25px 0",
+        }}
+      >
         <ConnectWalletModal />
       </Box>
       <Divider />
@@ -226,7 +288,8 @@ function Header(props) {
       >
         <Toolbar sx={{ margin: "0vw 6vw", minHeight: "62px" }}>
           <Box sx={{ display: { xs: "none", sm: "none", md: "block" } }}>
-            {navItems.map((item) => (
+            {isLogin ? 
+             navItems.map((item) => (
               <Button
                 className="Nav-Link-container"
                 key={item}
@@ -237,7 +300,21 @@ function Header(props) {
               >
                 {checkPage(item)}
               </Button>
-            ))}
+            ))
+            :
+            navItemsNoAutorisation.map((item) => (
+              <Button
+                className="Nav-Link-container"
+                key={item}
+                sx={{ color: "black" }}
+                style={{
+                  fontSize: "12px",
+                }}
+              >
+                {checkPage(item)}
+              </Button>
+            ))
+           }
           </Box>
 
           <Box sx={{ display: { xs: "block", sm: "block", md: "none" } }}>
@@ -316,7 +393,7 @@ function Header(props) {
           ModalProps={{
             keepMounted: true,
             width: "200px",
-            // disableEnforceFocus: true  
+            // disableEnforceFocus: true
             //  Лоша, практика, но в норигиналният сайт също е така.
           }}
           sx={{

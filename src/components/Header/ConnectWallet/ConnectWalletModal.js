@@ -120,7 +120,7 @@ export default function ConnectWalletModal() {
   }
 
   function logout() {
-    if (!isLogin) {
+    if (isLogin) {
       localStorage.removeItem("actualUser");
       dispatch(setIsLogin());
       document.querySelector(
@@ -133,7 +133,7 @@ export default function ConnectWalletModal() {
   }
 
   function nonActiveFieldIfUserIn() {
-    if (isLogin) {
+    if (!isLogin) {
       document.querySelector(
         "div.LogRegCntnr.Login-container > div:nth-child(2)"
       ).style.pointerEvents = "none";
@@ -207,7 +207,7 @@ export default function ConnectWalletModal() {
                 sx={{
                   display: "flex",
                   alignItems: "flex-end",
-                  pointerEvents: !isLogin ? "none" : "all",
+                  pointerEvents: isLogin ? "none" : "all",
                 }}
               >
                 <AccountCircle
@@ -232,7 +232,7 @@ export default function ConnectWalletModal() {
                 sx={{
                   display: "flex",
                   alignItems: "flex-end",
-                  pointerEvents: !isLogin ? "none" : "all",
+                  pointerEvents: isLogin ? "none" : "all",
                 }}
               >
                 {flagForShowPassword ? (
@@ -269,13 +269,13 @@ export default function ConnectWalletModal() {
 
               <FormGroup>
                 <FormControlLabel
-                  sx={{ color: "#2f3640", margin: "8px 0px 18px 0", pointerEvents: !isLogin ? "none" : "all" }}
+                  sx={{ color: "#2f3640", margin: "8px 0px 18px 0", pointerEvents: isLogin ? "none" : "all" }}
                   control={<Checkbox />}
                   label="Remember me"
                 />
               </FormGroup>
 
-              {isLogin ? (
+              {!isLogin ? (
                 <Button
                   className="Sign-in-button"
                   onClick={() => {
