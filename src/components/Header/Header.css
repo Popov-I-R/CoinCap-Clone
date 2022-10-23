@@ -1,9 +1,10 @@
 .Nav-Link-container {
-  height: 60px;
+ height: 60px;
 }
 .Nav-Link {
   text-transform: capitalize;
   font-size: 14px;
+  line-height: 50px;
 }
 
 .logoSize {
