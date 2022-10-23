@@ -6,6 +6,9 @@ export const userManager = (function(){
         constructor(username, password) {
             this.username = username;
             this.password = password;
+            this.assets = [];
+            this.money = 3000;
+            this.theme = "light";
         }
     
     } 
