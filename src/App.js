@@ -30,6 +30,7 @@ function App() {
             <Route path="/swap" element={<Swap />} />
             <Route path="/my-watchlist" element={<Watchlist />} />
             <Route path="/my-portfolio" element={<Portfolio />} />
+            <Route path='/assets' element={<Assets/>}/>
           </Routes>
         </div>
         <Footer />

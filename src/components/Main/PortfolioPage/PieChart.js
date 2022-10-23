@@ -7,9 +7,9 @@ export default function PieChart() {
     ["ETH", 11],
     ["ADA", 2],
     ["BNB", 2],
-    ["BTC", 3.2]
+    ["BTC", 3.2],
   ];
-  
+
   const options = {
     title: "My Assets",
     is3D: true,
