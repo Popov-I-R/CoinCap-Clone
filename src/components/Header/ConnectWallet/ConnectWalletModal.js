@@ -132,17 +132,6 @@ export default function ConnectWalletModal() {
     }
   }
 
-  function nonActiveFieldIfUserIn() {
-    if (!isLogin) {
-      document.querySelector(
-        "div.LogRegCntnr.Login-container > div:nth-child(2)"
-      ).style.pointerEvents = "none";
-      document.querySelector(
-        "div.LogRegCntnr.Login-container > div:nth-child(3)"
-      ).style.pointerEvents = "none";
-    }
-  }
-
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(!open);
 
@@ -175,10 +164,11 @@ export default function ConnectWalletModal() {
           padding: "7px 16px",
           fontSize: "12px",
           boxShadow: "rgb(0 0 0 / 40%) 0px 2px 15px -3px",
+          minWidth: "150px",
         }}
         variant="contained"
       >
-        Sign in & Sign up
+        {isLogin ? "Logout" : "Sign in & Sign up"}
       </Button>
 
       <Modal
@@ -224,6 +214,7 @@ export default function ConnectWalletModal() {
                   fullWidth
                   label="Login here"
                   variant="standard"
+                  autoComplete="off"
                 />
               </Box>
 
@@ -237,28 +228,33 @@ export default function ConnectWalletModal() {
               >
                 {flagForShowPassword ? (
                   <VisibilityOffIcon
+                    className="show-hide-password"
                     onClick={showHidePassword}
                     sx={{ color: "action.active", mr: 1, my: 0.5 }}
                   />
                 ) : (
                   <VisibilityIcon
+                    className="show-hide-password"
                     onClick={showHidePassword}
                     sx={{ color: "action.active", mr: 1, my: 0.5 }}
                   />
                 )}
-                <TextField
-                  id="log-password"
-                  value={loginPassword}
-                  onChange={(e) => {
-                    setLoginPassword(e.target.value);
-                    changeLoginButtonCondition(loginUsername, e.target.value);
-                  }}
-                  className="Log-reg-input-field"
-                  fullWidth
-                  label="Password here"
-                  variant="standard"
-                  type={typeOfPasswordField}
-                />
+                <form className="form-for-password-field">
+                  <TextField
+                    id="log-password"
+                    value={loginPassword}
+                    onChange={(e) => {
+                      setLoginPassword(e.target.value);
+                      changeLoginButtonCondition(loginUsername, e.target.value);
+                    }}
+                    className="Log-reg-input-field"
+                    fullWidth
+                    label="Password here"
+                    variant="standard"
+                    type={typeOfPasswordField}
+                    autoComplete="off"
+                  />
+                </form>
               </Box>
 
               <div className="Wrong-credentials-div">
@@ -269,7 +265,11 @@ export default function ConnectWalletModal() {
 
               <FormGroup>
                 <FormControlLabel
-                  sx={{ color: "#2f3640", margin: "8px 0px 18px 0", pointerEvents: isLogin ? "none" : "all" }}
+                  sx={{
+                    color: "#2f3640",
+                    margin: "8px 0px 18px 0",
+                    pointerEvents: isLogin ? "none" : "all",
+                  }}
                   control={<Checkbox />}
                   label="Remember me"
                 />
@@ -356,6 +356,7 @@ export default function ConnectWalletModal() {
                   fullWidth
                   label="Login here"
                   variant="standard"
+                  autoComplete="off"
                 />
               </Box>
 
@@ -365,32 +366,37 @@ export default function ConnectWalletModal() {
               >
                 {flagForShowPassword ? (
                   <VisibilityOffIcon
+                    className="show-hide-password"
                     onClick={showHidePassword}
                     sx={{ color: "action.active", mr: 1, my: 0.5 }}
                   />
                 ) : (
                   <VisibilityIcon
+                    className="show-hide-password"
                     onClick={showHidePassword}
                     sx={{ color: "action.active", mr: 1, my: 0.5 }}
                   />
                 )}
-                <TextField
-                  id="reg-password"
-                  value={registrPassword}
-                  onChange={(e) => {
-                    setRegistrPassword(e.target.value);
-                    changeRegistrButtonCondition(
-                      registrUsername,
-                      e.target.value,
-                      registrPasswordRepeat
-                    );
-                  }}
-                  className="Log-reg-input-field"
-                  fullWidth
-                  label="Password here"
-                  variant="standard"
-                  type={typeOfPasswordField}
-                />
+                <form className="form-for-password-field">
+                  <TextField
+                    id="reg-password"
+                    value={registrPassword}
+                    onChange={(e) => {
+                      setRegistrPassword(e.target.value);
+                      changeRegistrButtonCondition(
+                        registrUsername,
+                        e.target.value,
+                        registrPasswordRepeat
+                      );
+                    }}
+                    className="Log-reg-input-field"
+                    fullWidth
+                    label="Password here"
+                    variant="standard"
+                    type={typeOfPasswordField}
+                    autoComplete="off"
+                  />
+                </form>
               </Box>
               <Box
                 className="Input-box"
@@ -399,23 +405,26 @@ export default function ConnectWalletModal() {
                 <ReportGmailerrorredIcon
                   sx={{ color: "action.active", mr: 1, my: 0.5 }}
                 />
-                <TextField
-                  id="reg-password-repeat"
-                  value={registrPasswordRepeat}
-                  onChange={(e) => {
-                    setRegistrPasswordRepeat(e.target.value);
-                    changeRegistrButtonCondition(
-                      registrUsername,
-                      registrPassword,
-                      e.target.value
-                    );
-                  }}
-                  className="Log-reg-input-field"
-                  fullWidth
-                  label="Confirm password"
-                  variant="standard"
-                  type={typeOfPasswordField}
-                />
+                <form className="form-for-password-field">
+                  <TextField
+                    id="reg-password-repeat"
+                    value={registrPasswordRepeat}
+                    onChange={(e) => {
+                      setRegistrPasswordRepeat(e.target.value);
+                      changeRegistrButtonCondition(
+                        registrUsername,
+                        registrPassword,
+                        e.target.value
+                      );
+                    }}
+                    className="Log-reg-input-field"
+                    fullWidth
+                    label="Confirm password"
+                    variant="standard"
+                    type={typeOfPasswordField}
+                    autoComplete="off"
+                  />
+                </form>
               </Box>
 
               <div className="Registration-messages-div">
@@ -443,7 +452,7 @@ export default function ConnectWalletModal() {
                 variant="contained"
                 disabled={isRegistrButtonDisabled}
               >
-                 Sign up 
+                Sign up
               </Button>
 
               <a
@@ -456,8 +465,9 @@ export default function ConnectWalletModal() {
                   ).style.display = "none";
                   setRegistrUsername("");
                   setRegistrPassword("");
-                  setRegistrPasswordRepeat("");    
-                  document.querySelector("#passMismatchError").style.display = "none";              
+                  setRegistrPasswordRepeat("");
+                  document.querySelector("#passMismatchError").style.display =
+                    "none";
                 }}
               >
                 Do you have an account?? Sign In

@@ -7,18 +7,12 @@ import Portfolio from "./components/Main/PortfolioPage/Portfolio";
 import Watchlist from "./components/Main/WatchlistPage/Watchlist";
 import Swap from "./components/Main/SwapPage/Swap";
 import Exchanges from "./components/Main/ExchagesPage/Exchanges";
-import { Helmet } from "react-helmet";
+
 
 function App() {
   return (
     <BrowserRouter>
       <div className="App">
-        <Helmet>
-          <meta charSet="utf-8" />
-          <title>CoinCap</title>
-          <link rel="canonical" href="http://mysite.com/example" />
-          <meta name="description" content="CryptoCurrencyProject" />
-        </Helmet>
         <Header className="FixedHeigthHeader" />
         <div className="App-main">
           <Routes>

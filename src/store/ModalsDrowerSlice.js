@@ -10,8 +10,8 @@ export const drowerModalSlice = createSlice({
   reducers: {
     setWalletModalOpen: (state) => {
       state.walletModalOpen = !state.walletModalOpen;
-    },
-  },
+    }
+  }
 });
 
 export const { setWalletModalOpen } = drowerModalSlice.actions;

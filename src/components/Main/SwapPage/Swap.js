@@ -6,6 +6,7 @@ import HighchartsReact from "highcharts-react-official";
 // import PieTEst from "./PieTEst";
 import LineFour from "./testLineFour";
 import { GetRequestHooks } from "./testRequests";
+import SwapComponent from "./SwapComponent";
 
 export default function Swap() {
   const options = {
@@ -21,15 +22,17 @@ export default function Swap() {
 
   return (
     <div>
+      <SwapComponent />
+{/* 
       <HighchartsReact
         highcharts={Highcharts}
         constructorType={"stockChart"}
         options={options}
       />
-      {/* <Container></Container> */}
-      {/* <PieTEst></PieTEst> */}
-      <LineFour></LineFour>
-      <GetRequestHooks></GetRequestHooks>
+      <Container></Container>
+       <PieTEst></PieTEst>
+       <LineFour></LineFour>
+      <GetRequestHooks></GetRequestHooks>  */}
     </div>
   );
 }

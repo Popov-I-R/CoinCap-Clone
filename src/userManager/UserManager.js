@@ -1,5 +1,3 @@
-import React from "react";
-
 
 export const userManager = (function(){
 
@@ -43,8 +41,6 @@ export const userManager = (function(){
         }
         actualUser(username) {
             localStorage.setItem("actualUser", JSON.stringify(username));
-            // let logoutLink = document.querySelector(".link-5");
-            // logoutLink.style.display = "block";
         }
     
         checkForExistingUser(username) {
