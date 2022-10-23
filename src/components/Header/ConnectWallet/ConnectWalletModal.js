@@ -304,7 +304,7 @@ export default function ConnectWalletModal() {
                   style={{
                     borderRadius: 10,
                     backgroundColor: "rgb(24, 198, 131)",
-                    padding: "6px 14px",
+                    padding: "6px 12px 6px 11px",
                     fontSize: "12px",
                     boxShadow: "rgb(0 0 0 / 40%) 0px 2px 15px -3px",
                     width: "100%",
@@ -324,6 +324,8 @@ export default function ConnectWalletModal() {
                   document.querySelector(
                     ".Registration-container"
                   ).style.display = "block";
+                  setLoginUsername("");
+                  setLoginPassword("");
                 }}
               >
                 Don't have an account? Sign Up
@@ -432,7 +434,7 @@ export default function ConnectWalletModal() {
                 style={{
                   borderRadius: 10,
                   backgroundColor: "rgb(24, 198, 131)",
-                  padding: "6px 14px",
+                  padding: "6px 16px",
                   fontSize: "12px",
                   boxShadow: "rgb(0 0 0 / 40%) 0px 2px 15px -3px",
                   width: "100%",
@@ -441,7 +443,7 @@ export default function ConnectWalletModal() {
                 variant="contained"
                 disabled={isRegistrButtonDisabled}
               >
-                Sign up
+                 Sign up 
               </Button>
 
               <a
@@ -452,6 +454,10 @@ export default function ConnectWalletModal() {
                   document.querySelector(
                     ".Registration-container"
                   ).style.display = "none";
+                  setRegistrUsername("");
+                  setRegistrPassword("");
+                  setRegistrPasswordRepeat("");    
+                  document.querySelector("#passMismatchError").style.display = "none";              
                 }}
               >
                 Do you have an account?? Sign In
