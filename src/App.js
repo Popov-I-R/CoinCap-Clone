@@ -8,26 +8,32 @@ import Watchlist from "./components/Main/WatchlistPage/Watchlist";
 import Swap from "./components/Main/SwapPage/Swap";
 import Exchanges from "./components/Main/ExchagesPage/Exchanges";
 import Assets from "./components/Main/AssetsPage/Assets";
+import { Helmet } from "react-helmet";
 
 function App() {
   return (
-    <BrowserRouter >
+    <BrowserRouter>
       <div className="App">
-        <Header className="FixedHeigthHeader"/>
+        <Helmet>
+          <meta charSet="utf-8" />
+          <title>CoinCap</title>
+          <link rel="canonical" href="http://mysite.com/example" />
+          <meta name="description" content="CryptoCurrencyProject" />
+        </Helmet>
+        <Header className="FixedHeigthHeader" />
         <div className="App-main">
           <Routes>
-            <Route path='*' element={<div>Error</div>} />
-            <Route path='/' element={<Home/>}/>
-            <Route path='/coins' element={<Navigate to="/" replace />} />
-            <Route path='/exchanges' element={<Exchanges/>} />
-            <Route path='/swap' element={<Swap/>} />
-            <Route path='/my-watchlist' element={<Watchlist/>} />
-            <Route path='/my-portfolio' element={<Portfolio/>} />
-            <Route path='/assets' element={<Assets/>} />
+            <Route path="*" element={<div>Error</div>} />
+            <Route path="/" element={<Home />} />
+            <Route path="/coins" element={<Navigate to="/" replace />} />
+            <Route path="/exchanges" element={<Exchanges />} />
+            <Route path="/swap" element={<Swap />} />
+            <Route path="/my-watchlist" element={<Watchlist />} />
+            <Route path="/my-portfolio" element={<Portfolio />} />
           </Routes>
         </div>
         <Footer />
-       </div>
+      </div>
     </BrowserRouter>
   );
 }

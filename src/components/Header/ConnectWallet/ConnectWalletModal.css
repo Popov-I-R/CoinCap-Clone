@@ -7,12 +7,12 @@
     outline: none;
 }
 
-.Wallet-modal-box-header{
+.Wallet-modal-box-header {
     display: flex;
     justify-content: space-around;
 }
 
-.LogRegCntnr{
+.LogRegCntnr {
     text-align: center;
 }
 
@@ -29,20 +29,58 @@
     text-decoration: none;
 }
 
-.Login-container{
+.Login-container {
     display: block;
 }
 
-.Registration-container{
+.Registration-container {
     display: none;
-}
+} 
 
-.Registration-container h2, .Login-container h2 {
+.Registration-container h2,
+.Login-container h2 {
     margin: 0;
     color: #2f3640;
     font-weight: 400;
 }
 
+.Input-box {
+    margin: 10px 0px;
+}
+
+
 .link-to-sign-in {
     margin-left: -18px;
 }
+
+.Wrong-credentials-div {
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    visibility: hidden;
+    transition: 1s;
+}
+
+.Registration-messages-div {
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.Wrong-credentials-message {
+    font-size: 14px;
+    color: red;
+    margin: 0;
+}
+
+#passMismatchError {
+    display: none;
+
+}
+
+#userExistsError {
+    display: none;
+}
+
