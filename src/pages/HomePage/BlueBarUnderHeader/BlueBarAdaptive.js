@@ -1,7 +1,7 @@
 import React from "react";
 import "./BlueBarAdaptive.css"
-import DesktopBlueBar from "./DesktopVersion/DesktopBlueBar";
-import MobileBlueBar from "./MobileVersion/MobileBlueBar";
+import DesktopBlueBar from "../BlueBarUnderHeader/DesktopVersion/DesktopBlueBar";
+import MobileBlueBar from "../BlueBarUnderHeader/MobileVersion/MobileBlueBar";
 
 export default function BlueBarAdaptive({ marketCap, exchangeVol, assets, exchanges, markets, btcDomIndex }) {
 

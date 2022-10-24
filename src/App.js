@@ -2,12 +2,12 @@ import "./App.css";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
-import Home from "./components/Main/HomePage/Home";
-import Portfolio from "./components/Main/PortfolioPage/Portfolio";
-import Watchlist from "./components/Main/WatchlistPage/Watchlist";
-import Swap from "./components/Main/SwapPage/Swap";
-import Exchanges from "./components/Main/ExchagesPage/Exchanges";
-import Assets from "./components/Main/AssetsPage/Assets";
+import Home from "./pages/HomePage/Home";
+import Portfolio from "./pages/PortfolioPage/Portfolio";
+import Watchlist from "./pages/WatchlistPage/Watchlist";
+import Swap from "./pages/SwapPage/Swap";
+import Exchanges from "./pages/ExchangesPage/Exchanges";
+import Assets from "./pages/AssetsPage/Assets";
 
 function App() {
   return (
