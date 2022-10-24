@@ -1,11 +1,13 @@
 import React from "react";
 import "./SwapComponent.css";
-import shuffle from "../../Icons/shuffle.svg";
+import shuffle from "../../../Icons/shuffle.svg";
 import { useState } from "react";
-
+import SelectSearchComponent from "../SelectSearchComponent/SelectSearchComponent";
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
 
 export default function SwapComponent() {
+
   
   const [myCurrency, setMyCurrency] = useState("");
   const [newCurrency, setNewCurrency] = useState("");
@@ -72,18 +74,19 @@ export default function SwapComponent() {
                 className="Currency-input-styled-input"
                 value={myCurrency}
               ></input>
-              <button className="Currency-select-token-btn">
-                <span className="Currency-select-btn-inner">
+                <span 
+                className="Currency-select-btn-inner">
                   <img
                     src="https://assets.coincap.io/assets/icons/eth@2x.png"
                     className="Currency-select-btn-token-icon"
                   ></img>
-                  <div className="Search-select-box">
-                    
+                
+                    <SelectSearchComponent focus={()=> document.querySelectorAll(".select-search-select")[0].style.display = "block"} blur={()=>document.querySelectorAll(".select-search-select")[0].style.display = "none"} />
+                  
+                    <KeyboardArrowDownIcon className="arrow-near-select"/>
 
-                  </div>
+  
                 </span>
-              </button>
             </div>
           </div>
 
@@ -93,7 +96,7 @@ export default function SwapComponent() {
 
           <div className="Currency-input">
             <div className="Currency-input-title">
-              <label>You Sell</label>
+              <label>You Get</label>
             </div>
             <div className="Currency-input-currency-input-row">
               <input
@@ -146,14 +149,15 @@ export default function SwapComponent() {
                 className="Currency-input-styled-input"
                 value={newCurrency}
               ></input>
-              <button className="Currency-select-token-btn">
                 <span className="Currency-select-btn-inner">
                   <img
                     src="https://assets.coincap.io/assets/icons/eth@2x.png"
                     className="Currency-select-btn-token-icon"
                   ></img>
+              
+                    <SelectSearchComponent focus={()=> document.querySelectorAll(".select-search-select")[1].style.display = "block"} blur={()=>document.querySelectorAll(".select-search-select")[1].style.display = "none"}/>
+                <KeyboardArrowDownIcon  className="arrow-near-select"/>
                 </span>
-              </button>
             </div>
           </div>
         </div>

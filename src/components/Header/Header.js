@@ -288,7 +288,7 @@ function Header(props) {
       >
         <Toolbar sx={{ margin: "0vw 6vw", minHeight: "62px" }}>
           <Box sx={{ display: { xs: "none", sm: "none", md: "block" } }}>
-            {isLogin ? 
+            {isLogin ?
              navItems.map((item) => (
               <Button
                 className="Nav-Link-container"

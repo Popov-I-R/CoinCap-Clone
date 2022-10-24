@@ -7,13 +7,15 @@
     padding-top: 20px;
 }
 
+
+
 .Swap-component {
     font-size: 14px;
     line-height: 1.4285em;
     color: rgba(0, 0, 0, .87);
     font-family: Lato, Helvetica, Arial, sans-serif;
     box-sizing: inherit;
-    z-index: 1;
+    /* z-index: 1; */
     box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 9px;
     position: relative;
     border-width: 0px;
@@ -22,8 +24,8 @@
     border-image: initial;
     border-radius: 13px;
     background: rgb(255, 255, 255);
-    
-    height: 410px;
+    max-width: 450px ;
+    height: 450px;
 }
 
 .Swap-component-header {
@@ -103,6 +105,7 @@
     display: flex;
     -webkit-box-pack: justify;
     justify-content: space-between;
+    margin: 10px 0 5px 0;
 }
 
 .Swap-component-body .Currency-input-styled-input {
@@ -156,6 +159,7 @@
 }
 
 .Swap-component-body .Currency-select-btn-inner {
+    width: 100%;
     line-height: 1.15;
     text-transform: none;
     color: rgba(0, 0, 0, 0.9);
@@ -223,4 +227,8 @@
     display: block !important;
     color: rgb(24, 198, 131) !important;
     margin: 16px 0px 16px 20px;
+}
+
+.arrow-near-select {
+    margin-left: 10px ;
 }
