@@ -7,8 +7,6 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import InputAmountForSwap from "./InputOnlyNumberForSwap/InputAmountForSwap";
 
 export default function SwapComponent() {
-  // const [myCurrency, setMyCurrency] = useState("");
-  // const [newCurrency, setNewCurrency] = useState("");
 
   return (
     <div className="Swap-component">
@@ -21,7 +19,7 @@ export default function SwapComponent() {
             <label>You Sell</label>
           </div>
           <div className="Currency-input-currency-input-row">
-          <InputAmountForSwap currency={myCurrency} setCurrency={setMyCurrency}/>
+          <InputAmountForSwap />
             <span className="Currency-select-btn-inner">
               <img
                 src="https://assets.coincap.io/assets/icons/eth@2x.png"
@@ -55,7 +53,7 @@ export default function SwapComponent() {
             <label>You Get</label>
           </div>
           <div className="Currency-input-currency-input-row">
-           <InputAmountForSwap currency={newCurrency} setCurrency={setNewCurrency}/>
+           <InputAmountForSwap />
             <span className="Currency-select-btn-inner">
               <img
                 src="https://assets.coincap.io/assets/icons/eth@2x.png"
