@@ -1,9 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 
-// const initialState = {
-//   allCoins: [],
-// };
+const initialState = {
+  allCoins: [],
+};
 
 
 // fetch("https://api.coinranking.com/v2/coins?limit=10", {
