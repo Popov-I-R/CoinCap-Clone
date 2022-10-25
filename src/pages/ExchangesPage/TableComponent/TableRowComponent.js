@@ -1,20 +1,15 @@
 import { useState } from "react";
 import { TableRow, TableCell } from "@mui/material";
-import Checkbox from "@mui/material/Checkbox";
-import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
-import Favorite from "@mui/icons-material/Favorite";
 import "./TableComponent.css"
 
 export default function RowComponent(props) {
-  const [open, setOpen] = useState(false);
-  const labelId = props.labelId;
+
   return (
     <>
       <TableRow
         hover
         // onClick={() => setOpen(!open)}
-        role="checkbox"
-        tabIndex={-1}
+
       >
         <TableCell align="center" component="th"  id={props.labelId} scope="row" padding="none">
           {props.row.rank}

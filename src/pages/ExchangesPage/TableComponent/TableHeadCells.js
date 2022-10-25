@@ -1,4 +1,4 @@
-export function MainHeadCells() {
+export function TableHeadCells() {
     const headCells = [
         {
           id: "rank",
@@ -13,16 +13,10 @@ export function MainHeadCells() {
           label: "Name",
         },
         {
-          id: "price",
+          id: "tradingPairs",
           numeric: true,
           disablePadding: false,
-          label: "Price",
-        },
-        {
-          id: "marketCap",
-          numeric: true,
-          disablePadding: false,
-          label: "MarketCap",
+          label: "Trading Pairs",
         },
         {
           id: "volume",
@@ -31,16 +25,16 @@ export function MainHeadCells() {
           label: "Volume",
         },
         {
-          id: "change",
+          id: "marketShare",
           numeric: true,
           disablePadding: false,
-          label: "Change",
+          label: "Market Share",
         },
         {
-          id: "LastTwentyFourHours",
-          numeric: false,
+          id: "recommended",
+          numeric: true,
           disablePadding: false,
-          label: "Last 24 Hours",
+          label: "Is Recommended",
         },
       ];
       return headCells

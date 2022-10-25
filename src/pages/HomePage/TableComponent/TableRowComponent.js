@@ -23,7 +23,7 @@ export default function RowComponent(props) {
         <TableCell padding="checkbox">
           <Checkbox
             checked={props.isItemSelected}
-            onClick={(event) => props.handleClick(event, props.row.uuid)}
+            onClick={(event) => props.handleClickAddToWatchlist(event, props.row.uuid)}
             {...labelId}
             icon={<FavoriteBorder />}
             checkedIcon={<Favorite />}
