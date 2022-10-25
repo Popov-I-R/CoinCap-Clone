@@ -49,7 +49,7 @@ export default function RowComponent(props) {
         </TableCell>
         <TableCell align="right">{`$${Number(props.row.price).toFixed(2)}`}</TableCell>
         <TableCell align="right">{`$${Number(props.row.marketCap).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`}</TableCell>
-        <TableCell align="right">{`$${Number(props.row.volume).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`}</TableCell>
+        <TableCell align="right">{`$${Number(props.row['24hVolume']).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`}</TableCell>
         <TableCell align="right">{`${props.row.change}%`}</TableCell>
         <TableCell align="right">
         <SparkLine data={props.row.sparkline} change={props.row.change}></SparkLine>

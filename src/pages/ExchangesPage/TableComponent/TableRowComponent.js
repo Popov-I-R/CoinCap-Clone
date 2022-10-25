@@ -28,7 +28,7 @@ export default function RowComponent(props) {
         </div>
         </TableCell>
         <TableCell align="right">{props.row.numberOfCoins}</TableCell>
-        <TableCell align="right">{`$${Number(props.row.volume).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`}</TableCell>
+        <TableCell align="right">{`$${Number(props.row['24hVolume']).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`}</TableCell>
         <TableCell align="right">{`${props.row.marketShare} %`}</TableCell>
         <TableCell align="right">{props.row.recommended === true ? "Препоръчано" : "Не"}</TableCell>
         <TableCell align="right">

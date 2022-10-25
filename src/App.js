@@ -9,7 +9,7 @@ import Watchlist from "./pages/WatchlistPage/Watchlist";
 import Swap from "./pages/SwapPage/Swap";
 import Exchanges from "./pages/ExchangesPage/Exchanges";
 import Assets from "./pages/AssetsPage/Assets";
-import AssetID from "./pages/AssetsPage/test";
+import AssetID from "./pages/AssetsPage/Asset";
 
 function App() {
   return (
