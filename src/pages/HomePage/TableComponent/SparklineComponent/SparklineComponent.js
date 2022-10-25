@@ -9,7 +9,8 @@ export default function SparkLine(props) {
           <SparklinesLine
             style={{ stroke: "#8ed53f", strokeWidth: "1", fill: "green" }}
           />
-          <SparklinesSpots />
+          <SparklinesSpots style={{fill: "green"}}
+          />
         </Sparklines>
       );
     } else {
@@ -18,7 +19,7 @@ export default function SparkLine(props) {
           <SparklinesLine
             style={{ stroke: "#f90000", strokeWidth: "1", fill: "red" }}
           />
-          <SparklinesSpots />
+          <SparklinesSpots style={{fill: "red"}}/>
         </Sparklines>
       );
     }

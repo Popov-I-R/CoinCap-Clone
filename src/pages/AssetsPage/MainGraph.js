@@ -40,6 +40,9 @@ function MainGraph() {
   let data = appState.data;
 
   const options = {
+    xAxis: {
+      minRange: 1
+    },
     rangeSelector:{
         enabled: true,
         allButtonsEnabled: true,

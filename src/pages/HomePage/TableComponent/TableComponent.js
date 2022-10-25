@@ -1,4 +1,3 @@
-import * as React from "react";
 import { alpha } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Table from "@mui/material/Table";
@@ -14,8 +13,10 @@ import Paper from "@mui/material/Paper";
 import { visuallyHidden } from "@mui/utils";
 import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
 import RowComponent from "./TableRowComponent";
+import {MainHeadCells} from "./MainHeadCells"
+import  { useState, useEffect } from "react";
 
-let arrOfFakeResponse = [
+let arrOfFakeResponses = [
   {
     uuid: "Qwsogvtv82FCd",
     symbol: "BTC", // za arr
@@ -96,29 +97,6 @@ let arrOfFakeResponse = [
   },
 ];
 
-// function createData(rank, logoNameSymbolArray, price, marketCap, supply,volume,change) {
-//   return {
-//     rank,
-//     logoNameSymbolArray,
-//     price,
-//     marketCap,
-//     supply,
-//     volume,
-//     change,
-//     history: [
-//       {
-//         date: '2020-01-05',
-//         customerId: '11091700',
-//         amount: 3,
-//       },
-//       {
-//         date: '2020-01-02',
-//         customerId: 'Anonymous',
-//         amount: 1,
-//       },
-//     ],
-//   };
-// }
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -136,50 +114,7 @@ function getComparator(order, orderBy) {
     : (a, b) => -descendingComparator(a, b, orderBy);
 }
 
-const headCells = [
-  {
-    id: "rank",
-    numeric: true,
-    disablePadding: false,
-    label: "Rank",
-  },
-  {
-    id: "name",
-    numeric: false,
-    disablePadding: false,
-    label: "Name",
-  },
-  {
-    id: "price",
-    numeric: true,
-    disablePadding: false,
-    label: "Price",
-  },
-  {
-    id: "marketCap",
-    numeric: true,
-    disablePadding: false,
-    label: "MarketCap",
-  },
-  {
-    id: "volume",
-    numeric: true,
-    disablePadding: false,
-    label: "Volume",
-  },
-  {
-    id: "change",
-    numeric: true,
-    disablePadding: false,
-    label: "Change",
-  },
-  {
-    id: "LastTwentyFourHours",
-    numeric: false,
-    disablePadding: false,
-    label: "Last 24 Hours",
-  },
-];
+const headCells = MainHeadCells()
 
 function MainTableHead(props) {
   const { order, orderBy, onRequestSort } = props;
@@ -260,9 +195,27 @@ const CurrentTableToolbar = (props) => {
 };
 
 export default function MainTable() {
-  const [order, setOrder] = React.useState("asc");
-  const [orderBy, setOrderBy] = React.useState("rank");
-  const [selected, setSelected] = React.useState([]); // Watchlist array test
+  const [order, setOrder] = useState("asc");
+  const [orderBy, setOrderBy] = useState("rank");
+  const [selected, setSelected] = useState([]); // Watchlist array test
+
+  const [arrOfFakeResponse, setCoins] = useState([]);
+
+  useEffect(() => {
+    // let arrTest = [];
+    const optionsReq = {
+        method: "GET",
+        headers: {
+          "x-access-token": "coinrankingf8578fd99a951143edc7ee38782623b8b680181be6137259"
+        },
+      };
+    const limitPage = 25
+    fetch(`https://api.coinranking.com/v2/coins?timePeriod=24h&tiers%5B0%5D=1&orderBy=marketCap&orderDirection=desc&limit=${limitPage}&offset=0`,optionsReq)
+      .then((res) => res.json())
+      .then((data) => {
+        setCoins(data.data.coins)})
+  }, []);
+
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
@@ -270,14 +223,12 @@ export default function MainTable() {
     setOrderBy(property);
   };
 
-  const handleClick = (event, rank) => {
+  const handleClick = (event, uuid) => {
     event.stopPropagation();
-
-    const selectedIndex = selected.indexOf(rank);
+    const selectedIndex = selected.indexOf(uuid);
     let newSelected = [];
-
     if (selectedIndex === -1) {
-      newSelected = [...selected, rank];
+      newSelected = [...selected, uuid];
     } else {
       newSelected = newSelected.concat(
         selected.slice(0, selectedIndex),
@@ -285,9 +236,10 @@ export default function MainTable() {
       );
     }
     setSelected(newSelected);
+    console.log(selected);
   };
 
-  const isSelected = (rank) => selected.indexOf(rank) !== -1;
+  const isSelected = (uuid) => selected.indexOf(uuid) !== -1;
 
   return (
     <Box sx={{ width: "100%" }}>
@@ -310,11 +262,11 @@ export default function MainTable() {
                 .slice()
                 .sort(getComparator(order, orderBy))
                 .map((row, index) => {
-                  const isItemSelected = isSelected(row.rank);
+                  const isItemSelected = isSelected(row.uuid);
                   const labelId = { "aria-label": "Checkbox Heart" };
                   return (
                     <RowComponent
-                      key={row.rank}
+                      key={row.uuid}
                       row={row}
                       handleClick={handleClick}
                       labelId={labelId}

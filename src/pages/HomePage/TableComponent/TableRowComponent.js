@@ -7,6 +7,7 @@ import Favorite from "@mui/icons-material/Favorite";
 import SparkLine from "./SparklineComponent/SparklineComponent";
 import "./SparklineComponent/Sparkline.css"
 import "./TableComponent.css"
+import { Link } from "react-router-dom";
 
 export default function RowComponent(props) {
   const [open, setOpen] = useState(false);
@@ -22,7 +23,7 @@ export default function RowComponent(props) {
         <TableCell padding="checkbox">
           <Checkbox
             checked={props.isItemSelected}
-            onClick={(event) => props.handleClick(event, props.row.rank)}
+            onClick={(event) => props.handleClick(event, props.row.uuid)}
             {...labelId}
             icon={<FavoriteBorder />}
             checkedIcon={<Favorite />}
@@ -39,7 +40,9 @@ export default function RowComponent(props) {
             src={props.row.iconUrl} alt="logo">
         </img>
           <div className="symbolAndLogoCell">
-            <a href="#">{props.row.name}</a>
+            <Link to={`assets/${props.row.uuid}`}>
+              {props.row.name}
+            </Link>
             <p>{props.row.symbol}</p>
           </div>
         </div>

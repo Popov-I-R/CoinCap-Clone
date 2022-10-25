@@ -52,7 +52,7 @@ function GetRequestHooks() {
 
   }, []);
   const test = coins 
-  console.log(test);
+  
   return (
     <div className="card text-center m-3">
       <div className="card-body"> xexexexe</div>
