@@ -19,7 +19,7 @@ import {
   setIsRegistrButtonDisabled,
   setIsLoginButtonDisabled,
   setIsLogin,
-} from "../../../store/disablerButtonsSlice";
+} from "../../../store/IsLoginSlice";
 import { userManager } from "../../../userManager/UserManager";
 
 const style = {

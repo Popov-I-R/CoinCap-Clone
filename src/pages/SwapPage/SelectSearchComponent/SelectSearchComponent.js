@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import "./SelectSearchComponent.css";
 import SelectSearch from "react-select-search";
+import { useEffect } from "react";
 
-const SelectSearchComponent = ({ focus, blur }) => {
+const SelectSearchComponent = ({ focus, blur, calculatedValue }) => {
   
   const [value, setValue] = useState("");
+
   
   let fakeOptions = [
     {

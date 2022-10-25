@@ -43,6 +43,7 @@ export default function SwapComponent() {
                     ".select-search-select"
                   )[0].style.display = "none")
                 }
+                calculatedValue={""}
               />
 
               <KeyboardArrowDownIcon className="arrow-near-select" />
@@ -66,7 +67,7 @@ export default function SwapComponent() {
                 className="Currency-select-btn-token-icon"
               ></img>
 
-              <SelectSearchComponent
+              <SelectSearchComponent 
                 focus={() =>
                   (document.querySelectorAll(
                     ".select-search-select"
@@ -77,6 +78,7 @@ export default function SwapComponent() {
                     ".select-search-select"
                   )[1].style.display = "none")
                 }
+                calculatedValue={""}
               />
               <KeyboardArrowDownIcon className="arrow-near-select" />
             </span>
