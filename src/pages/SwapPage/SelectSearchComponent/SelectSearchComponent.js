@@ -155,7 +155,6 @@ const SelectSearchComponent = ({ focus, blur }) => {
     },
   ];
 
-
   const mySwapOptions = [{ name: "All coins",
       type: "group",
       items:[] }];

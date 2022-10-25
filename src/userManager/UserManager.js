@@ -43,7 +43,7 @@ export const userManager = (function(){
             return false;
         }
         actualUser(username) {
-            localStorage.setItem("actualUser", JSON.stringify(username));
+            localStorage.setItem("actualUser", JSON.stringify({username: username}));
         }
     
         checkForExistingUser(username) {

@@ -29,13 +29,6 @@
     text-decoration: none;
 }
 
-.Login-container {
-    display: block;
-}
-
-.Registration-container {
-    display: none;
-} 
 
 .Registration-container h2,
 .Login-container h2 {
@@ -62,7 +55,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    visibility: hidden;
     transition: 1s;
 }
 
@@ -77,15 +69,6 @@
     font-size: 14px;
     color: red;
     margin: 0;
-}
-
-#passMismatchError {
-    display: none;
-
-}
-
-#userExistsError {
-    display: none;
 }
 
 .form-for-password-field {

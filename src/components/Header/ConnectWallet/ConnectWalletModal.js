@@ -52,9 +52,7 @@ export default function ConnectWalletModal() {
   };
 
   function changeRegistrButtonCondition(username, password, passwordRepeat) {
-    let passMismatchError = document.querySelector("#passMismatchError");
-    let userExistsError = document.querySelector("#userExistsError");
-    userExistsError.style.display = "none";
+    setUserExistsError("none");
     if (username && password && passwordRepeat) {
       dispatch(setIsRegistrButtonDisabled(false));
     } else {
@@ -62,59 +60,46 @@ export default function ConnectWalletModal() {
     }
 
     if (password && passwordRepeat && password !== passwordRepeat) {
-      passMismatchError.style.display = "block";
+      setPassMismatchError("block");
       dispatch(setIsRegistrButtonDisabled(true));
     } else {
-      passMismatchError.style.display = "none";
+      setPassMismatchError("none");
     }
   }
 
   function tryRegister(username, password) {
-    let userExistsError = document.querySelector("#userExistsError");
-    let login = document.querySelector(".Login-container");
-    let register = document.querySelector(".Registration-container");
-
     if (userManager.addUser(username, password)) {
-      login.style.display = "block";
-      register.style.display = "none";
+      setDisplayLogProp("block");
+      setDisplayRegProp("none");
       setRegistrUsername("");
       setRegistrPassword("");
       setRegistrPasswordRepeat("");
-      userExistsError.style.display = "none";
+      setUserExistsError("none");
     } else {
       setRegistrUsername("");
       dispatch(setIsRegistrButtonDisabled(true));
-      userExistsError.style.display = "block";
+      setUserExistsError("block");
       setTimeout(() => {
-        userExistsError.style.display = "none";
+        setUserExistsError("none");
       }, 4000);
     }
   }
 
   function tryLogin(username, password) {
-    let wrongCredentials = document.querySelector(".Wrong-credentials-div");
-
     if (userManager.validateCredentials(username, password)) {
-      // window.location.pathname = "/";
       dispatch(setIsLoginButtonDisabled(true));
       userManager.actualUser(username);
       dispatch(setIsLogin());
       handleOpen();
       setLoginUsername("");
       setLoginPassword("");
-      document.querySelector(
-        "div.LogRegCntnr.Login-container > div:nth-child(2)"
-      ).style.pointerEvents = "none";
-      document.querySelector(
-        "div.LogRegCntnr.Login-container > div:nth-child(3)"
-      ).style.pointerEvents = "none";
     } else {
       setLoginUsername("");
       setLoginPassword("");
       dispatch(setIsLoginButtonDisabled(true));
-      wrongCredentials.style.visibility = "visible";
+      setWrongCredentials("visible");
       setTimeout(() => {
-        wrongCredentials.style.visibility = "hidden";
+        setWrongCredentials("hidden");
       }, 3000);
     }
   }
@@ -123,17 +108,18 @@ export default function ConnectWalletModal() {
     if (isLogin) {
       localStorage.removeItem("actualUser");
       dispatch(setIsLogin());
-      document.querySelector(
-        "div.LogRegCntnr.Login-container > div:nth-child(2)"
-      ).style.pointerEvents = "all";
-      document.querySelector(
-        "div.LogRegCntnr.Login-container > div:nth-child(3)"
-      ).style.pointerEvents = "all";
     }
   }
 
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(!open);
+
+  const [displayLogProp, setDisplayLogProp] = useState("block");
+  const [displayRegProp, setDisplayRegProp] = useState("none");
+
+  const [wrongCredentials, setWrongCredentials] = useState("hidden");
+  const [passMismatchError, setPassMismatchError] = useState("none");
+  const [userExistsError, setUserExistsError] = useState("none");
 
   const [loginUsername, setLoginUsername] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
@@ -157,7 +143,13 @@ export default function ConnectWalletModal() {
     <>
       <Button
         className="Connect-wallet-button"
-        onClick={handleOpen}
+        onClick={
+          !isLogin
+            ? handleOpen
+            : () => {
+                logout();
+              }
+        }
         style={{
           borderRadius: 40,
           backgroundColor: "rgb(24, 198, 131)",
@@ -168,7 +160,7 @@ export default function ConnectWalletModal() {
         }}
         variant="contained"
       >
-        {isLogin ? "Logout" : "Sign in & Sign up"}
+        {!isLogin ? "Sign in & Sign up" : "Logout"}
       </Button>
 
       <Modal
@@ -189,7 +181,10 @@ export default function ConnectWalletModal() {
               <img className="Lock-icon" src={LockIcon} alt="lockIcon"></img>
             </div>
 
-            <div className="LogRegCntnr Login-container">
+            <div
+              style={{ display: displayLogProp }}
+              className="LogRegCntnr Login-container"
+            >
               <h2>Login</h2>
 
               <Box
@@ -197,7 +192,6 @@ export default function ConnectWalletModal() {
                 sx={{
                   display: "flex",
                   alignItems: "flex-end",
-                  pointerEvents: isLogin ? "none" : "all",
                 }}
               >
                 <AccountCircle
@@ -223,7 +217,6 @@ export default function ConnectWalletModal() {
                 sx={{
                   display: "flex",
                   alignItems: "flex-end",
-                  pointerEvents: isLogin ? "none" : "all",
                 }}
               >
                 {flagForShowPassword ? (
@@ -258,7 +251,11 @@ export default function ConnectWalletModal() {
               </Box>
 
               <div className="Wrong-credentials-div">
-                <p className="Wrong-credentials-message" id="loginError">
+                <p
+                  style={{ visibility: wrongCredentials }}
+                  className="Wrong-credentials-message"
+                  id="loginError"
+                >
                   Wrong credentials!
                 </p>
               </div>
@@ -268,62 +265,37 @@ export default function ConnectWalletModal() {
                   sx={{
                     color: "#2f3640",
                     margin: "8px 0px 18px 0",
-                    pointerEvents: isLogin ? "none" : "all",
                   }}
                   control={<Checkbox />}
                   label="Remember me"
                 />
               </FormGroup>
 
-              {!isLogin ? (
-                <Button
-                  className="Sign-in-button"
-                  onClick={() => {
-                    tryLogin(loginUsername, loginPassword);
-                  }}
-                  style={{
-                    borderRadius: 10,
-                    backgroundColor: "rgb(24, 198, 131)",
-                    padding: "6px 14px",
-                    fontSize: "12px",
-                    boxShadow: "rgb(0 0 0 / 40%) 0px 2px 15px -3px",
-                    width: "100%",
-                    margin: "0 0 5px 0",
-                  }}
-                  variant="contained"
-                  disabled={isLoginButtonDisabled}
-                >
-                  Sign in
-                </Button>
-              ) : (
-                <Button
-                  className="Logout-button"
-                  onClick={() => {
-                    logout();
-                  }}
-                  style={{
-                    borderRadius: 10,
-                    backgroundColor: "rgb(24, 198, 131)",
-                    padding: "6px 12px 6px 11px",
-                    fontSize: "12px",
-                    boxShadow: "rgb(0 0 0 / 40%) 0px 2px 15px -3px",
-                    width: "100%",
-                    margin: "0 0 5px 0",
-                  }}
-                  variant="contained"
-                >
-                  Logout
-                </Button>
-              )}
+              <Button
+                className="Sign-in-button"
+                onClick={() => {
+                  tryLogin(loginUsername, loginPassword);
+                }}
+                style={{
+                  borderRadius: 10,
+                  backgroundColor: "rgb(24, 198, 131)",
+                  padding: "6px 14px",
+                  fontSize: "12px",
+                  boxShadow: "rgb(0 0 0 / 40%) 0px 2px 15px -3px",
+                  width: "100%",
+                  margin: "0 0 5px 0",
+                }}
+                variant="contained"
+                disabled={isLoginButtonDisabled}
+              >
+                Sign in
+              </Button>
 
               <a
                 className="Log-reg-link-a"
                 onClick={() => {
-                  document.querySelector(".Login-container").style.display =
-                    "none";
-                  document.querySelector(
-                    ".Registration-container"
-                  ).style.display = "block";
+                  setDisplayLogProp("none");
+                  setDisplayRegProp("block");
                   setLoginUsername("");
                   setLoginPassword("");
                 }}
@@ -332,7 +304,10 @@ export default function ConnectWalletModal() {
               </a>
             </div>
 
-            <div className="LogRegCntnr Registration-container">
+            <div
+              style={{ display: displayRegProp }}
+              className="LogRegCntnr Registration-container"
+            >
               <h2>Registration</h2>
               <Box
                 className="Input-box"
@@ -428,10 +403,18 @@ export default function ConnectWalletModal() {
               </Box>
 
               <div className="Registration-messages-div">
-                <p className="Wrong-credentials-message" id="passMismatchError">
+                <p
+                  style={{ display: passMismatchError }}
+                  className="Wrong-credentials-message"
+                  id="passMismatchError"
+                >
                   Your passwords don't match!
                 </p>
-                <p className="Wrong-credentials-message" id="userExistsError">
+                <p
+                  style={{ display: userExistsError }}
+                  className="Wrong-credentials-message"
+                  id="userExistsError"
+                >
                   Username is already taken!
                 </p>
               </div>
@@ -458,16 +441,12 @@ export default function ConnectWalletModal() {
               <a
                 className="Log-reg-link-a link-to-sign-in"
                 onClick={() => {
-                  document.querySelector(".Login-container").style.display =
-                    "block";
-                  document.querySelector(
-                    ".Registration-container"
-                  ).style.display = "none";
+                  setDisplayLogProp("block");
+                  setDisplayRegProp("none");
                   setRegistrUsername("");
                   setRegistrPassword("");
                   setRegistrPasswordRepeat("");
-                  document.querySelector("#passMismatchError").style.display =
-                    "none";
+                  setPassMismatchError("none");
                 }}
               >
                 Do you have an account?? Sign In
