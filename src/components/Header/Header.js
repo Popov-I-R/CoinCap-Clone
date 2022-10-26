@@ -90,7 +90,7 @@ const checkPage = (page) => {
 };
 
 const drawerWidth = 215;
-const navItems = ["Coins", "Exchanges", "Swap", "My watchlist"];
+const navItems = ["Coins", "Exchanges", "Swap", "My watchlist", "My portfolio"];
 const navItemsNoAutorisation = ["Coins", "Exchanges", "Swap"];
 const navItemsMobile = [
   "Coins",

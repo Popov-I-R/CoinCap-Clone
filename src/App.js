@@ -8,7 +8,6 @@ import Portfolio from "./pages/PortfolioPage/Portfolio";
 import Watchlist from "./pages/WatchlistPage/Watchlist";
 import Swap from "./pages/SwapPage/Swap";
 import Exchanges from "./pages/ExchangesPage/Exchanges";
-import Assets from "./pages/AssetsPage/Assets";
 import AssetID from "./pages/AssetsPage/Asset";
 
 function App() {
@@ -25,7 +24,6 @@ function App() {
             <Route path="/swap" element={<Swap />} />
             <Route path="/my-watchlist" element={<Watchlist/>} />
             <Route path="/my-portfolio" element={<Portfolio />} />
-            <Route path='/assets' element={<Assets/>}/>
             <Route path='/assets/:assetIdentificator' element={<AssetID/>}/>
           </Routes>
         </div>

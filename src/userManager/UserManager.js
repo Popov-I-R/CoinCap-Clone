@@ -3,9 +3,11 @@ export const userManager = (function () {
     constructor(username, password) {
       this.username = username;
       this.password = password;
+      this.watchlistIDs = []
       this.assets = [];
       this.money = 3000;
       this.theme = "light";
+      this.preferedCurrencyID = "239djD"
     }
   }
 
@@ -33,10 +35,10 @@ export const userManager = (function () {
       }
       return false;
     }
-    actualUser(username) {
-      let actualUser = { ...new User(username) };
-      delete actualUser.password;
-      localStorage.setItem("actualUser", JSON.stringify(actualUser));
+    activeUser(username) {
+      let activeUser = { ...new User(username) };
+      delete activeUser.password;
+      localStorage.setItem("activeUser", JSON.stringify(activeUser));
     }
 
     checkForExistingUser(username) {
