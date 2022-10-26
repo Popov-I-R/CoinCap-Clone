@@ -1,25 +1,16 @@
-import { alpha } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import TableSortLabel from "@mui/material/TableSortLabel";
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
-import { visuallyHidden } from "@mui/utils";
-import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
 import RowComponent from "./TableRowComponent";
-import {MainHeadCells} from "./MainHeadCells"
 import  { useState, useEffect } from "react";
-import { API_KEY } from "../../../secrets";
 import { useDispatch, useSelector } from "react-redux";
-
+import { useNavigate } from "react-router-dom";
 import { addToWatchlist, removeFromWatchlist } from "../../../userManager/activeUser";
-
+import MainTableHead from "./MainTableHead";
+import useAxios from "../../../hooks/useAxios";
+import axios from "../../../apis/coinranking";
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -37,114 +28,27 @@ function getComparator(order, orderBy) {
     : (a, b) => -descendingComparator(a, b, orderBy);
 }
 
-const headCells = MainHeadCells()
-
-function MainTableHead(props) {
-  const { order, orderBy, onRequestSort } = props;
-
-  const createSortHandler = (property) => (event) => {
-    onRequestSort(event, property);
-  };
-
-  return (
-    <TableHead>
-      <TableRow>
-        <TableCell align="center" padding="checkbox">
-          <FavoriteBorder align="center" />
-        </TableCell>
-        {headCells.map((headCell) => (
-          <TableCell
-            key={headCell.id}
-            align={headCell.numeric ? "right" : "left"}
-            padding={headCell.disablePadding ? "none" : "normal"}
-            sortDirection={orderBy === headCell.id ? order : false}
-          >
-            <TableSortLabel
-              active={orderBy === headCell.id}
-              direction={orderBy === headCell.id ? order : "asc"}
-              onClick={createSortHandler(headCell.id)}
-            >
-              {headCell.label}
-              {orderBy === headCell.id ? (
-                <Box component="span" sx={visuallyHidden}>
-                  {order === "desc" ? "sorted descending" : "sorted ascending"}
-                </Box>
-              ) : null}
-            </TableSortLabel>
-          </TableCell>
-        ))}
-      </TableRow>
-    </TableHead>
-  );
-}
-
-// const CurrentTableToolbar = (props) => {
-//   const { numSelected } = props;
-//   return (
-//     <Toolbar
-//       sx={{
-//         pl: { sm: 2 },
-//         pr: { xs: 1, sm: 1 },
-//         ...(numSelected > 0 && {
-//           bgcolor: (theme) =>
-//             alpha(
-//               theme.palette.primary.main,
-//               theme.palette.action.activatedOpacity
-//             ),
-//         }),
-//       }}
-//     >
-//       {numSelected > 0 ? (
-//         <Typography
-//           sx={{ flex: "1 1 100%" }}
-//           color="inherit"
-//           variant="subtitle1"
-//           component="div"
-//         >
-//           {numSelected} selected
-//         </Typography>
-//       ) : (
-//         <Typography
-//           sx={{ flex: "1 1 100%" }}
-//           variant="h6"
-//           id="tableTitle"
-//           component="div"
-//         >
-//           Watchlist is empty
-//         </Typography>
-//       )}
-//     </Toolbar>
-//   );
-// };
-
 export default function MainTable() {
   const [order, setOrder] = useState("asc");
   const [orderBy, setOrderBy] = useState("rank");
-  
   const [selectedForWatchlist, setSelectedForWatchlist] = useState([]); // Watchlist array test
-  const [arrOfFakeResponse, setCoins] = useState([]);
+  const navigate = useNavigate()
+
+  const coinsLimit = 25
+
+  const [coins,error,loading] = useAxios({
+    axiosInstance: axios,
+    method: `GET`,
+    url: `coins?timePeriod=24h&tiers%5B0%5D=1&orderBy=marketCap&orderDirection=desc&limit=${coinsLimit}&offset=0`,
+    requestConfig: {
+      // headers: {
+      //   "limit" : "25"
+      // }
+    }
+  })
 
   // const watchlist = useSelector(state => state.watchlist);
   // const dispatch = useDispatch();
-
-
- 
-  useEffect(() => {
-    // let arr = [];
-
-    const optionsReq = {
-        method: "GET",
-        headers: {
-          "x-access-token": API_KEY
-        },
-      };
-    const limitPage = 25
-      fetch(`https://api.coinranking.com/v2/coins?timePeriod=24h&tiers%5B0%5D=1&orderBy=marketCap&orderDirection=desc&limit=${limitPage}&offset=0`,optionsReq)
-      .then((res) => res.json())
-      .then((data) => {
-        setCoins(data.data.coins)})
-  }, []);
-
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
@@ -168,8 +72,6 @@ export default function MainTable() {
       );
     }
     setSelectedForWatchlist(newSelected);
-    
-    console.log(selectedForWatchlist);
   };
 
   const isSelected = (uuid) => selectedForWatchlist.indexOf(uuid) !== -1;
@@ -177,7 +79,6 @@ export default function MainTable() {
   return (
     <Box sx={{ width: "100%" }}>
       <Paper sx={{ width: "100%", mb: 2 }}>
-        {/* <CurrentTableToolbar numSelected={selected.length} /> */}
         <TableContainer>
           <Table
             sx={{ minWidth: 750, columns: 8, background: "#FAFAFA" }}
@@ -191,7 +92,7 @@ export default function MainTable() {
               onRequestSort={handleRequestSort}
             />
             <TableBody sx={{ background: "white" }}>
-              {arrOfFakeResponse
+              {coins
                 .slice()
                 .sort(getComparator(order, orderBy))
                 .map((row, index) => {

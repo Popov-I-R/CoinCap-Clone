@@ -5,6 +5,7 @@ export default function PieChart(props) {
   const options = {
     title: "My Assets",
     is3D: true,
+    sliceVisibilityThreshold: .00000000000000001
   };
 
   return (

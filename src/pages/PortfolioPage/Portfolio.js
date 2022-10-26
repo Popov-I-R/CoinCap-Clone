@@ -6,10 +6,10 @@ export default function Portfolio() {
   // Да се конвертира в кеш
   const myAssets = [
     ["Task", "Hours per Day"],
-    ["ETH", 11],
-    ["ADA", 2],
-    ["BNB", 2],
-    ["BTC", 3.2],
+    ["ETH", (11 * 1200)],
+    ["ADA", (2 * 0.40)],
+    ["BNB", (2 * 130)],
+    ["BTC", (1 * 1000)],
   ];
 
 
