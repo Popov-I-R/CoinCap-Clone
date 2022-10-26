@@ -21,6 +21,7 @@ import {
   setIsLogin,
 } from "../../../store/IsLoginSlice";
 import { userManager } from "../../../userManager/UserManager";
+import { setMyBalance } from "../../../store/SwapSlice";
 
 const style = {
   position: "absolute",
@@ -107,11 +108,12 @@ export default function ConnectWalletModal() {
   function logout() {
     if (isLogin) {
       localStorage.removeItem("actualUser");
+      dispatch(setMyBalance(0))
       dispatch(setIsLogin());
     }
   }
 
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(!open);
 
   const [displayLogProp, setDisplayLogProp] = useState("block");
@@ -167,7 +169,15 @@ export default function ConnectWalletModal() {
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
         open={open}
-        onClose={handleOpen}
+        onClose={() => {
+          setLoginUsername("");
+          setLoginPassword("");
+          setRegistrUsername("");
+          setRegistrPassword("");
+          setRegistrPasswordRepeat("");
+          setPassMismatchError("none");
+          handleOpen();
+        }}
         closeAfterTransition
         BackdropComponent={Backdrop}
         sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}

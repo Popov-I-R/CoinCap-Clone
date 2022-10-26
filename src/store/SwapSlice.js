@@ -1,8 +1,13 @@
+import React from "react";
 import { createSlice } from "@reduxjs/toolkit";
+import defaultIconUrl from "../components/Icons/QuestionCoin.png"
 
 
 const initialState = {
   allCoins: [],
+  firstCoinIconUrl: defaultIconUrl,
+  secondCoinIconUrl: defaultIconUrl,
+  myBalance: 0
 };
 
 
@@ -28,15 +33,21 @@ const initialState = {
 //     console.log(initialState.allCoins)
 //   })
 
-// export const coinsForSwapSlice = createSlice({
-//   name: "conditionDrowerAndModals",
-//   initialState,
-//   reducers: {
-//     setWalletModalOpen: (state) => {
-//       state.walletModalOpen = !state.walletModalOpen;
-//     },
-//   },
-// });
+export const coinsForSwapSlice = createSlice({
+  name: "conditionDrowerAndModals",
+  initialState,
+  reducers: {
+    setFirstCoinIconUrl: (state, action) => {
+      state.firstCoinIconUrl = action.payload;
+    },
+    setSecondCoinIconUrl: (state, action) => {
+      state.secondCoinIconUrl = action.payload;
+    },
+    setMyBalance: (state, action) => {
+      state.myBalance = action.payload;
+    }
+  },
+});
 
-// export const { setWalletModalOpen } = drowerModalSlice.actions;
-// export default drowerModalSlice.reducer;
+export const { setFirstCoinIconUrl, setSecondCoinIconUrl, setMyBalance } = coinsForSwapSlice.actions;
+export default coinsForSwapSlice.reducer;

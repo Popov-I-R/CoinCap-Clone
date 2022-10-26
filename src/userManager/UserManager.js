@@ -6,6 +6,13 @@ export const userManager = (function () {
       this.assets = [];
       this.money = 3000;
       this.theme = "light";
+      this.myBalance = {
+        USDT: 3500,
+        BTC: 2,
+        ETH: 8, 
+        BNB: 25,
+        XRP: 120,
+      };
     }
   }
 
