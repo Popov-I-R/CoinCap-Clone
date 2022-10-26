@@ -88,7 +88,7 @@ export default function ConnectWalletModal() {
   function tryLogin(username, password) {
     if (userManager.validateCredentials(username, password)) {
       dispatch(setIsLoginButtonDisabled(true));
-      userManager.actualUser(username);
+      userManager.activeUser(username);
       dispatch(setIsLogin());
       handleOpen();
       setLoginUsername("");
@@ -106,7 +106,7 @@ export default function ConnectWalletModal() {
 
   function logout() {
     if (isLogin) {
-      localStorage.removeItem("actualUser");
+      localStorage.removeItem("activeUser");
       dispatch(setIsLogin());
     }
   }

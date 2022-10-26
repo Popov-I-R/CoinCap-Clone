@@ -16,6 +16,10 @@ import RowComponent from "./TableRowComponent";
 import {MainHeadCells} from "./MainHeadCells"
 import  { useState, useEffect } from "react";
 import { API_KEY } from "../../../secrets";
+import { useDispatch, useSelector } from "react-redux";
+
+import { addToWatchlist, removeFromWatchlist } from "../../../userManager/activeUser";
+
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -116,8 +120,14 @@ function MainTableHead(props) {
 export default function MainTable() {
   const [order, setOrder] = useState("asc");
   const [orderBy, setOrderBy] = useState("rank");
+  
   const [selectedForWatchlist, setSelectedForWatchlist] = useState([]); // Watchlist array test
   const [arrOfFakeResponse, setCoins] = useState([]);
+
+  // const watchlist = useSelector(state => state.watchlist);
+  // const dispatch = useDispatch();
+
+
  
   useEffect(() => {
     // let arr = [];
@@ -144,17 +154,21 @@ export default function MainTable() {
 
   const handleClickAddToWatchlist = (event, uuid) => {
     event.stopPropagation();
+    
     const selectedIndex = selectedForWatchlist.indexOf(uuid);
     let newSelected = [];
     if (selectedIndex === -1) {
+      addToWatchlist(uuid)
       newSelected = [...selectedForWatchlist, uuid];
     } else {
+      removeFromWatchlist(uuid)
       newSelected = newSelected.concat(
         selectedForWatchlist.slice(0, selectedIndex),
         selectedForWatchlist.slice(selectedIndex + 1)
       );
     }
     setSelectedForWatchlist(newSelected);
+    
     console.log(selectedForWatchlist);
   };
 

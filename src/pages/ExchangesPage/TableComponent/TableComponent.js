@@ -14,7 +14,6 @@ import RowComponent from "./TableRowComponent";
 import {TableHeadCells} from "./TableHeadCells"
 import  { useState, useEffect } from "react";
 
-
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
     return -1;

@@ -28,6 +28,5 @@ export function loginUser(username, password) {
 }
 
 export function getActiveUser() {   
-
     return JSON.parse(localStorage.getItem('activeUser'));
 }

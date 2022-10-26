@@ -2,13 +2,15 @@ import React from "react";
 import { useState, useEffect } from "react";
 import Highcharts from "highcharts/highstock";
 import HighchartsReact from "highcharts-react-official";
+import { API_KEY } from "../../secrets";
 
 let symbol = "BTC";
 
-let dataUrl =
-  "https://coinranking1.p.rapidapi.com/coin/Qwsogvtv82FCd/history?referenceCurrencyUuid=yhjMzLPhuIDl&timePeriod=5y";
-
-function MainGraph() {
+function MainGraph(props) {
+  console.log(props.uuid)
+  let dataUrl =
+  `https://api.coinranking.com/v2/coin/${props.uuid}/history?timePeriod=${props.timePeriod}&referenceCurrencyUuid=yhjMzLPhuIDl`;
+  
   const [appState, setAppState] = useState({
     loading: false,
     data: null,
@@ -21,8 +23,7 @@ function MainGraph() {
     const optionsReq = {
         method: "GET",
         headers: {
-          "X-RapidAPI-Key": "30027b2007mshd40995eb9b5a54ap1361c1jsncf2e7eda5150",
-          "X-RapidAPI-Host": "coinranking1.p.rapidapi.com",
+          "x-access-token": API_KEY
         },
       };
 
