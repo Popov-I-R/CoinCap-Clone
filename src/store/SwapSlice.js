@@ -3,6 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   allCoins: [],
+  
+
 };
 
 
@@ -28,15 +30,13 @@ const initialState = {
 //     console.log(initialState.allCoins)
 //   })
 
-// export const coinsForSwapSlice = createSlice({
-//   name: "conditionDrowerAndModals",
-//   initialState,
-//   reducers: {
-//     setWalletModalOpen: (state) => {
-//       state.walletModalOpen = !state.walletModalOpen;
-//     },
-//   },
-// });
+export const forSwapSlice = createSlice({
+  name: "forSwap",
+  initialState,
+  reducers: {
+    
+  },
+});
 
-// export const { setWalletModalOpen } = drowerModalSlice.actions;
-// export default drowerModalSlice.reducer;
+export const {  } = forSwapSlice.actions;
+export default forSwapSlice.reducer;

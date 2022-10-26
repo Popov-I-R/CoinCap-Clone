@@ -9,7 +9,6 @@ import ConnectWalletModal from "../../components/Header/ConnectWallet/ConnectWal
 import { useSelector, useDispatch } from "react-redux";
 import Button from "@mui/material/Button";
 
-
 export default function SwapComponent() {
   const isLogin = useSelector((state) => state.disabler.isLogin);
 
@@ -31,21 +30,9 @@ export default function SwapComponent() {
                 src="https://assets.coincap.io/assets/icons/eth@2x.png"
                 className="Currency-select-btn-token-icon"
               ></img>
-
               <SelectSearchComponent
-                focus={() =>
-                  (document.querySelectorAll(
-                    ".select-search-select"
-                  )[0].style.display = "block")
-                }
-                blur={() =>
-                  (document.querySelectorAll(
-                    ".select-search-select"
-                  )[0].style.display = "none")
-                }
-                calculatedValue={""}
+                calculatedValue={0}
               />
-
               <KeyboardArrowDownIcon className="arrow-near-select" />
             </span>
           </div>
@@ -67,18 +54,8 @@ export default function SwapComponent() {
                 className="Currency-select-btn-token-icon"
               ></img>
 
-              <SelectSearchComponent 
-                focus={() =>
-                  (document.querySelectorAll(
-                    ".select-search-select"
-                  )[1].style.display = "block")
-                }
-                blur={() =>
-                  (document.querySelectorAll(
-                    ".select-search-select"
-                  )[1].style.display = "none")
-                }
-                calculatedValue={""}
+              <SelectSearchComponent
+                calculatedValue={0}
               />
               <KeyboardArrowDownIcon className="arrow-near-select" />
             </span>
@@ -86,26 +63,25 @@ export default function SwapComponent() {
         </div>
         <div className="Swap-button-container">
           {!isLogin ? (
-          <ConnectWalletModal />
-        ) : (
-          <Button
-            className="Swap-button"
-            // onClick={()=>{swap()}}
-            style={{
-              borderRadius: 40,
-              backgroundColor: "rgb(24, 198, 131)",
-              padding: "7px 16px",
-              fontSize: "20px",
-              boxShadow: "rgb(0 0 0 / 40%) 0px 2px 15px -3px",
-              minWidth: "250px",
-            }}
-            variant="contained"
-          >
-            Swap now
-          </Button>
-        )}
+            <ConnectWalletModal />
+          ) : (
+            <Button
+              className="Swap-button"
+              // onClick={()=>{swap()}}
+              style={{
+                borderRadius: 40,
+                backgroundColor: "rgb(24, 198, 131)",
+                padding: "7px 16px",
+                fontSize: "20px",
+                boxShadow: "rgb(0 0 0 / 40%) 0px 2px 15px -3px",
+                minWidth: "250px",
+              }}
+              variant="contained"
+            >
+              Swap now
+            </Button>
+          )}
         </div>
-        
       </div>
     </div>
   );
