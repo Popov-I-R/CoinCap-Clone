@@ -3,7 +3,8 @@ import "./SelectSearchComponent.css";
 import SelectSearch from "react-select-search";
 import { useEffect } from "react";
 
-const SelectSearchComponent = ({ focus, blur, calculatedValue }) => {
+
+const SelectSearchComponent = ({  }) => {
   
   const [value, setValue] = useState("");
 
@@ -165,15 +166,13 @@ const SelectSearchComponent = ({ focus, blur, calculatedValue }) => {
   }
 
   return (
-    <div className="select-search-box">
+    <div className= "select-search-box">
       <div style={{ margin: "0 auto", maxWidth: 200 }}>
         <SelectSearch
           className="select-search"
           options={mySwapOptions}
           value={value}
           onChange={setValue}
-          onFocus={focus}
-          onBlur={blur}
           search
           placeholder="Сhoose..."
         />

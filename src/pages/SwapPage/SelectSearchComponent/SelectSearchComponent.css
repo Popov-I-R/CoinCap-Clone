@@ -2,6 +2,7 @@
     text-align: center;
     width: 100%;
 }
+
 .select-search-container {
   position: relative;
   width: 100%;
@@ -88,6 +89,12 @@
     overflow-y: scroll;
     overflow-x: hidden;
   }
+
+  .select-search-container.select-search-has-focus .select-search-select{
+    display: block;
+  }
+
+
   
   /**
   * Options
