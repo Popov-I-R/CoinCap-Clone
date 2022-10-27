@@ -424,6 +424,7 @@ export default function ConnectWalletModal() {
 
               <div className="Registration-messages-div">
                 <p
+                
                   style={{ display: passMismatchError }}
                   className="Wrong-credentials-message"
                   id="passMismatchError"
