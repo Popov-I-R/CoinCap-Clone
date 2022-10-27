@@ -4,15 +4,15 @@ import BlueBarForDetailsOfCoin from './BlueBarForDetailsOfCoin/BlueBarForDetails
 
 import MainGraph from "./MainGraph";
 
+
 const AssetID = () => {
-    const { assetIdentificator } = useParams()
+    const { assetIdentificator } = useParams();
     const timePeriod = "5y"
-    
-    
+    const rangeSelectorEnabler= true
     return( 
         <div> 
         <BlueBarForDetailsOfCoin></BlueBarForDetailsOfCoin>
-        <MainGraph uuid={assetIdentificator} timePeriod={timePeriod}> </MainGraph>
+        <MainGraph uuid={assetIdentificator} rangeSelectorEnabler={rangeSelectorEnabler} timePeriod={timePeriod}> </MainGraph>
             <h4>{assetIdentificator}</h4>
         </div>
     )

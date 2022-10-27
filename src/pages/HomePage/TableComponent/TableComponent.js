@@ -11,6 +11,9 @@ import { addToWatchlist, removeFromWatchlist } from "../../../userManager/active
 import MainTableHead from "./MainTableHead";
 import useAxios from "../../../hooks/useAxios";
 import axios from "../../../apis/coinranking";
+// import { addToWatchlistRedux } from "../../../store/WatchlistReducer";
+
+import { addToWatchlistRedux } from "../../../store/WatchlistReducer";
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -35,20 +38,24 @@ export default function MainTable() {
   const navigate = useNavigate()
 
   const coinsLimit = 25
-
-  const [coins,error,loading] = useAxios({
+  const [coins, error, loading] = useAxios({
     axiosInstance: axios,
     method: `GET`,
-    url: `coins?timePeriod=24h&tiers%5B0%5D=1&orderBy=marketCap&orderDirection=desc&limit=${coinsLimit}&offset=0`,
+    url: `coins?`,
     requestConfig: {
-      // headers: {
-      //   "limit" : "25"
-      // }
+      params: {
+        "limit" : `${coinsLimit}`,
+        "timePeriod" : "24h",
+        "orderBy" : "marketCap",
+        "orderDirection" : "desc",
+        "offset" : "0",
+        "referenceCurrencyUuid" : "yhjMzLPhuIDl",
+      }
     }
   })
 
-  // const watchlist = useSelector(state => state.watchlist);
-  // const dispatch = useDispatch();
+  const watchlist = useSelector((state) => state.watchlistSlice.watchlist);
+  const dispatch = useDispatch();
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
@@ -62,6 +69,7 @@ export default function MainTable() {
     const selectedIndex = selectedForWatchlist.indexOf(uuid);
     let newSelected = [];
     if (selectedIndex === -1) {
+      dispatch(addToWatchlistRedux([...watchlist,uuid]));
       addToWatchlist(uuid)
       newSelected = [...selectedForWatchlist, uuid];
     } else {

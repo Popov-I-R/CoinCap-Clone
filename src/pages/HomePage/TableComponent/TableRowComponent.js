@@ -56,6 +56,7 @@ export default function RowComponent(props) {
         </TableCell>
       </TableRow>
       <CollapseTable
+        key={props.uuid}
         row={props.row}
         open={open}
         handleClickOpen={props.handleClickOpen}

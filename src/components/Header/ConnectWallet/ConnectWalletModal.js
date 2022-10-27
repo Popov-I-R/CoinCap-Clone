@@ -23,6 +23,9 @@ import {
 import { userManager } from "../../../userManager/UserManager";
 import { setMyBalance } from "../../../store/SwapSlice";
 
+import { addToWatchlistRedux } from "../../../store/WatchlistReducer";
+import { getActiveUser } from "../../../userManager/activeUser";
+
 const style = {
   position: "absolute",
   maxWidth: 460,
@@ -86,6 +89,9 @@ export default function ConnectWalletModal() {
     }
   }
 
+
+
+
   function tryLogin(username, password) {
     if (userManager.validateCredentials(username, password)) {
       dispatch(setIsLoginButtonDisabled(true));
@@ -94,6 +100,9 @@ export default function ConnectWalletModal() {
       handleOpen();
       setLoginUsername("");
       setLoginPassword("");
+      const activeUser = getActiveUser()
+      const currentWatchlist = activeUser.watchlistIDs
+      dispatch(addToWatchlistRedux(currentWatchlist));
     } else {
       setLoginUsername("");
       setLoginPassword("");

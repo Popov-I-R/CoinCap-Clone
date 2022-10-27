@@ -1,19 +1,22 @@
 import { createSlice } from '@reduxjs/toolkit'
 
+const initialState = {
+  watchlist: JSON.parse(localStorage.getItem("activeUser"))?.watchlistIDs || []
+}
+
 const watchlistSlice = createSlice({
   name: 'watchlist',
-  initialState: JSON.parse(localStorage.getItem("actualUser"))?.assets || [],
+  initialState,
   reducers: {
-    addToWatchlist(state, action) {
-      
+    addToWatchlistRedux(state, action) {
+      state.watchlist = action.payload;
     },
-    removeFromWatchlist(state, action) {
-      const coin = state.find(coin => coin.id === action.payload)
-      coin.completed = !coin.completed
+    removeFromWatchlistRedux(state, action) {
+      state.watchlist = action.payload;
     }
   }
 })
 
 
-export const { addToWatchlist, removeFromWatchlist } = watchlistSlice.actions
+export const { addToWatchlistRedux, removeFromWatchlist } = watchlistSlice.actions
 export default watchlistSlice.reducer
