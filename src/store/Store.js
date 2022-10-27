@@ -1,15 +1,16 @@
 import { configureStore } from "@reduxjs/toolkit";
 import drowerModalSliceReducer from "./ModalsDrowerSlice"
 import  disabler  from "./IsLoginSlice";
-import watchlistReducer from "./WatchlistReducer";
-import swapSlice from "./SwapSlice";
+import swaper from "./SwapSlice";
+// import watchlistReducer from "./WatchlistReducer";
 
 export const store = configureStore({
     reducer: {
         drowerModalSlice: drowerModalSliceReducer,
         disabler: disabler,
-        watchlist: watchlistReducer,
-        swaper: swapSlice,
+        swaper: swaper,
+        
+        // watchlist: watchlistReducer
     }
 
 });

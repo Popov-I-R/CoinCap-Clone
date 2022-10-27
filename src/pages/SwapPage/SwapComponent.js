@@ -1,16 +1,53 @@
 import React from "react";
 import "./SwapComponent.css";
 import shuffle from "../../components/Icons/shuffle.svg";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import SelectSearchComponent from "./SelectSearchComponent/SelectSearchComponent";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import InputAmountForSwap from "./InputOnlyNumberForSwap/InputAmountForSwap";
 import ConnectWalletModal from "../../components/Header/ConnectWallet/ConnectWalletModal";
 import { useSelector, useDispatch } from "react-redux";
 import Button from "@mui/material/Button";
+import {
+  setFirstCoinIconUrl,
+  setSecondCoinIconUrl,
+  setMyBalance,
+  setRateFirstCoin,
+  setRateSecondCoin,
+  setFirstChosenCoinPrice,
+  setSecondChosenCoinPrice,
+  setRate,
+} from "../../store/SwapSlice";
 
 export default function SwapComponent() {
   const isLogin = useSelector((state) => state.disabler.isLogin);
+  const firstCoinIcon = useSelector((state) => state.swaper.firstCoinIconUrl);
+  const secondCoinIcon = useSelector((state) => state.swaper.secondCoinIconUrl);
+  const myBalance = useSelector((state) => state.swaper.myBalance);
+  const rateFirstCoin = useSelector((state) => state.swaper.rateFirstCoin);
+  const rateSecondCoin = useSelector((state) => state.swaper.rateSecondCoin);
+
+  const rate = useSelector((state) => state.swaper.rate);
+  const [rateDisplayd, setRateDisplayd] = useState("hidden");
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+  if(rateFirstCoin.length > 0 && rateSecondCoin.length > 0){
+
+      setRateDisplayd("visible");
+
+    }
+  }, [rateFirstCoin, rateSecondCoin])
+  
+
+  const checkRateDisplayd = () => {
+    if(rateFirstCoin.length > 0 && rateSecondCoin.length > 0){
+      setRateDisplayd("block")
+    }
+  };
+
+  // const newRate = (PrivacyTipOutlined)
 
   return (
     <div className="Swap-component">
@@ -21,25 +58,33 @@ export default function SwapComponent() {
         <div className="Currency-input">
           <div className="Currency-input-title">
             <label>You Sell</label>
-            <label>Your balance: {"34.5783 ETH"}</label>
+            <label>
+              Your balance: {myBalance} {rateFirstCoin}
+            </label>
           </div>
           <div className="Currency-input-currency-input-row">
             <InputAmountForSwap />
             <span className="Currency-select-btn-inner">
               <img
-                src="https://assets.coincap.io/assets/icons/eth@2x.png"
+                src={firstCoinIcon}
                 className="Currency-select-btn-token-icon"
               ></img>
               <SelectSearchComponent
-                calculatedValue={0}
+                changeCoinIcon={(url) => dispatch(setFirstCoinIconUrl(url))}
+                changeMyBalance={(balance) => dispatch(setMyBalance(balance))}
+                changeRateCoin={(symbol) => dispatch(setRateFirstCoin(symbol))}
+                setChosenCoinPrice={(price) => dispatch(setFirstChosenCoinPrice(price))}
               />
-              <KeyboardArrowDownIcon className="arrow-near-select" />
             </span>
           </div>
         </div>
 
         <div className="Swapper-center-row">
           <img src={shuffle} className="Swapper-styled-icon"></img>
+          <h4 style={{ visibility: rateDisplayd }} className="rateH4">
+            1<p>{rateFirstCoin}</p> = {rate}
+            <p>{rateSecondCoin}</p>
+          </h4>
         </div>
 
         <div className="Currency-input">
@@ -50,14 +95,16 @@ export default function SwapComponent() {
             <InputAmountForSwap />
             <span className="Currency-select-btn-inner">
               <img
-                src="https://assets.coincap.io/assets/icons/eth@2x.png"
+                src={secondCoinIcon}
                 className="Currency-select-btn-token-icon"
               ></img>
 
               <SelectSearchComponent
-                calculatedValue={0}
+                changeCoinIcon={(url) => dispatch(setSecondCoinIconUrl(url))}
+                changeMyBalance={() => dispatch(setMyBalance(myBalance))}
+                changeRateCoin={(symbol) => dispatch(setRateSecondCoin(symbol))}
+                setChosenCoinPrice={(price) => dispatch(setSecondChosenCoinPrice(price))}
               />
-              <KeyboardArrowDownIcon className="arrow-near-select" />
             </span>
           </div>
         </div>
