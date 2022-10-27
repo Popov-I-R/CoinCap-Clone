@@ -3,7 +3,6 @@ import "./SwapComponent.css";
 import shuffle from "../../components/Icons/shuffle.svg";
 import { useState, useEffect } from "react";
 import SelectSearchComponent from "./SelectSearchComponent/SelectSearchComponent";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import InputAmountForSwap from "./InputOnlyNumberForSwap/InputAmountForSwap";
 import ConnectWalletModal from "../../components/Header/ConnectWallet/ConnectWalletModal";
 import { useSelector, useDispatch } from "react-redux";
@@ -26,28 +25,27 @@ export default function SwapComponent() {
   const myBalance = useSelector((state) => state.swaper.myBalance);
   const rateFirstCoin = useSelector((state) => state.swaper.rateFirstCoin);
   const rateSecondCoin = useSelector((state) => state.swaper.rateSecondCoin);
-
+  const firstChosenCoinPrice  = useSelector((state) => state.swaper.firstChosenCoinPrice);
+  const secondChosenCoinPrice = useSelector((state) => state.swaper.secondChosenCoinPrice);
   const rate = useSelector((state) => state.swaper.rate);
+
   const [rateDisplayd, setRateDisplayd] = useState("hidden");
+  const [firstCalculatedValue, setFirstCalculatedValue] = useState("");
+  const [secondCalculatedValue, setSecondCalculatedValue] = useState("");
+  const [numberToCalc1, setNumberToCalc1] = useState(1);
+  const [numberToCalc2, setNumberToCalc2] = useState(1);
+
 
   const dispatch = useDispatch();
 
   useEffect(() => {
   if(rateFirstCoin.length > 0 && rateSecondCoin.length > 0){
-
       setRateDisplayd("visible");
-
+      dispatch(setRate(firstChosenCoinPrice/secondChosenCoinPrice))
+      setSecondCalculatedValue(numberToCalc1*numberToCalc2)
     }
   }, [rateFirstCoin, rateSecondCoin])
   
-
-  const checkRateDisplayd = () => {
-    if(rateFirstCoin.length > 0 && rateSecondCoin.length > 0){
-      setRateDisplayd("block")
-    }
-  };
-
-  // const newRate = (PrivacyTipOutlined)
 
   return (
     <div className="Swap-component">
@@ -63,7 +61,7 @@ export default function SwapComponent() {
             </label>
           </div>
           <div className="Currency-input-currency-input-row">
-            <InputAmountForSwap />
+            <InputAmountForSwap calculatedValue={firstCalculatedValue} setNumberToCalc={setNumberToCalc1}/>
             <span className="Currency-select-btn-inner">
               <img
                 src={firstCoinIcon}
@@ -92,7 +90,7 @@ export default function SwapComponent() {
             <label>You Get</label>
           </div>
           <div className="Currency-input-currency-input-row">
-            <InputAmountForSwap />
+            <InputAmountForSwap calculatedValue={secondCalculatedValue} setNumberToCalc={setNumberToCalc2}/>
             <span className="Currency-select-btn-inner">
               <img
                 src={secondCoinIcon}

@@ -1,10 +1,17 @@
 import React from "react";
 import "./InputAmountForSwap.css";
 import { useState } from "react";
+import { useEffect } from "react";
 
-export default function InputAmountForSwap() {
+export default function InputAmountForSwap({calculatedValue, setNumberToCalc}) {
 
-    const [currency, setCurrency] = useState("");
+    const [inputValue, setInputValue] = useState("");
+
+    useEffect(() => {
+      setInputValue(calculatedValue);
+    }, [calculatedValue])
+    
+
 
   return (
     <input
@@ -16,8 +23,8 @@ export default function InputAmountForSwap() {
             value === "" ||
             (value !== "." &&
               value[value.length - 1] === "." &&
-              !currency.includes(".")) ||
-            value.length < currency.length) &&
+              !inputValue.includes(".")) ||
+            value.length < inputValue.length) &&
           value !== "00" &&
           value !== "01" &&
           value !== "02" &&
@@ -29,7 +36,8 @@ export default function InputAmountForSwap() {
           value !== "08" &&
           value !== "09"
         ) {
-          setCurrency(value);
+          setInputValue(value);
+          setNumberToCalc(Number(value));
         } else if (
           value === "00" ||
           value === "01" ||
@@ -42,7 +50,8 @@ export default function InputAmountForSwap() {
           value === "08" ||
           value === "09"
         ) {
-          setCurrency(`${currency}.${value[value.length - 1]}`);
+          setInputValue(`${inputValue}.${value[value.length - 1]}`);
+          setNumberToCalc(Number(value));
         }
       }}
       inputMode="decimal"
@@ -55,7 +64,7 @@ export default function InputAmountForSwap() {
       type="text"
       placeholder="0"
       className="Currency-input-styled-input"
-      value={currency}
+      value={inputValue}
     ></input>
   );
 }

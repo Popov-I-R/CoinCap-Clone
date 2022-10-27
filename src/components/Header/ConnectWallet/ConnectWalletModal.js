@@ -116,7 +116,7 @@ export default function ConnectWalletModal() {
 
   function logout() {
     if (isLogin) {
-      localStorage.removeItem("actualUser");
+      localStorage.removeItem("activeUser");
       dispatch(setMyBalance(0))
       dispatch(setIsLogin());
     }
@@ -317,6 +317,7 @@ export default function ConnectWalletModal() {
                   setDisplayRegProp("block");
                   setLoginUsername("");
                   setLoginPassword("");
+                  dispatch(setIsLoginButtonDisabled(true));
                 }}
               >
                 Don't have an account? Sign Up
@@ -466,6 +467,7 @@ export default function ConnectWalletModal() {
                   setRegistrPassword("");
                   setRegistrPasswordRepeat("");
                   setPassMismatchError("none");
+                  dispatch(setIsRegistrButtonDisabled(true));
                 }}
               >
                 Do you have an account?? Sign In
