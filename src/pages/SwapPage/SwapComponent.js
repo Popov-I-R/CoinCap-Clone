@@ -1,7 +1,7 @@
 import React from "react";
 import "./SwapComponent.css";
 import shuffle from "../../components/Icons/shuffle.svg";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import SelectSearchComponent from "./SelectSearchComponent/SelectSearchComponent";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import InputAmountForSwap from "./InputOnlyNumberForSwap/InputAmountForSwap";
@@ -14,9 +14,11 @@ import {
   setMyBalance,
   setRateFirstCoin,
   setRateSecondCoin,
+  setFirstChosenCoinPrice,
+  setSecondChosenCoinPrice,
   setRate,
 } from "../../store/SwapSlice";
-import { PrivacyTipOutlined } from "@mui/icons-material";
+
 
 export default function SwapComponent() {
   const isLogin = useSelector((state) => state.disabler.isLogin);
@@ -25,16 +27,25 @@ export default function SwapComponent() {
   const myBalance = useSelector((state) => state.swaper.myBalance);
   const rateFirstCoin = useSelector((state) => state.swaper.rateFirstCoin);
   const rateSecondCoin = useSelector((state) => state.swaper.rateSecondCoin);
+
   const rate = useSelector((state) => state.swaper.rate);
-  const [rateDisplayd, setRateDisplayd] = useState("none");
+  const [rateDisplayd, setRateDisplayd] = useState("hidden");
 
   const dispatch = useDispatch();
 
+  useEffect(() => {
+  if(rateFirstCoin.length > 0 && rateSecondCoin.length > 0){
+
+      setRateDisplayd("visible");
+
+    }
+  }, [rateFirstCoin, rateSecondCoin])
+  
+
   const checkRateDisplayd = () => {
-    // if(rateFirstCoin.length > 0 && rateSecondCoin.length > 0){
-    //   dispatch(setRateDisplayd("block"))
-    // }
-    console.log(rateFirstCoin.length, rateSecondCoin.length);
+    if(rateFirstCoin.length > 0 && rateSecondCoin.length > 0){
+      setRateDisplayd("block")
+    }
   };
 
   // const newRate = (PrivacyTipOutlined)
@@ -63,9 +74,8 @@ export default function SwapComponent() {
               <SelectSearchComponent
                 changeCoinIcon={(url) => dispatch(setFirstCoinIconUrl(url))}
                 changeMyBalance={(balance) => dispatch(setMyBalance(balance))}
-                // changeRate={(price)=>newRate(price)}
                 changeRateCoin={(symbol) => dispatch(setRateFirstCoin(symbol))}
-                checkRateDisplayd={checkRateDisplayd}
+                setChosenCoinPrice={(price) => dispatch(setFirstChosenCoinPrice(price))}
               />
             </span>
           </div>
@@ -73,7 +83,7 @@ export default function SwapComponent() {
 
         <div className="Swapper-center-row">
           <img src={shuffle} className="Swapper-styled-icon"></img>
-          <h4 style={{ display: rateDisplayd }} className="rateH4">
+          <h4 style={{ visibility: rateDisplayd }} className="rateH4">
             1<p>{rateFirstCoin}</p> = {rate}
             <p>{rateSecondCoin}</p>
           </h4>
@@ -94,9 +104,8 @@ export default function SwapComponent() {
               <SelectSearchComponent
                 changeCoinIcon={(url) => dispatch(setSecondCoinIconUrl(url))}
                 changeMyBalance={() => dispatch(setMyBalance(myBalance))}
-                // changeRate={(price)=>newRate(price)}
                 changeRateCoin={(symbol) => dispatch(setRateSecondCoin(symbol))}
-                checkRateDisplayd={checkRateDisplayd}
+                setChosenCoinPrice={(price) => dispatch(setSecondChosenCoinPrice(price))}
               />
             </span>
           </div>

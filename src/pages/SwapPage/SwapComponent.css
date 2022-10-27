@@ -13,9 +13,9 @@
     border-image: initial;
     border-radius: 13px;
     background: rgb(255, 255, 255);
-    max-width: 450px ;
+    max-width: 450px;
     height: 450px;
-    
+
 }
 
 .Swap-component-header {
@@ -61,7 +61,7 @@
 .Swap-component-body .Currency-input {
     font-size: 14px;
     line-height: 1.4285em;
-    color: rgba(0,0,0,.87);
+    color: rgba(0, 0, 0, .87);
     font-family: Lato, Helvetica, Arial, sans-serif;
     box-sizing: inherit;
     border-radius: 12px;
@@ -76,7 +76,7 @@
 .Swap-component-body .Currency-input-title {
     font-size: 14px;
     line-height: 1.4285em;
-    color: rgba(0,0,0,.87);
+    color: rgba(0, 0, 0, .87);
     font-family: Lato, Helvetica, Arial, sans-serif;
     box-sizing: inherit;
     display: flex;
@@ -89,7 +89,7 @@
 .Swap-component-body .Currency-input-currency-input-row {
     font-size: 14px;
     line-height: 1.4285em;
-    color: rgba(0,0,0,.87);
+    color: rgba(0, 0, 0, .87);
     font-family: Lato, Helvetica, Arial, sans-serif;
     box-sizing: inherit;
     display: flex;
@@ -102,7 +102,9 @@
 .Swap-component-body .Currency-select-token-btn:focus {
     outline: none;
 }
-.Currency-select-token-btn:hover, .Currency-select-btn-inner:hover {
+
+.Currency-select-token-btn:hover,
+.Currency-select-btn-inner:hover {
     cursor: pointer;
     color: rgb(22, 171, 113) !important;
 }
@@ -163,6 +165,7 @@
     width: auto;
     margin-right: 10px;
 }
+
 .Swap-component-body .Currency-input {
     line-height: 1.15;
     text-transform: none;
@@ -177,7 +180,7 @@
 .Swap-component-body .Swapper-center-row {
     font-size: 14px;
     line-height: 1.4285em;
-    color: rgba(0,0,0,.87);
+    color: rgba(0, 0, 0, .87);
     font-family: Lato, Helvetica, Arial, sans-serif;
     box-sizing: inherit;
     display: flex;
@@ -201,10 +204,10 @@
 }
 
 .arrow-near-select {
-    margin-left: 10px ;
+    margin-left: 10px;
 }
 
-.Swap-button-container{
+.Swap-button-container {
     width: 100%;
     height: 120px;
     display: flex;
@@ -212,16 +215,18 @@
     align-items: center;
 }
 
-.rateH4{
+.rateH4 {
     margin: 0;
     display: flex;
-flex-direction: row;
-/* align-items: baseline; */
+    flex-direction: row;
+    align-items: center;
 }
 
 .rateH4 p {
     padding-left: 5px;
+    margin: 0;
 }
-.rateH4 p:first-child{
-    padding-right: 2px;
+
+.rateH4 p:first-child {
+    padding-right: 5px;
 }

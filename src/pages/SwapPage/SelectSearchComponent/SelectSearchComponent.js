@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import "./SelectSearchComponent.css";
-import { useEffect } from "react";
 import Select from "react-select";
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
@@ -8,10 +7,11 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 const SelectSearchComponent = ({
   changeCoinIcon,
   changeMyBalance,
-  changeRate,
   changeRateCoin,
-  checkRateDisplayd,
+  setChosenCoinPrice,
+  
 }) => {
+
   // let realOptions;
   // useEffect(() => {
   //   const options = {
@@ -29,17 +29,7 @@ const SelectSearchComponent = ({
   //      console.log(data);
   //     });
   // }, []);
-  // const asyncFunc = () => useEffect(() => {});
-  const doAwait = createAsyncThunk((label)=>{
-    let newLabel = new Promise(()=>{
-      changeRateCoin(label);
-    })
-    newLabel.then(()=>{
-      checkRateDisplayd();
-    })
-  })
-
-
+  
 
   let fakeOptions = [
     {
@@ -2292,7 +2282,8 @@ const SelectSearchComponent = ({
                 currentCoin
               ] || 0
             );
-            doAwait(e.label);
+            changeRateCoin(e.label)
+            setChosenCoinPrice(e.price)
           }}
         />
       </div>

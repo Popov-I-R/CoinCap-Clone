@@ -9,6 +9,8 @@ const initialState = {
   myBalance: 0,
   rateFirstCoin: "",
   rateSecondCoin: "",
+  firstChosenCoinPrice: 0,
+  secondChosenCoinPrice: 0,
   rate: 0,
 };
 
@@ -34,6 +36,12 @@ export const coinsForSwapSlice = createSlice({
     setRate: (state, action) => {
       state.rate = action.payload;
     },
+    setFirstChosenCoinPrice: (state, action) => {
+      state.firstChosenCoinPrice = action.payload;
+    },
+    setSecondChosenCoinPrice: (state, action) => {
+      state.secondChosenCoinPrice = action.payload;
+    },
   },
 });
 
@@ -43,6 +51,8 @@ export const {
   setMyBalance,
   setRateFirstCoin,
   setRateSecondCoin,
+  setFirstChosenCoinPrice,
+  setSecondChosenCoinPrice,
   setRate,
 } = coinsForSwapSlice.actions;
 export default coinsForSwapSlice.reducer;
