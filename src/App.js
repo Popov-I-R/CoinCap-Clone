@@ -25,6 +25,7 @@ function App() {
             <Route path="/my-watchlist" element={<Watchlist/>} />
             <Route path="/my-portfolio" element={<Portfolio />} />
             <Route path='/assets/:assetIdentificator' element={<AssetID/>}/>
+            <Route path='/something-went-wrong' element={<div>404 - Something went wrong</div>}/>
           </Routes>
         </div>
         <Footer />
