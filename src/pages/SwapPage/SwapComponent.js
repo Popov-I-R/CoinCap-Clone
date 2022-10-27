@@ -11,16 +11,33 @@ import Button from "@mui/material/Button";
 import {
   setFirstCoinIconUrl,
   setSecondCoinIconUrl,
-  setMyBalance
+  setMyBalance,
+  setRateFirstCoin,
+  setRateSecondCoin,
+  setRate,
 } from "../../store/SwapSlice";
+import { PrivacyTipOutlined } from "@mui/icons-material";
 
 export default function SwapComponent() {
   const isLogin = useSelector((state) => state.disabler.isLogin);
   const firstCoinIcon = useSelector((state) => state.swaper.firstCoinIconUrl);
   const secondCoinIcon = useSelector((state) => state.swaper.secondCoinIconUrl);
-  const myBalance = useSelector((state)=> state.swaper.myBalance);
+  const myBalance = useSelector((state) => state.swaper.myBalance);
+  const rateFirstCoin = useSelector((state) => state.swaper.rateFirstCoin);
+  const rateSecondCoin = useSelector((state) => state.swaper.rateSecondCoin);
+  const rate = useSelector((state) => state.swaper.rate);
+  const [rateDisplayd, setRateDisplayd] = useState("none");
 
   const dispatch = useDispatch();
+
+  const checkRateDisplayd = () => {
+    // if(rateFirstCoin.length > 0 && rateSecondCoin.length > 0){
+    //   dispatch(setRateDisplayd("block"))
+    // }
+    console.log(rateFirstCoin.length, rateSecondCoin.length);
+  };
+
+  // const newRate = (PrivacyTipOutlined)
 
   return (
     <div className="Swap-component">
@@ -31,7 +48,9 @@ export default function SwapComponent() {
         <div className="Currency-input">
           <div className="Currency-input-title">
             <label>You Sell</label>
-            <label>Your balance: {myBalance}</label>
+            <label>
+              Your balance: {myBalance} {rateFirstCoin}
+            </label>
           </div>
           <div className="Currency-input-currency-input-row">
             <InputAmountForSwap />
@@ -44,6 +63,9 @@ export default function SwapComponent() {
               <SelectSearchComponent
                 changeCoinIcon={(url) => dispatch(setFirstCoinIconUrl(url))}
                 changeMyBalance={(balance) => dispatch(setMyBalance(balance))}
+                // changeRate={(price)=>newRate(price)}
+                changeRateCoin={(symbol) => dispatch(setRateFirstCoin(symbol))}
+                checkRateDisplayd={checkRateDisplayd}
               />
             </span>
           </div>
@@ -51,6 +73,10 @@ export default function SwapComponent() {
 
         <div className="Swapper-center-row">
           <img src={shuffle} className="Swapper-styled-icon"></img>
+          <h4 style={{ display: rateDisplayd }} className="rateH4">
+            1<p>{rateFirstCoin}</p> = {rate}
+            <p>{rateSecondCoin}</p>
+          </h4>
         </div>
 
         <div className="Currency-input">
@@ -67,7 +93,10 @@ export default function SwapComponent() {
 
               <SelectSearchComponent
                 changeCoinIcon={(url) => dispatch(setSecondCoinIconUrl(url))}
-                changeMyBalance={(balance) => dispatch(setMyBalance(myBalance))}
+                changeMyBalance={() => dispatch(setMyBalance(myBalance))}
+                // changeRate={(price)=>newRate(price)}
+                changeRateCoin={(symbol) => dispatch(setRateSecondCoin(symbol))}
+                checkRateDisplayd={checkRateDisplayd}
               />
             </span>
           </div>

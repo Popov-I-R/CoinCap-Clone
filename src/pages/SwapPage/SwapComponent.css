@@ -190,14 +190,14 @@
 
 .Swap-component-body .Swapper-center-row .Swapper-styled-icon {
     font-size: 14px;
-    line-height: 1.4285em;
+    line-height: 1em;
     font-family: Lato, Helvetica, Arial, sans-serif;
     box-sizing: inherit;
     border-style: none;
     max-width: 25px;
     display: block !important;
     color: rgb(24, 198, 131) !important;
-    margin: 16px 0px 16px 20px;
+    margin: 10px 0px 10px 20px;
 }
 
 .arrow-near-select {
@@ -210,4 +210,18 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.rateH4{
+    margin: 0;
+    display: flex;
+flex-direction: row;
+/* align-items: baseline; */
+}
+
+.rateH4 p {
+    padding-left: 5px;
+}
+.rateH4 p:first-child{
+    padding-right: 2px;
 }

@@ -1,12 +1,18 @@
 import React, { useState } from "react";
 import "./SelectSearchComponent.css";
-import SelectSearch from "react-select-search";
 import { useEffect } from "react";
 import Select from "react-select";
+import { createAsyncThunk } from '@reduxjs/toolkit';
 
-const SelectSearchComponent = ({changeCoinIcon, changeMyBalance}) => {
+
+const SelectSearchComponent = ({
+  changeCoinIcon,
+  changeMyBalance,
+  changeRate,
+  changeRateCoin,
+  checkRateDisplayd,
+}) => {
   // let realOptions;
-
   // useEffect(() => {
   //   const options = {
   //     method: "GET",
@@ -22,8 +28,18 @@ const SelectSearchComponent = ({changeCoinIcon, changeMyBalance}) => {
   //       // realOptions = data.data.coins
   //      console.log(data);
   //     });
-
   // }, []);
+  // const asyncFunc = () => useEffect(() => {});
+  const doAwait = createAsyncThunk((label)=>{
+    let newLabel = new Promise(()=>{
+      changeRateCoin(label);
+    })
+    newLabel.then(()=>{
+      checkRateDisplayd();
+    })
+  })
+
+
 
   let fakeOptions = [
     {
@@ -2265,24 +2281,18 @@ const SelectSearchComponent = ({changeCoinIcon, changeMyBalance}) => {
   return (
     <div className="select-search-box">
       <div style={{ margin: "0 auto", maxWidth: 200 }}>
-        {/* <SelectSearch
-          className="select-search"
-          options={mySwapOptions}
-          value={value}
-          onChange={setValue}
-          onFocus={focus}
-          onBlur={blur}
-          search
-          placeholder="Сhoose..."
-        /> */}
-
         <Select
           className="select-search"
           options={mySwapOptions}
           onChange={(e) => {
             changeCoinIcon(e.iconUrl);
             let currentCoin = e.label;
-            changeMyBalance(JSON.parse(localStorage.getItem("actualUser"))?.myBalance[currentCoin] || 0);
+            changeMyBalance(
+              JSON.parse(localStorage.getItem("actualUser"))?.myBalance[
+                currentCoin
+              ] || 0
+            );
+            doAwait(e.label);
           }}
         />
       </div>
