@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import "./SelectSearchComponent.css";
 import Select from "react-select";
-import { createAsyncThunk } from '@reduxjs/toolkit';
 
 
 const SelectSearchComponent = ({
@@ -9,7 +8,6 @@ const SelectSearchComponent = ({
   changeMyBalance,
   changeRateCoin,
   setChosenCoinPrice,
-  
 }) => {
 
   // let realOptions;
@@ -2278,7 +2276,7 @@ const SelectSearchComponent = ({
             changeCoinIcon(e.iconUrl);
             let currentCoin = e.label;
             changeMyBalance(
-              JSON.parse(localStorage.getItem("actualUser"))?.myBalance[
+              JSON.parse(localStorage.getItem("activeUser"))?.myBalance[
                 currentCoin
               ] || 0
             );

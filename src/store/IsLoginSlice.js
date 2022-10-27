@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   isLoginButtonDisabled: true,
   isRegistrButtonDisabled: true,
-  isLogin: localStorage.getItem("actualUser") ? true : false
+  isLogin: localStorage.getItem("activeUser") ? true : false
 };
 
 export const disabler = createSlice({
