@@ -2276,9 +2276,7 @@ const SelectSearchComponent = ({
             changeCoinIcon(e.iconUrl);
             let currentCoin = e.label;
             changeMyBalance(
-              JSON.parse(localStorage.getItem("activeUser"))?.myBalance[
-                currentCoin
-              ] || 0
+              JSON.parse(localStorage.getItem("activeUser"))?.myBalance[currentCoin]?.toFixed(5) || 0
             );
             changeRateCoin(e.label)
             setChosenCoinPrice(e.price)

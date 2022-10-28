@@ -25,27 +25,94 @@ export default function SwapComponent() {
   const myBalance = useSelector((state) => state.swaper.myBalance);
   const rateFirstCoin = useSelector((state) => state.swaper.rateFirstCoin);
   const rateSecondCoin = useSelector((state) => state.swaper.rateSecondCoin);
-  const firstChosenCoinPrice  = useSelector((state) => state.swaper.firstChosenCoinPrice);
-  const secondChosenCoinPrice = useSelector((state) => state.swaper.secondChosenCoinPrice);
+  const firstChosenCoinPrice = useSelector(
+    (state) => state.swaper.firstChosenCoinPrice
+  );
+  const secondChosenCoinPrice = useSelector(
+    (state) => state.swaper.secondChosenCoinPrice
+  );
   const rate = useSelector((state) => state.swaper.rate);
 
   const [rateDisplayd, setRateDisplayd] = useState("hidden");
   const [firstCalculatedValue, setFirstCalculatedValue] = useState("");
   const [secondCalculatedValue, setSecondCalculatedValue] = useState("");
-  const [numberToCalc1, setNumberToCalc1] = useState(1);
-  const [numberToCalc2, setNumberToCalc2] = useState(1);
+  const [numberToCalc1, setNumberToCalc1] = useState(0);
+  const [numberToCalc2, setNumberToCalc2] = useState(0);
+  const [firstFinalNumberToSwap, setFirstFinalNumberToSwap] = useState(0);
+  const [secondFinalNumberToSwap, setSecondFinalNumberToSwap] = useState(0);
+  const [cleaner, setCleaner] = useState(false);
 
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-  if(rateFirstCoin.length > 0 && rateSecondCoin.length > 0){
+    if (rateFirstCoin.length > 0 && rateSecondCoin.length > 0) {
       setRateDisplayd("visible");
-      dispatch(setRate(firstChosenCoinPrice/secondChosenCoinPrice))
-      setSecondCalculatedValue(numberToCalc1*numberToCalc2)
+      dispatch(setRate(firstChosenCoinPrice / secondChosenCoinPrice));
     }
-  }, [rateFirstCoin, rateSecondCoin])
-  
+  }, [rateFirstCoin, rateSecondCoin]);
+
+  useEffect(() => {
+    if (rateFirstCoin.length > 0 && rateSecondCoin.length > 0) {
+      setSecondCalculatedValue(
+        (
+          numberToCalc1 *
+          (firstChosenCoinPrice / secondChosenCoinPrice)
+        ).toFixed(5)
+      );
+    }
+    if (numberToCalc1 === 0) {
+      setSecondCalculatedValue("");
+    }
+  }, [numberToCalc1]);
+
+  useEffect(() => {
+    if (rateFirstCoin.length > 0 && rateSecondCoin.length > 0) {
+      setFirstCalculatedValue(
+        (
+          numberToCalc2 /
+          (firstChosenCoinPrice / secondChosenCoinPrice)
+        ).toFixed(5)
+      );
+    }
+    if (numberToCalc2 === 0) {
+      setFirstCalculatedValue("");
+    }
+  }, [numberToCalc2]);
+
+  const swap = () => {
+    const thisUser = JSON.parse(localStorage.getItem("activeUser"));
+    const sellCoins = Number(firstFinalNumberToSwap);
+    const getCoins = Number(secondFinalNumberToSwap);
+    if (thisUser.myBalance[rateFirstCoin] >= sellCoins) {
+      thisUser.myBalance[rateFirstCoin] =
+        thisUser.myBalance[rateFirstCoin] - sellCoins;
+      if (thisUser.myBalance[rateSecondCoin]) {
+        thisUser.myBalance[rateSecondCoin] =
+          thisUser.myBalance[rateSecondCoin] + getCoins;
+      } else {
+        thisUser.myBalance[rateSecondCoin] = getCoins;
+      }
+    }
+    localStorage.setItem("activeUser", JSON.stringify(thisUser));
+    const updatedUsers = JSON.parse(localStorage.getItem("users"));
+    updatedUsers.map((user) => {
+      if (user.id === thisUser.id) {
+        user.myBalance = thisUser.myBalance;
+      }
+    });
+    localStorage.setItem("users", JSON.stringify(updatedUsers));
+    dispatch(setMyBalance(
+      thisUser.myBalance[rateFirstCoin].toFixed(5)
+    ))
+
+      // setNumberToCalc1(0);
+      // setNumberToCalc2(0);
+      
+      setCleaner(!cleaner);
+      setFirstFinalNumberToSwap(0);
+      setSecondFinalNumberToSwap(0);
+  };
 
   return (
     <div className="Swap-component">
@@ -61,7 +128,12 @@ export default function SwapComponent() {
             </label>
           </div>
           <div className="Currency-input-currency-input-row">
-            <InputAmountForSwap calculatedValue={firstCalculatedValue} setNumberToCalc={setNumberToCalc1}/>
+            <InputAmountForSwap
+              calculatedValue={firstCalculatedValue}
+              setNumberToCalc={setNumberToCalc1}
+              setFinalNumberToSwap={setFirstFinalNumberToSwap}
+              cleaner={cleaner}
+            />
             <span className="Currency-select-btn-inner">
               <img
                 src={firstCoinIcon}
@@ -71,7 +143,9 @@ export default function SwapComponent() {
                 changeCoinIcon={(url) => dispatch(setFirstCoinIconUrl(url))}
                 changeMyBalance={(balance) => dispatch(setMyBalance(balance))}
                 changeRateCoin={(symbol) => dispatch(setRateFirstCoin(symbol))}
-                setChosenCoinPrice={(price) => dispatch(setFirstChosenCoinPrice(price))}
+                setChosenCoinPrice={(price) =>
+                  dispatch(setFirstChosenCoinPrice(price))
+                }
               />
             </span>
           </div>
@@ -80,7 +154,7 @@ export default function SwapComponent() {
         <div className="Swapper-center-row">
           <img src={shuffle} className="Swapper-styled-icon"></img>
           <h4 style={{ visibility: rateDisplayd }} className="rateH4">
-            1<p>{rateFirstCoin}</p> = {rate}
+            1<p>{rateFirstCoin}</p> = {rate.toFixed(5)}
             <p>{rateSecondCoin}</p>
           </h4>
         </div>
@@ -90,7 +164,12 @@ export default function SwapComponent() {
             <label>You Get</label>
           </div>
           <div className="Currency-input-currency-input-row">
-            <InputAmountForSwap calculatedValue={secondCalculatedValue} setNumberToCalc={setNumberToCalc2}/>
+            <InputAmountForSwap
+              calculatedValue={secondCalculatedValue}
+              setNumberToCalc={setNumberToCalc2}
+              setFinalNumberToSwap={setSecondFinalNumberToSwap}
+              cleaner={cleaner}
+            />
             <span className="Currency-select-btn-inner">
               <img
                 src={secondCoinIcon}
@@ -101,7 +180,9 @@ export default function SwapComponent() {
                 changeCoinIcon={(url) => dispatch(setSecondCoinIconUrl(url))}
                 changeMyBalance={() => dispatch(setMyBalance(myBalance))}
                 changeRateCoin={(symbol) => dispatch(setRateSecondCoin(symbol))}
-                setChosenCoinPrice={(price) => dispatch(setSecondChosenCoinPrice(price))}
+                setChosenCoinPrice={(price) =>
+                  dispatch(setSecondChosenCoinPrice(price))
+                }
               />
             </span>
           </div>
@@ -112,7 +193,9 @@ export default function SwapComponent() {
           ) : (
             <Button
               className="Swap-button"
-              // onClick={()=>{swap()}}
+              onClick={() => {
+                swap();
+              }}
               style={{
                 borderRadius: 40,
                 backgroundColor: "rgb(24, 198, 131)",

@@ -1,6 +1,8 @@
 export const userManager = (function () {
+
   class User {
-    constructor(username, password) {
+    constructor(username, password, id) {
+      this.id = id;
       this.username = username;
       this.password = password;
       this.watchlistIDs = ["AidAK232"]
@@ -33,8 +35,9 @@ export const userManager = (function () {
 
     addUser(username, password) {
       if (!this.checkForExistingUser(username)) {
-        this.users.push(new User(username, password));
-        //                            serialization of the users
+        const id = this.users[this.users.length - 1]?.id || 0;
+        this.users.push(new User(username, password, id+1));
+
         localStorage.setItem("users", JSON.stringify(this.users));
 
         return true;
@@ -42,7 +45,8 @@ export const userManager = (function () {
       return false;
     }
     activeUser(username) {
-      let activeUser = { ...new User(username) };
+      const index = this.users.findIndex(user => user.username === username);
+      const activeUser =  this.users[index] ;
       delete activeUser.password;
       localStorage.setItem("activeUser", JSON.stringify(activeUser));
     }

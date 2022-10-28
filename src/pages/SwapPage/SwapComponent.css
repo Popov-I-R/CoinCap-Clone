@@ -1,20 +1,12 @@
 .Swap-component {
-    font-size: 14px;
-    line-height: 1.4285em;
     color: rgba(0, 0, 0, .87);
     font-family: Lato, Helvetica, Arial, sans-serif;
-    box-sizing: inherit;
-    /* z-index: 1; */
     box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 9px;
-    position: relative;
-    border-width: 0px;
-    border-style: initial;
-    border-color: initial;
-    border-image: initial;
     border-radius: 13px;
     background: rgb(255, 255, 255);
     max-width: 450px;
     height: 450px;
+    margin-top: -5vh;
 
 }
 
@@ -31,10 +23,7 @@
     margin-bottom: 17px;
     color: rgba(0, 0, 0, 0.9);
     padding: 20px 20px 0px;
-    border-width: initial !important;
-    border-style: none !important;
-    border-color: initial !important;
-    border-image: initial !important;
+    
 }
 
 .Swap-component-header h3 {

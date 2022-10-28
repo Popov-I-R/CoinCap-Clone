@@ -3,15 +3,19 @@ import "./InputAmountForSwap.css";
 import { useState } from "react";
 import { useEffect } from "react";
 
-export default function InputAmountForSwap({calculatedValue, setNumberToCalc}) {
+export default function InputAmountForSwap({calculatedValue, setNumberToCalc, setFinalNumberToSwap, cleaner}) {
 
     const [inputValue, setInputValue] = useState("");
 
     useEffect(() => {
       setInputValue(calculatedValue);
+      setFinalNumberToSwap(calculatedValue);
     }, [calculatedValue])
-    
 
+    useEffect(() => {
+      setInputValue("");
+    }, [cleaner])
+    
 
   return (
     <input
@@ -38,6 +42,7 @@ export default function InputAmountForSwap({calculatedValue, setNumberToCalc}) {
         ) {
           setInputValue(value);
           setNumberToCalc(Number(value));
+          setFinalNumberToSwap(Number(value));
         } else if (
           value === "00" ||
           value === "01" ||
@@ -52,6 +57,7 @@ export default function InputAmountForSwap({calculatedValue, setNumberToCalc}) {
         ) {
           setInputValue(`${inputValue}.${value[value.length - 1]}`);
           setNumberToCalc(Number(value));
+          setFinalNumberToSwap(Number(value));
         }
       }}
       inputMode="decimal"
