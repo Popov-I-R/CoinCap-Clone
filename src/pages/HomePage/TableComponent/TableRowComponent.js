@@ -8,10 +8,21 @@ import SparkLine from "./SparklineComponent/SparklineComponent";
 import "./SparklineComponent/Sparkline.css"
 import "./TableComponent.css"
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 export default function RowComponent(props) {
   const [open, setOpen] = useState(false);
   const labelId = props.labelId;
+
+  const watchlist = useSelector((state) => state.watchlistSlice.watchlist);
+
+  function checkForCoin(uuid){
+    if (watchlist.includes(uuid)) {
+      return true
+    }
+    return false
+  }
+  
   return (
     <>
       <TableRow
@@ -22,10 +33,10 @@ export default function RowComponent(props) {
       >
         <TableCell padding="checkbox">
           <Checkbox
-            checked={props.isItemSelected}
+            checked={checkForCoin(props.row.uuid)}
             onClick={(event) => props.handleClickAddToWatchlist(event, props.row.uuid)}
             {...labelId}
-            icon={<FavoriteBorder />}
+            icon={ <FavoriteBorder />}
             checkedIcon={<Favorite />}
           />
         </TableCell>

@@ -6,14 +6,9 @@ import Paper from "@mui/material/Paper";
 import RowComponent from "./TableRowComponent";
 import  { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import { addToWatchlist, removeFromWatchlist } from "../../../userManager/activeUser";
 import MainTableHead from "./MainTableHead";
-import useAxios from "../../../hooks/useAxios";
-import axios from "../../../apis/coinranking";
-// import { addToWatchlistRedux } from "../../../store/WatchlistReducer";
-
-import { addToWatchlistRedux } from "../../../store/WatchlistReducer";
+import { addToWatchlistRedux, removeFromWatchlistRedux } from "../../../store/WatchlistReducer";
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -31,32 +26,14 @@ function getComparator(order, orderBy) {
     : (a, b) => -descendingComparator(a, b, orderBy);
 }
 
-export default function MainTable() {
+export default function MainTable(props) {
   const [order, setOrder] = useState("asc");
   const [orderBy, setOrderBy] = useState("rank");
   const [selectedForWatchlist, setSelectedForWatchlist] = useState([]); // Watchlist array test
-  const navigate = useNavigate()
-
-  const coinsLimit = 25
-  const [coins, error, loading] = useAxios({
-    axiosInstance: axios,
-    method: `GET`,
-    url: `coins?`,
-    requestConfig: {
-      params: {
-        "limit" : `${coinsLimit}`,
-        "timePeriod" : "24h",
-        "orderBy" : "marketCap",
-        "orderDirection" : "desc",
-        "offset" : "0",
-        "referenceCurrencyUuid" : "yhjMzLPhuIDl",
-      }
-    }
-  })
-
-  const watchlist = useSelector((state) => state.watchlistSlice.watchlist);
+  const [coins, error, loading] = props.FetchCoins()
   const dispatch = useDispatch();
-
+  const watchlist = useSelector((state) => state.watchlistSlice.watchlist);
+  
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
     setOrder(isAsc ? "desc" : "asc");
@@ -69,15 +46,16 @@ export default function MainTable() {
     const selectedIndex = selectedForWatchlist.indexOf(uuid);
     let newSelected = [];
     if (selectedIndex === -1) {
-      dispatch(addToWatchlistRedux([...watchlist,uuid]));
       addToWatchlist(uuid)
       newSelected = [...selectedForWatchlist, uuid];
+      dispatch(addToWatchlistRedux([newSelected]));
     } else {
       removeFromWatchlist(uuid)
       newSelected = newSelected.concat(
         selectedForWatchlist.slice(0, selectedIndex),
         selectedForWatchlist.slice(selectedIndex + 1)
       );
+      dispatch(removeFromWatchlistRedux(newSelected))
     }
     setSelectedForWatchlist(newSelected);
   };

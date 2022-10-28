@@ -6,12 +6,11 @@ const useAxios = (configObj) => {
   const [response, setResponse] = useState([]);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
-
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   function handleError() {
-  navigate("*")
-}
+    navigate("*");
+  }
 
   useEffect(() => {
     const controller = new AbortController();
@@ -19,13 +18,12 @@ const useAxios = (configObj) => {
       try {
         const res = await axiosInstance[method.toLowerCase()](url, {
           ...requestConfig,
-        //   signal: controller.signal,
+          //   signal: controller.signal,
         });
-        
-        setResponse(res.data.data.coins);
 
+        setResponse(res.data.data.coins);
       } catch (err) {
-            handleError()
+        handleError();
       } finally {
         setLoading(false);
       }
