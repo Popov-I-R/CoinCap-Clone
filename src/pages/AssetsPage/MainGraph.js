@@ -2,7 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import Highcharts from "highcharts/highstock";
 import HighchartsReact from "highcharts-react-official";
-import getHistory from "../../hooks/getHistory";
+import getHistory from "../../AxiosHooks/getHistory";
 import axios from "../../apis/coinranking";
 
 

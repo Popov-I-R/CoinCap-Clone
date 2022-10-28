@@ -17,6 +17,5 @@ const watchlistSlice = createSlice({
   }
 })
 
-
-export const { addToWatchlistRedux, removeFromWatchlist } = watchlistSlice.actions
+export const { addToWatchlistRedux, removeFromWatchlistRedux } = watchlistSlice.actions
 export default watchlistSlice.reducer

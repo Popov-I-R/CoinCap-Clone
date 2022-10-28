@@ -3,7 +3,7 @@ export const userManager = (function () {
     constructor(username, password) {
       this.username = username;
       this.password = password;
-      this.watchlistIDs = ["AidAK232"]
+      this.watchlistIDs = ["Qwsogvtv82FCd"]
       this.assets = [];
       this.money = 3000;
       this.theme = "light";

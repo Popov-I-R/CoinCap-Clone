@@ -11,7 +11,6 @@ export const store = configureStore({
         swaper: swaper,
         watchlistSlice: watchlistSlice,
     }
-
 });
 
 
