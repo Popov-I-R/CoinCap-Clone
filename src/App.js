@@ -9,6 +9,7 @@ import Watchlist from "./pages/WatchlistPage/Watchlist";
 import Swap from "./pages/SwapPage/Swap";
 import Exchanges from "./pages/ExchangesPage/Exchanges";
 import AssetID from "./pages/AssetsPage/Asset";
+import ErrorPage from "./pages/ErrorPage/ErrorPage";
 
 function App() {
   return (
@@ -17,7 +18,7 @@ function App() {
         <Header className="FixedHeigthHeader" />
         <div className="App-main">
           <Routes>
-            <Route path="*" element={<div>Error</div>} />
+            <Route path="*" element={<ErrorPage/>} />
             <Route path="/" element={<Home />} />
             <Route path="/coins" element={<Navigate to="/" replace />} />
             <Route path="/exchanges" element={<Exchanges />} />

@@ -10,6 +10,9 @@ import { addToWatchlist, removeFromWatchlist } from "../../../userManager/active
 import MainTableHead from "./MainTableHead";
 import { addToWatchlistRedux, removeFromWatchlistRedux } from "../../../store/WatchlistReducer";
 
+
+
+
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
     return -1;
@@ -27,12 +30,12 @@ function getComparator(order, orderBy) {
 }
 
 export default function MainTable(props) {
+  const watchlist = useSelector((state) => state.watchlistSlice.watchlist);
   const [order, setOrder] = useState("asc");
   const [orderBy, setOrderBy] = useState("rank");
-  const [selectedForWatchlist, setSelectedForWatchlist] = useState([]); // Watchlist array test
+  const [selectedForWatchlist, setSelectedForWatchlist] = useState(watchlist); // Watchlist array test
   const [coins, error, loading] = props.FetchCoins()
   const dispatch = useDispatch();
-  const watchlist = useSelector((state) => state.watchlistSlice.watchlist);
   
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
@@ -42,13 +45,19 @@ export default function MainTable(props) {
 
   const handleClickAddToWatchlist = (event, uuid) => {
     event.stopPropagation();
+
+    const isLogged = JSON.parse(localStorage.getItem("activeUser"))
+    if (isLogged === null) {
+      console.log(isLogged);
+      return
+    }
     
     const selectedIndex = selectedForWatchlist.indexOf(uuid);
     let newSelected = [];
     if (selectedIndex === -1) {
       addToWatchlist(uuid)
       newSelected = [...selectedForWatchlist, uuid];
-      dispatch(addToWatchlistRedux([newSelected]));
+      dispatch(addToWatchlistRedux(newSelected));
     } else {
       removeFromWatchlist(uuid)
       newSelected = newSelected.concat(

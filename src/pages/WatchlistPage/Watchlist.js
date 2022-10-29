@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 
 export default function Watchlist() {
   const watchlist = useSelector((state) => state.watchlistSlice.watchlist);
+  const checkLength = watchlist.length === 0 ? true : false;
 
   function FetchCoins() {
     const [coins, error, loading] = useAxios({
@@ -30,10 +31,13 @@ export default function Watchlist() {
 
   return (
     <>
-      <BlueBarAdaptive
-      />
+      <BlueBarAdaptive />
       <div className="MainWrapper">
-        <MainTable FetchCoins={FetchCoins}></MainTable>
+        {checkLength ? (
+          <div> You have no coins</div>
+        ) : (
+          <MainTable FetchCoins={FetchCoins}></MainTable>
+        )}
       </div>
     </>
   );
