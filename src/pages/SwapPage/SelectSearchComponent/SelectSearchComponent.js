@@ -4,6 +4,7 @@ import Select from "react-select";
 
 
 const SelectSearchComponent = ({
+  allCoins,
   changeCoinIcon,
   changeMyBalance,
   changeRateCoin,
@@ -2256,13 +2257,13 @@ const SelectSearchComponent = ({
 
   const mySwapOptions = [];
 
-  for (let i = 0; i < fakeOptions.length; i++) {
+  for (let i = 0; i < allCoins.length; i++) {
     mySwapOptions.push({
-      value: fakeOptions[i].name,
-      label: fakeOptions[i].symbol,
-      price: fakeOptions[i].price,
-      rank: fakeOptions[i].rank,
-      iconUrl: fakeOptions[i].iconUrl,
+      value: allCoins[i].name,
+      label: allCoins[i].symbol,
+      price: allCoins[i].price,
+      rank: allCoins[i].rank,
+      iconUrl: allCoins[i].iconUrl,
     });
   }
 

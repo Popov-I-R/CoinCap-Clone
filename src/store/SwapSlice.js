@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import defaultIconUrl from "../components/Icons/QuestionCoin.png";
 
 const initialState = {
+  allMyCoins: [],
   allCoins: [],
   firstCoinIconUrl: defaultIconUrl,
   secondCoinIconUrl: defaultIconUrl,
@@ -18,6 +19,12 @@ export const coinsForSwapSlice = createSlice({
   name: "swaper",
   initialState,
   reducers: {
+    setAllMyCoins: (state, action) => {
+      state.allMyCoins = action.payload;
+    },
+    setAllCoins: (state, action) => {
+      state.allCoins = action.payload;
+    },
     setFirstCoinIconUrl: (state, action) => {
       state.firstCoinIconUrl = action.payload;
     },
@@ -46,6 +53,8 @@ export const coinsForSwapSlice = createSlice({
 });
 
 export const {
+  setAllMyCoins,
+  setAllCoins,
   setFirstCoinIconUrl,
   setSecondCoinIconUrl,
   setMyBalance,
