@@ -23,6 +23,7 @@ function App() {
             <Route path="/exchanges" element={<Exchanges />} />
             <Route path="/swap" element={<Swap />} />
             <Route path="/my-watchlist" element={<Watchlist/>} />
+            <Route path="/my-watchlist/assets/:assetIdentificator" element={<AssetID/>} />
             <Route path="/my-portfolio" element={<Portfolio />} />
             <Route path='/assets/:assetIdentificator' element={<AssetID/>}/>
             <Route path='/something-went-wrong' element={<div>404 - Something went wrong</div>}/>
