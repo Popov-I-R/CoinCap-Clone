@@ -7,9 +7,9 @@ import InputAmountForSwap from "./InputOnlyNumberForSwap/InputAmountForSwap";
 import ConnectWalletModal from "../../components/Header/ConnectWallet/ConnectWalletModal";
 import { useSelector, useDispatch } from "react-redux";
 import Button from "@mui/material/Button";
+import getCoins from "../../AxiosHooks/getCoins";
+import axios from "../../apis/coinranking";
 import {
-  setAllCoins,
-  setAllMyCoins,
   setFirstCoinIconUrl,
   setSecondCoinIconUrl,
   setMyBalance,
@@ -22,19 +22,13 @@ import {
 
 export default function SwapComponent() {
   const isLogin = useSelector((state) => state.disabler.isLogin);
-  const allMyCoins = useSelector((state) => state.swaper.allMyCoins);
-  const allCoins = useSelector((state) => state.swaper.allCoins);
   const firstCoinIcon = useSelector((state) => state.swaper.firstCoinIconUrl);
   const secondCoinIcon = useSelector((state) => state.swaper.secondCoinIconUrl);
   const myBalance = useSelector((state) => state.swaper.myBalance);
   const rateFirstCoin = useSelector((state) => state.swaper.rateFirstCoin);
   const rateSecondCoin = useSelector((state) => state.swaper.rateSecondCoin);
-  const firstChosenCoinPrice = useSelector(
-    (state) => state.swaper.firstChosenCoinPrice
-  );
-  const secondChosenCoinPrice = useSelector(
-    (state) => state.swaper.secondChosenCoinPrice
-  );
+  const firstChosenCoinPrice = useSelector((state) => state.swaper.firstChosenCoinPrice);
+  const secondChosenCoinPrice = useSelector((state) => state.swaper.secondChosenCoinPrice);
   const rate = useSelector((state) => state.swaper.rate);
 
   const [rateDisplayd, setRateDisplayd] = useState("hidden");
@@ -47,32 +41,13 @@ export default function SwapComponent() {
   const [displayWarning, setDisplayWarning] = useState("none");
   const [displayDenied, setDisplayDenied] = useState("none");
   const [displaySuccess, setDisplaySuccess] = useState("none");
-
   const [cleaner, setCleaner] = useState(false);
 
   const dispatch = useDispatch();
 
-  const coinsForSelectComponent = useEffect(() => {
-      const options = {
-        method: "GET",
-        headers: {
-          "X-RapidAPI-Key":
-            "30027b2007mshd40995eb9b5a54ap1361c1jsncf2e7eda5150",
-          "X-RapidAPI-Host": "coinranking1.p.rapidapi.com",
-        },
-      };
-
-      fetch(`https://coinranking1.p.rapidapi.com/coins`, options)
-        .then((response) => response.json())
-        .then((data) => {
-          // console.log(data);
-          dispatch(setAllCoins(data.data.coins));
-        });
-    }, []);
-
-    // setInterval(() => {
-    //   coinsForSelectComponent();
-    // }, 20000);
+  // useEffect(() => {
+  //    console.log(firstChosenCoinPrice, secondChosenCoinPrice);
+  // }, [firstChosenCoinPrice, secondChosenCoinPrice]);
 
   useEffect(() => {
     if (rateFirstCoin.length > 0 && rateSecondCoin.length > 0) {
@@ -160,6 +135,8 @@ export default function SwapComponent() {
     setSecondFinalNumberToSwap(0);
   };
 
+
+
   return (
     <div className="Swap-component">
       <div className="Swap-component-header">
@@ -186,12 +163,17 @@ export default function SwapComponent() {
                 className="Currency-select-btn-token-icon"
               ></img>
               <SelectSearchComponent
-                allCoins={allCoins}
                 changeCoinIcon={(url) => dispatch(setFirstCoinIconUrl(url))}
                 changeMyBalance={(balance) => dispatch(setMyBalance(balance))}
                 changeRateCoin={(symbol) => dispatch(setRateFirstCoin(symbol))}
                 setChosenCoinPrice={(price) =>
                   dispatch(setFirstChosenCoinPrice(price))
+                }
+                updateFirstChosenCoinPrice={(price) =>
+                  dispatch(setFirstChosenCoinPrice(price))
+                }
+                updateSecondChosenCoinPrice={(price) =>
+                  dispatch(setSecondChosenCoinPrice(price))
                 }
               />
             </span>
@@ -224,11 +206,16 @@ export default function SwapComponent() {
               ></img>
 
               <SelectSearchComponent
-                allCoins={allCoins}
                 changeCoinIcon={(url) => dispatch(setSecondCoinIconUrl(url))}
                 changeMyBalance={() => dispatch(setMyBalance(myBalance))}
                 changeRateCoin={(symbol) => dispatch(setRateSecondCoin(symbol))}
                 setChosenCoinPrice={(price) =>
+                  dispatch(setSecondChosenCoinPrice(price))
+                }
+                updateFirstChosenCoinPrice={(price) =>
+                  dispatch(setFirstChosenCoinPrice(price))
+                }
+                updateSecondChosenCoinPrice={(price) =>
                   dispatch(setSecondChosenCoinPrice(price))
                 }
               />
