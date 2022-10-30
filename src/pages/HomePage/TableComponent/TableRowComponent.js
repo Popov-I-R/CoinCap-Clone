@@ -9,6 +9,7 @@ import "./SparklineComponent/Sparkline.css"
 import "./TableComponent.css"
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import Tooltip from '@mui/material/Tooltip';
 
 export default function RowComponent(props) {
   const [open, setOpen] = useState(false);
@@ -25,6 +26,7 @@ export default function RowComponent(props) {
   
   return (
     <>
+    
       <TableRow
         hover
         onClick={() => setOpen(!open)}
@@ -32,6 +34,10 @@ export default function RowComponent(props) {
         tabIndex={-1}
       >
         <TableCell padding="checkbox">
+        <Tooltip 
+        title="Add To Watchlist"
+        placement="right-start"
+        >
           <Checkbox
             checked={checkForCoin(props.row.uuid)}
             onClick={(event) => props.handleClickAddToWatchlist(event, props.row.uuid)}
@@ -39,6 +45,7 @@ export default function RowComponent(props) {
             icon={ <FavoriteBorder />}
             checkedIcon={<Favorite />}
           />
+          </Tooltip>
         </TableCell>
         <TableCell align="center" component="th"  id={props.labelId} scope="row" padding="none">
           {props.row.rank}
