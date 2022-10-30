@@ -7,8 +7,6 @@ import InputAmountForSwap from "./InputOnlyNumberForSwap/InputAmountForSwap";
 import ConnectWalletModal from "../../components/Header/ConnectWallet/ConnectWalletModal";
 import { useSelector, useDispatch } from "react-redux";
 import Button from "@mui/material/Button";
-import getCoins from "../../AxiosHooks/getCoins";
-import axios from "../../apis/coinranking";
 import {
   setFirstCoinIconUrl,
   setSecondCoinIconUrl,
@@ -19,6 +17,7 @@ import {
   setSecondChosenCoinPrice,
   setRate,
 } from "../../store/SwapSlice";
+import { useLocation } from "react-router-dom";
 
 export default function SwapComponent() {
   const isLogin = useSelector((state) => state.disabler.isLogin);
@@ -27,8 +26,12 @@ export default function SwapComponent() {
   const myBalance = useSelector((state) => state.swaper.myBalance);
   const rateFirstCoin = useSelector((state) => state.swaper.rateFirstCoin);
   const rateSecondCoin = useSelector((state) => state.swaper.rateSecondCoin);
-  const firstChosenCoinPrice = useSelector((state) => state.swaper.firstChosenCoinPrice);
-  const secondChosenCoinPrice = useSelector((state) => state.swaper.secondChosenCoinPrice);
+  const firstChosenCoinPrice = useSelector(
+    (state) => state.swaper.firstChosenCoinPrice
+  );
+  const secondChosenCoinPrice = useSelector(
+    (state) => state.swaper.secondChosenCoinPrice
+  );
   const rate = useSelector((state) => state.swaper.rate);
 
   const [rateDisplayd, setRateDisplayd] = useState("hidden");
@@ -44,17 +47,15 @@ export default function SwapComponent() {
   const [cleaner, setCleaner] = useState(false);
 
   const dispatch = useDispatch();
+  const location = useLocation();
 
-  // useEffect(() => {
-  //    console.log(firstChosenCoinPrice, secondChosenCoinPrice);
-  // }, [firstChosenCoinPrice, secondChosenCoinPrice]);
 
   useEffect(() => {
     if (rateFirstCoin.length > 0 && rateSecondCoin.length > 0) {
       setRateDisplayd("visible");
       dispatch(setRate(firstChosenCoinPrice / secondChosenCoinPrice));
     }
-  }, [rateFirstCoin, rateSecondCoin]);
+  }, [firstChosenCoinPrice, secondChosenCoinPrice]);
 
   useEffect(() => {
     if (rateFirstCoin.length > 0 && rateSecondCoin.length > 0) {
@@ -68,7 +69,7 @@ export default function SwapComponent() {
     if (numberToCalc1 === 0) {
       setSecondCalculatedValue("");
     }
-  }, [numberToCalc1]);
+  }, [numberToCalc1, firstChosenCoinPrice, secondChosenCoinPrice]);
 
   useEffect(() => {
     if (rateFirstCoin.length > 0 && rateSecondCoin.length > 0) {
@@ -85,7 +86,12 @@ export default function SwapComponent() {
   }, [numberToCalc2]);
 
   const swap = () => {
-    if (rateFirstCoin.length > 0 && rateSecondCoin.length > 0) {
+    if (
+      rateFirstCoin.length > 0 &&
+      rateSecondCoin.length > 0 &&
+      firstFinalNumberToSwap > 0 &&
+      secondFinalNumberToSwap > 0
+    ) {
       const thisUser = JSON.parse(localStorage.getItem("activeUser"));
       const sellCoins = Number(firstFinalNumberToSwap);
       const getCoins = Number(secondFinalNumberToSwap);
@@ -130,12 +136,14 @@ export default function SwapComponent() {
       }, 5000);
     }
 
-    setCleaner(!cleaner);
+    setFirstCalculatedValue("");
+    setSecondCalculatedValue("");
+    setNumberToCalc1(0);
+    setNumberToCalc2(0);
     setFirstFinalNumberToSwap(0);
     setSecondFinalNumberToSwap(0);
+    setCleaner(!cleaner);
   };
-
-
 
   return (
     <div className="Swap-component">
@@ -168,12 +176,6 @@ export default function SwapComponent() {
                 changeRateCoin={(symbol) => dispatch(setRateFirstCoin(symbol))}
                 setChosenCoinPrice={(price) =>
                   dispatch(setFirstChosenCoinPrice(price))
-                }
-                updateFirstChosenCoinPrice={(price) =>
-                  dispatch(setFirstChosenCoinPrice(price))
-                }
-                updateSecondChosenCoinPrice={(price) =>
-                  dispatch(setSecondChosenCoinPrice(price))
                 }
               />
             </span>
@@ -212,22 +214,16 @@ export default function SwapComponent() {
                 setChosenCoinPrice={(price) =>
                   dispatch(setSecondChosenCoinPrice(price))
                 }
-                updateFirstChosenCoinPrice={(price) =>
-                  dispatch(setFirstChosenCoinPrice(price))
-                }
-                updateSecondChosenCoinPrice={(price) =>
-                  dispatch(setSecondChosenCoinPrice(price))
-                }
               />
             </span>
           </div>
         </div>
         <div className="Swap-result-message">
           <p style={{ display: displayWarning, color: "#FC6600" }}>
-            Please select a currency
+            Please select a currency and enter the amount!
           </p>
           <p style={{ display: displayDenied, color: "red" }}>
-            Denied!!! There are not enough funds available.
+            Denied!!! There are not enough funds available!
           </p>
           <p style={{ display: displaySuccess, color: "green" }}>
             Successfully!

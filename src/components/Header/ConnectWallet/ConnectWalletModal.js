@@ -63,7 +63,10 @@ export default function ConnectWalletModal() {
       dispatch(setIsRegistrButtonDisabled(true));
     }
 
-    if (password && passwordRepeat && password !== passwordRepeat) {
+    if (
+      (password && passwordRepeat && password !== passwordRepeat) ||
+      (password && passwordRepeat && password.length < 6)
+    ) {
       setPassMismatchError("block");
       dispatch(setIsRegistrButtonDisabled(true));
     } else {
@@ -89,9 +92,6 @@ export default function ConnectWalletModal() {
     }
   }
 
-
-
-
   function tryLogin(username, password) {
     if (userManager.validateCredentials(username, password)) {
       dispatch(setIsLoginButtonDisabled(true));
@@ -100,8 +100,8 @@ export default function ConnectWalletModal() {
       handleOpen();
       setLoginUsername("");
       setLoginPassword("");
-      const activeUser = getActiveUser()
-      const currentWatchlist = activeUser.watchlistIDs
+      const activeUser = getActiveUser();
+      const currentWatchlist = activeUser.watchlistIDs;
       dispatch(addToWatchlistRedux(currentWatchlist));
     } else {
       setLoginUsername("");
@@ -117,7 +117,7 @@ export default function ConnectWalletModal() {
   function logout() {
     if (isLogin) {
       localStorage.removeItem("activeUser");
-      dispatch(setMyBalance(0))
+      dispatch(setMyBalance(0));
       dispatch(setIsLogin());
     }
   }
