@@ -62,6 +62,53 @@ export default function RowComponent(props) {
         dispatch(setWebsite(coin.websiteUrl));
       })
       .catch((err) => console.log("Hmmm... something went wrong"));
+    }
+  
+
+  
+
+  function updateBlueBarData(uuid) {
+    fetch(`https://api.coinranking.com/v2/coin/${uuid}`, {
+      method: "GET",
+      headers: {
+        "x-access-token": API_KEY,
+      },
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+      })
+      .then((data) => {
+        const coin = data.data.coin;
+        dispatch(setRank(coin.rank));
+        dispatch(setSymbol(coin.symbol));
+        dispatch(setPrice(Number(coin.price).toFixed(3)));
+        const marketCap =
+          coin.marketCap > 1000000000
+            ? `${(coin.marketCap / 1000000000).toFixed(3)}b`
+            : `${(coin.marketCap / 1000000).toFixed(3)}m`;
+        dispatch(setMarketCap(marketCap));
+        const volume =
+          coin["24hVolume"] > 1000000000
+            ? `${(coin["24hVolume"] / 1000000000).toFixed(3)}b`
+            : `${(coin["24hVolume"] / 1000000).toFixed(3)}m`;
+        dispatch(setVolume(volume));
+        const supply =
+          coin.supply.total > 1000000000
+            ? `${(coin.supply.total / 1000000000).toFixed(3)}b`
+            : `${(coin.supply.total / 1000000).toFixed(3)}m`;
+        dispatch(setSupply(supply));
+        dispatch(setWebsite(coin.websiteUrl));
+      })
+      .catch((err) => console.log("Hmmm... something went wrong"));
+  }
+
+  function checkForCoin(uuid) {
+    if (watchlist.includes(uuid)) {
+      return true
+    }
+    return false
   }
 
   function checkForCoin(uuid) {
