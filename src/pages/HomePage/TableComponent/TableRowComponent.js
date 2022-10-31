@@ -17,6 +17,8 @@ export default function RowComponent(props) {
 
   const watchlist = useSelector((state) => state.watchlistSlice.watchlist);
 
+  
+
   function checkForCoin(uuid){
     if (watchlist.includes(uuid)) {
       return true

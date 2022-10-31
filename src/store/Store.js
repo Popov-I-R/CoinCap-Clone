@@ -3,6 +3,8 @@ import drowerModalSliceReducer from "./ModalsDrowerSlice"
 import  disabler  from "./IsLoginSlice";
 import swaper from "./SwapSlice";
 import watchlistSlice from "./WatchlistReducer";
+import fetchSlice from "./FetchSlice";
+import socketSlice from "./WebSocketSlice";
 
 export const store = configureStore({
     reducer: {
@@ -10,6 +12,8 @@ export const store = configureStore({
         disabler: disabler,
         swaper: swaper,
         watchlistSlice: watchlistSlice,
+        fetchSlice: fetchSlice,
+        // socketSlice: socketSlice,
     }
 });
 
