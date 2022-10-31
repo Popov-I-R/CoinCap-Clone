@@ -275,7 +275,7 @@ function Header(props) {
     window !== undefined ? () => window().document.body : undefined;
 
   return (
-    <Box sx={{ display: "flex", minHeight: "62px" }}>
+    <Box sx={{ display: "flex", height: "62px" }}>
       <AppBar
         component="nav"
         sx={{
@@ -283,10 +283,10 @@ function Header(props) {
           justifyContent: "centre",
           bgcolor: "white",
           color: "black",
-          minHeight: "62px",
+          height: "62px",
         }}
       >
-        <Toolbar sx={{ margin: "0vw 6vw", minHeight: "62px" }}>
+        <Toolbar sx={{ margin: "0vw 6vw", height: "62px" }}>
           <Box sx={{ display: { xs: "none", sm: "none", md: "block" } }}>
             {isLogin ?
              navItems.map((item) => (

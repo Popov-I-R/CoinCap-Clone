@@ -47,8 +47,7 @@ export default function SwapComponent() {
   const [cleaner, setCleaner] = useState(false);
 
   const dispatch = useDispatch();
-  const location = useLocation();
-
+ 
 
   useEffect(() => {
     if (rateFirstCoin.length > 0 && rateSecondCoin.length > 0) {
