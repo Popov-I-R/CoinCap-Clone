@@ -7,8 +7,8 @@ import MainGraph from "./MainGraph";
 
 const AssetID = () => {
     const { assetIdentificator } = useParams();
-    const timePeriod = "5y"
-    const rangeSelectorEnabler= true
+    const timePeriod = "5y";
+    const rangeSelectorEnabler= true;
     return( 
         <div> 
         <BlueBarForDetailsOfCoin></BlueBarForDetailsOfCoin>

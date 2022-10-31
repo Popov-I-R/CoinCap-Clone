@@ -9,12 +9,14 @@ import axios from "../../apis/coinranking";
 function MainGraph(props) {
   
   const symbol = props.symbol;
+
+    
   const [history, error, loading] = getHistory({
     axiosInstance: axios,
     method: `GET`,
     url: `coin/${props.uuid}/history?timePeriod=${props.timePeriod}`,
   });
-
+  
   let data = [];
   for (const key of history) {
     let coinStats = [key.timestamp * 1000, Number(key.price)];
@@ -33,31 +35,31 @@ function MainGraph(props) {
       allButtonsEnabled: true,
       inputEnabled: false,
       buttons: [
-        {
-          type: "hour",
-          count: 1,
-          text: "1h",
-          events: {
-            click: function () {
-              alert("Clicked button test");
-            },
-          },
-        },
-        {
-          type: "hour",
-          count: 3,
-          text: "3h",
-        },
-        {
-          type: "hour",
-          count: 12,
-          text: "12h",
-        },
-        {
-          type: "hour",
-          count: 24,
-          text: "24h",
-        },
+        // {
+        //   type: "hour",
+        //   count: 1,
+        //   text: "1h",
+        //   events: {
+        //     click: function () {
+        //       alert("Clicked button test");
+        //     },
+        //   },
+        // },
+        // {
+        //   type: "hour",
+        //   count: 3,
+        //   text: "3h",
+        // },
+        // {
+        //   type: "hour",
+        //   count: 12,
+        //   text: "12h",
+        // },
+        // {
+        //   type: "hour",
+        //   count: 24,
+        //   text: "24h",
+        // },
         {
           type: "day",
           count: 7,
@@ -105,7 +107,7 @@ function MainGraph(props) {
     },
     title: {
       text: symbol,
-      align: "left",
+      align: "center",
     },
     series: [
       {
@@ -124,7 +126,6 @@ function MainGraph(props) {
         constructorType={"stockChart"}
         options={options}
       />
-      {/* <div id="message">{appState.status}</div> */}
     </div>
   );
 }
