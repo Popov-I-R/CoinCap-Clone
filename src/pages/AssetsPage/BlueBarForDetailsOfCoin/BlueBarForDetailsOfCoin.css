@@ -120,12 +120,9 @@ div.seven.wide.column>div>div.top.aligned.twelve.wide.column {
     align-self: flex-start !important;
 }
 
-div.seven.wide.column>div>div.top.aligned.twelve.wide.column>h1 {
-    box-sizing: inherit;
+.top.aligned.twelve.wide.column>h1 {
     min-height: 1rem;
-    border: none;
     margin: calc(2rem - .14285714em) 0 1rem;
-    padding: 0;
     font-family: Lato, Helvetica Neue, Arial, Helvetica, sans-serif;
     font-weight: 700;
     line-height: 1.28571429em;
@@ -133,6 +130,7 @@ div.seven.wide.column>div>div.top.aligned.twelve.wide.column>h1 {
     font-size: 28px;
     margin: -4px 0 13px; 
     color: white !important;
+    text-align: left;
 }
 
 div.seven.wide.column>div>div.top.aligned.twelve.wide.column>h2>span {

@@ -1,28 +1,32 @@
 import React from "react";
 import "./BlueBarForDetailsOfCoin.css";
+import { useSelector } from "react-redux";
 
-export default function BlueBarForDetailsOfCoin({
-  marketCap,
-  exchangeVol,
-  assets,
-  exchanges,
-  markets,
-  btcDomIndex,
-}) {
+export default function BlueBarForDetailsOfCoin() {
+
+  const rank = useSelector((state) => state.blueBatAssets.rank);
+  const symbol = useSelector((state) => state.blueBatAssets.symbol);
+  const price = useSelector((state) => state.blueBatAssets.price);
+  const marketCap = useSelector((state) => state.blueBatAssets.marketCap);
+  const volume = useSelector((state) => state.blueBatAssets.volume);
+  const supply = useSelector((state) => state.blueBatAssets.supply);
+  const website = useSelector((state) => state.blueBatAssets.website);
+
+
+
   return (
-
     <div className="ui raised attached very padded segment asset-header">
       <div className="ui container stackable two column grid">
         <div className="seven wide column">
           <div className="ui three column grid">
             <div className="four wide column">
               <div className="Flag__Container-h2lle0-0 bihKRl">
-                <h1>5</h1>
+                <h1>{rank}</h1>
                 <p>RANK</p>
               </div>
             </div>
             <div className="top aligned twelve wide column">
-              <h1 className="ui header">USD Coin (USDC)</h1>
+              <h1 className="ui header">{symbol}</h1>
               <h2
                 style={{
                   display: "inline-block",
@@ -31,7 +35,7 @@ export default function BlueBarForDetailsOfCoin({
                 }}
               >
                 <span className="Numeral__Container-sc-18j7kzw-0 jbOTGs numeral ">
-                  $1.00
+                  ${price}
                 </span>
               </h2>
               <h3
@@ -42,9 +46,6 @@ export default function BlueBarForDetailsOfCoin({
                   verticalAlign: "bottom",
                 }}
               >
-                <span className="Numeral__Container-sc-18j7kzw-0 bWSgXD numeral green">
-                  0.06%
-                </span>
               </h3>
             </div>
           </div>
@@ -56,7 +57,7 @@ export default function BlueBarForDetailsOfCoin({
                 <div className="ui medium header">
                   <div className="sub header">Market Cap </div>
                   <span className="Numeral__Container-sc-18j7kzw-0 jbOTGs numeral ">
-                    $43.94b
+                    ${marketCap}
                   </span>
                 </div>
               </div>
@@ -64,7 +65,7 @@ export default function BlueBarForDetailsOfCoin({
                 <div className="ui medium header">
                   <div className="sub header">Volume (24Hr) </div>
                   <span className="Numeral__Container-sc-18j7kzw-0 jbOTGs numeral ">
-                    $809.39m
+                    ${volume}
                   </span>
                 </div>
               </div>
@@ -72,16 +73,16 @@ export default function BlueBarForDetailsOfCoin({
                 <div className="ui medium header">
                   <div className="sub header">Supply </div>
                   <span className="Numeral__Container-sc-18j7kzw-0 jbOTGs numeral ">
-                    43.91b
+                    {supply}
                   </span>{" "}
-                  USDC
+                  {symbol}
                 </div>
               </div>
             </div>
             <div className="row">
               <div className="column">
                 <a
-                  href="https://www.centre.io/usdc"
+                  href={website}
                   target="_blank"
                   className="ui circular primary button"
                   role="button"
