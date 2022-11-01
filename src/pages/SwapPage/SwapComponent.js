@@ -17,7 +17,6 @@ import {
   setSecondChosenCoinPrice,
   setRate,
 } from "../../store/SwapSlice";
-import { useLocation } from "react-router-dom";
 
 export default function SwapComponent() {
   const isLogin = useSelector((state) => state.disabler.isLogin);
