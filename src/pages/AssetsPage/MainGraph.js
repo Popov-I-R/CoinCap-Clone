@@ -4,12 +4,11 @@ import Highcharts from "highcharts/highstock";
 import HighchartsReact from "highcharts-react-official";
 import getHistory from "../../AxiosHooks/getHistory";
 import axios from "../../apis/coinranking";
-
-
+import { useSelector } from "react-redux";
 function MainGraph(props) {
   
-  const symbol = props.symbol;
-
+  // const symbol = props.symbol;
+  const symbol = useSelector((state) => state.blueBarAssets.symbol);
     
   const [history, error, loading] = getHistory({
     axiosInstance: axios,

@@ -32,10 +32,9 @@ export default function MainTable(props) {
   
   const [order, setOrder] = useState("asc");
   const [orderBy, setOrderBy] = useState("rank");
-  const [selectedForWatchlist, setSelectedForWatchlist] = useState(watchlist); 
+  const [selectedForWatchlist, setSelectedForWatchlist] = useState(watchlist); // Watchlist array test
   const [coins, error, loading] = props.FetchCoins();
   const [wsInitialized, setWsInitialized] = useState(false);
-
   const dispatch = useDispatch();
 
   const [pageInitialized, setPageInitialized] = useState(true);
@@ -50,8 +49,9 @@ export default function MainTable(props) {
   }, [coins, dispatch]);
 
   let fetchedCoins = useSelector((state) => state.fetchSlice.fetchCoins);
+  // console.log(fetchedCoins);
 
-
+  // getUUIDs - Function for getting the ID-s of the coins
   function getUUIDs() {
     let uuids = fetchedCoins.map((e) => {
       return e.uuid;
