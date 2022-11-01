@@ -6,6 +6,7 @@ export default function BlueBarForDetailsOfCoin() {
 
   const rank = useSelector((state) => state.blueBarAssets.rank);
   const symbol = useSelector((state) => state.blueBarAssets.symbol);
+  const name = useSelector((state) => state.blueBarAssets.name);
   const price = useSelector((state) => state.blueBarAssets.price);
   const marketCap = useSelector((state) => state.blueBarAssets.marketCap);
   const volume = useSelector((state) => state.blueBarAssets.volume);
@@ -26,7 +27,7 @@ export default function BlueBarForDetailsOfCoin() {
               </div>
             </div>
             <div className="top aligned twelve wide column">
-              <h1 className="ui header">{symbol}</h1>
+              <h1 className="ui header">{name}({symbol})</h1>
               <h2
                 style={{
                   display: "inline-block",

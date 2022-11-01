@@ -1,17 +1,25 @@
 import { createSlice } from "@reduxjs/toolkit";
+import defaultIconUrl from "../components/Icons/QuestionCoin.png";
+
 
 const initialState = {
   rank: 0,
+  name: "AndDaka",
   symbol: "BestCoin",
   price: 0,
   marketCap: 0,
   volume: 0,
   supply: 0,
   website: "",
+  iconUrl: defaultIconUrl,
+  change: 0,
+  high: 0,
+  low: 0,
+  average: 0,
 };
 
-export const blueBatAssets = createSlice({
-  name: "blueBatAssets",
+export const blueBarAssets = createSlice({
+  name: "blueBarAssets",
   initialState,
   reducers: {
     setRank: (state, action) => {
@@ -19,6 +27,9 @@ export const blueBatAssets = createSlice({
     },
     setSymbol: (state, action) => {
       state.symbol = action.payload;
+    },
+    setName: (state, action) => {
+      state.name = action.payload;
     },
     setPrice: (state, action) => {
       state.price = action.payload;
@@ -35,16 +46,37 @@ export const blueBatAssets = createSlice({
     setWebsite: (state, action) => {
       state.website = action.payload;
     },
+    setIconUrl: (state, action) => {
+      state.iconUrl = action.payload;
+    },
+    setChange: (state, action) => {
+      state.change = action.payload;
+    },
+    setHigh: (state, action) => {
+      state.high = action.payload;
+    },
+    setLow: (state, action) => {
+      state.low = action.payload;
+    },
+    setAverage: (state, action) => {
+      state.average = action.payload;
+    },
   },
 });
 
 export const {
   setRank,
   setSymbol,
+  setName,
   setPrice,
   setMarketCap,
   setVolume,
   setSupply,
   setWebsite,
-} = blueBatAssets.actions;
-export default blueBatAssets.reducer;
+  setIconUrl,
+  setChange,
+  setHigh,
+  setLow,
+  setAverage
+} = blueBarAssets.actions;
+export default blueBarAssets.reducer;

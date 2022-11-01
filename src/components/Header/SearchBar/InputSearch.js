@@ -7,11 +7,17 @@ import { useDispatch } from "react-redux";
 import {
   setRank,
   setSymbol,
+  setName,
   setPrice,
   setMarketCap,
   setVolume,
   setSupply,
   setWebsite,
+  setIconUrl,
+  setChange,
+  setHigh,
+  setLow,
+  setAverage
 } from "../../../store/BlueBarAssets";
 
 export default function InputSearch() {
@@ -35,6 +41,7 @@ export default function InputSearch() {
         const coin = data.data.coin;
         dispatch(setRank(coin.rank));
         dispatch(setSymbol(coin.symbol));
+        dispatch(setName(coin.name));
         dispatch(setPrice(Number(coin.price).toFixed(3)));
         const marketCap =
           coin.marketCap > 1000000000
@@ -52,6 +59,13 @@ export default function InputSearch() {
             : `${(coin.supply.total / 1000000).toFixed(3)}m`;
         dispatch(setSupply(supply));
         dispatch(setWebsite(coin.websiteUrl));
+        dispatch(setIconUrl(coin.iconUrl));
+        dispatch(setChange(coin.change)); 
+        const max = Math.max(...coin.sparkline);
+        dispatch(setHigh(max.toFixed(2)));
+        const min = Math.min(...coin.sparkline);
+        dispatch(setLow(min.toFixed(2)));
+        dispatch(setAverage(((max+min)/2).toFixed(2)));
       })
       .catch((err) => console.log("Hmmm... something went wrong"));
   }
