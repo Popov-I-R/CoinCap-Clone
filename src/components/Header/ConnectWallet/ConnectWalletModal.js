@@ -119,6 +119,7 @@ export default function ConnectWalletModal() {
       localStorage.removeItem("activeUser");
       dispatch(setMyBalance(0));
       dispatch(setIsLogin());
+      dispatch(addToWatchlistRedux([]))
     }
   }
 

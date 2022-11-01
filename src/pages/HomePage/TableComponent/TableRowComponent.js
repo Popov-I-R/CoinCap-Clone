@@ -118,16 +118,30 @@ export default function RowComponent(props) {
     return false;
   }
 
+  function handleOpen (symbol){
+    dispatch(setSymbol(symbol));
+    setOpen(!open)
+  }
+  const isLogged = JSON.parse(localStorage.getItem("activeUser"));
   return (
     <>
       <TableRow
         hover
-        onClick={() => setOpen(!open)}
+        onClick={() => handleOpen(props.row.symbol)}
         role="checkbox"
         tabIndex={-1}
       >
         <TableCell padding="checkbox">
-          <Tooltip title="Add To Watchlist" placement="right-start">
+        {isLogged ? ( 
+          <Checkbox
+              checked={checkForCoin(props.row.uuid)}
+              onClick={(event) =>
+                props.handleClickAddToWatchlist(event, props.row.uuid)
+              }
+              {...labelId}
+              icon={<FavoriteBorder />}
+              checkedIcon={<Favorite />}
+            />) : (<Tooltip title="You need to be logged in for this future" placement="right-start">
             <Checkbox
               checked={checkForCoin(props.row.uuid)}
               onClick={(event) =>
@@ -137,7 +151,8 @@ export default function RowComponent(props) {
               icon={<FavoriteBorder />}
               checkedIcon={<Favorite />}
             />
-          </Tooltip>
+          </Tooltip>)}
+          
         </TableCell>
         <TableCell
           align="center"

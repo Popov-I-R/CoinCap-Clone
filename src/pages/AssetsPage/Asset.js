@@ -13,7 +13,6 @@ const AssetID = () => {
         <div> 
         <BlueBarForDetailsOfCoin></BlueBarForDetailsOfCoin>
         <MainGraph uuid={assetIdentificator} rangeSelectorEnabler={rangeSelectorEnabler} timePeriod={timePeriod}> </MainGraph>
-            <h4>{assetIdentificator}</h4>
         </div>
     )
 }

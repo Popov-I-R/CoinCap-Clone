@@ -34,6 +34,14 @@ export function removeFromWatchlist(uuid) {
     finalWatchlist.splice(selectedIndex, 1);
     activeUser.watchlistIDs = finalWatchlist;
     localStorage.setItem("activeUser", JSON.stringify(activeUser));
+
+    let users = JSON.parse(localStorage.getItem('users')) || [];
+    const user = users.find(
+        user => user.username === activeUser.username
+    );
+    const selectedIndexActiveUser = user.watchlistIDs.indexOf(uuid);
+    user.watchlistIDs.splice(selectedIndexActiveUser, 1);
+    localStorage.setItem("users", JSON.stringify(users));
   } else {
     return false;
   }
