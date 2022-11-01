@@ -282,6 +282,7 @@ export default function ConnectWalletModal() {
               <FormGroup>
                 <FormControlLabel
                   sx={{
+                    visibility:"hidden",
                     color: "#2f3640",
                     margin: "8px 0px 18px 0",
                   }}
