@@ -15,6 +15,13 @@ export function addToWatchlist(uuid) {
   } else {
     activeUser.watchlistIDs.push(uuid);
     localStorage.setItem("activeUser", JSON.stringify(activeUser));
+
+    let users = JSON.parse(localStorage.getItem('users')) || [];
+    const user = users.find(
+        user => user.username === activeUser.username
+    );
+    user.watchlistIDs.push(uuid)
+    localStorage.setItem("users", JSON.stringify(users));
   }
 }
 

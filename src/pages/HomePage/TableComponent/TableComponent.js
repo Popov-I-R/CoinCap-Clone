@@ -29,29 +29,29 @@ function getComparator(order, orderBy) {
 
 export default function MainTable(props) {
   const watchlist = useSelector((state) => state.watchlistSlice.watchlist);
+  
   const [order, setOrder] = useState("asc");
   const [orderBy, setOrderBy] = useState("rank");
-  const [selectedForWatchlist, setSelectedForWatchlist] = useState(watchlist); // Watchlist array test
+  const [selectedForWatchlist, setSelectedForWatchlist] = useState(watchlist); 
   const [coins, error, loading] = props.FetchCoins();
+  const [wsInitialized, setWsInitialized] = useState(false);
+
   const dispatch = useDispatch();
 
+  const [pageInitialized, setPageInitialized] = useState(true);
 
   useEffect(() => {
     let convertedNameCoinsArray = [...coins];
     dispatch(
       addToFetchSlice(
-        convertedNameCoinsArray.map((e) => {
-          e.name = e.name.toLowerCase();
-          return e;
-        })
+        convertedNameCoinsArray
       )
     );
   }, [coins, dispatch]);
 
   let fetchedCoins = useSelector((state) => state.fetchSlice.fetchCoins);
-  // console.log(fetchedCoins);
 
-// getUUIDs - Function for getting the ID-s of the coins
+
   function getUUIDs() {
     let uuids = fetchedCoins.map((e) => {
       return e.uuid;
@@ -59,45 +59,51 @@ export default function MainTable(props) {
     return uuids;
   }
 
-// ------------------ SOCKET START ------------------
+  // ------------------ SOCKET START ------------------
 
-  useEffect(() => {
-    let uuidsReqArr = getUUIDs();
-    const connection = new WebSocket(
-      "wss://api.coinranking.com/v2/real-time/rates?x-access-token=coinrankingf8578fd99a951143edc7ee38782623b8b680181be6137259"
-    );
+  // useEffect(() => {
+    
+  //   if (fetchedCoins?.length && !wsInitialized) {
+  //     const connection = new WebSocket(
+  //       "wss://api.coinranking.com/v2/real-time/rates?x-access-token=coinrankingf8578fd99a951143edc7ee38782623b8b680181be6137259"
+  //     );
+  //     setWsInitialized(true);
+  //     let uuidsReqArr = getUUIDs();
+      
+  //     connection.onopen = () => {
+  //       const subscriptions = {
+  //         throttle: "10s",
+  //         uuids: uuidsReqArr,
+  //       };
 
-    connection.onopen = () => {
-      const subscriptions = {
-        throttle: "10s",
-        uuids: uuidsReqArr,
-      };
+  //       connection.send(JSON.stringify(subscriptions));
+  //       connection.onmessage = function (msg) {
+  //         let receivedData = JSON.parse(msg.data);
+  //         console.log(receivedData);
 
-      connection.send(JSON.stringify(subscriptions));
-      connection.onmessage = function (msg) {
-        let receivedData = JSON.parse(msg.data);
-        console.log(receivedData);
+  //         let newArr = [];
+  //         newArr = fetchedCoins.slice().map((e) => {
+  //           if (e.uuid === receivedData.currencyUuid) {
+  //             let newObj = { ...e };
+  //             newObj.price = receivedData.price;
+  //             return newObj;
+  //           } else {
+  //             return e;
+  //           }
+  //         });
 
-        let newArr = [];
-        newArr = fetchedCoins.slice().map((e) => {
-          if (e.uuid === receivedData.currencyUuid) {
-            let newObj = { ...e };
-            newObj.price = receivedData.price;
-            return newObj;
-          } else {
-            return e;
-          }
-        });
+  //         dispatch(addToFetchSlice(newArr));
+  //       };
+  //     };
+  //   }
 
-        dispatch(addToFetchSlice(newArr));
-      };
-    };
 
-    return () => {
-      connection.close();
-    };
-  }, []);
-// ------------------ SOCKET END ------------------
+  // }, [fetchedCoins]);
+
+  
+
+  
+  // ------------------ SOCKET END ------------------
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";

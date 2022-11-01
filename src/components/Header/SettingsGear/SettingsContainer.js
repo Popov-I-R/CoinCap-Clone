@@ -2,7 +2,7 @@ import React from 'react'
 import "./SettingsContainer.css"
 import { CheckBox } from '@mui/icons-material';
 import { Form } from 'react-bootstrap';
-import MobileSelectLanguage from '../MobileMenuSelectComponents/MobileSelectLanguage';
+
 import MobileSelectCurrency from '../MobileMenuSelectComponents/MobileSelectCurrency';
 
 export default function SettingsContainer() {
@@ -28,9 +28,7 @@ export default function SettingsContainer() {
                 <MobileSelectCurrency className="Select-decktop-version" />
             </div>
             <hr></hr>
-            <div className="Setting-item Select-settings-item-container">
-                <MobileSelectLanguage className="Select-decktop-version"/>
-            </div>
+
 
 
 

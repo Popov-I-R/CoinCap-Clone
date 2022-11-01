@@ -4,6 +4,11 @@
       margin-top: -110px;
 }
 
+.LastTwentyFourHoursCollapseMenu {
+    display: flex;
+    justify-content: center;
+}
+
 @media only screen and (max-width: 900px) {
     .MainWrapper {
         margin-top: -110px;

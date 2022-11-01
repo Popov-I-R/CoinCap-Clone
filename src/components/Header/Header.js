@@ -42,7 +42,7 @@ import { MdStarBorder } from "react-icons/md";
 // Mobile Select Control Start
 
 import MobileSelectCurrency from "./MobileMenuSelectComponents/MobileSelectCurrency";
-import MobileSelectLanguage from "./MobileMenuSelectComponents/MobileSelectLanguage";
+
 import ConnectWalletModal from "./ConnectWallet/ConnectWalletModal";
 
 // Mobile select control end
@@ -267,7 +267,7 @@ function Header(props) {
       </Box>
       <Divider />
       <MobileSelectCurrency />
-      <MobileSelectLanguage />
+      
     </Box>
   );
 
