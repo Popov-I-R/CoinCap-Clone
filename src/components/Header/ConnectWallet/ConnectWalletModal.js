@@ -28,12 +28,12 @@ import { getActiveUser } from "../../../userManager/activeUser";
 
 const style = {
   position: "absolute",
-  maxWidth: 460,
-  height: 400,
+  maxWidth: 450,
+  height: 450,
   backgroundImage: `url(${DollarsBackground})`,
   borderRadius: "20px",
   boxShadow: 24,
-  p: 4,
+  p: 3,
 };
 
 export default function ConnectWalletModal() {
@@ -56,21 +56,41 @@ export default function ConnectWalletModal() {
   };
 
   function changeRegistrButtonCondition(username, password, passwordRepeat) {
+    //     setAccessMessage
+
+    const passw = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
     setUserExistsError("none");
+
     if (username && password && passwordRepeat) {
       dispatch(setIsRegistrButtonDisabled(false));
+      setAccessMessage("block");
     } else {
       dispatch(setIsRegistrButtonDisabled(true));
     }
 
-    if (
-      (password && passwordRepeat && password !== passwordRepeat) ||
-      (password && passwordRepeat && password.length < 6)
-    ) {
+    if (password && passwordRepeat && password !== passwordRepeat) {
       setPassMismatchError("block");
+      setAccessMessage("none");
       dispatch(setIsRegistrButtonDisabled(true));
     } else {
       setPassMismatchError("none");
+    }
+
+    if (password && !password.match(passw) || password.includes(" ")) {
+      setPasswordRequirementsError("block");
+      setPassMismatchError("none");
+      dispatch(setIsRegistrButtonDisabled(true));
+      setAccessMessage("none");
+    } else {
+      setPasswordRequirementsError("none");
+    }
+
+    if (username && username.length < 8 || username.includes(" ")) {
+      setUsernameRequirementsError("block");
+      dispatch(setIsRegistrButtonDisabled(true));
+      setAccessMessage("none");
+    } else {
+      setUsernameRequirementsError("none");
     }
   }
 
@@ -81,9 +101,11 @@ export default function ConnectWalletModal() {
       setRegistrUsername("");
       setRegistrPassword("");
       setRegistrPasswordRepeat("");
+      setAccessMessage("none");
       setUserExistsError("none");
     } else {
       setRegistrUsername("");
+      setAccessMessage("none");
       dispatch(setIsRegistrButtonDisabled(true));
       setUserExistsError("block");
       setTimeout(() => {
@@ -93,13 +115,16 @@ export default function ConnectWalletModal() {
   }
 
   function tryLogin(username, password) {
-    if (userManager.validateCredentials(username, password)) {
+    const usernameTrimed = username.trim();
+    const passwordTrimed = password.trim();
+    if (userManager.validateCredentials(usernameTrimed, passwordTrimed)) {
       dispatch(setIsLoginButtonDisabled(true));
-      userManager.activeUser(username);
+      userManager.activeUser(usernameTrimed);
       dispatch(setIsLogin());
       handleOpen();
       setLoginUsername("");
       setLoginPassword("");
+      setAccessMessage("none");
       const activeUser = getActiveUser();
       const currentWatchlist = activeUser.watchlistIDs;
       dispatch(addToWatchlistRedux(currentWatchlist));
@@ -119,7 +144,7 @@ export default function ConnectWalletModal() {
       localStorage.removeItem("activeUser");
       dispatch(setMyBalance(0));
       dispatch(setIsLogin());
-      dispatch(addToWatchlistRedux([]))
+      dispatch(addToWatchlistRedux([]));
     }
   }
 
@@ -132,6 +157,11 @@ export default function ConnectWalletModal() {
   const [wrongCredentials, setWrongCredentials] = useState("hidden");
   const [passMismatchError, setPassMismatchError] = useState("none");
   const [userExistsError, setUserExistsError] = useState("none");
+  const [usernameRequirementsError, setUsernameRequirementsError] =
+    useState("none");
+  const [passwordRequirementsError, setPasswordRequirementsError] =
+    useState("none");
+  const [accessMessage, setAccessMessage] = useState("none");
 
   const [loginUsername, setLoginUsername] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
@@ -186,6 +216,11 @@ export default function ConnectWalletModal() {
           setRegistrPassword("");
           setRegistrPasswordRepeat("");
           setPassMismatchError("none");
+          setUsernameRequirementsError("none");
+          setPasswordRequirementsError("none");
+          setAccessMessage("none");
+          setDisplayLogProp("block");
+          setDisplayRegProp("none");
           handleOpen();
         }}
         closeAfterTransition
@@ -283,7 +318,7 @@ export default function ConnectWalletModal() {
               <FormGroup>
                 <FormControlLabel
                   sx={{
-                    visibility:"hidden",
+                    visibility: "hidden",
                     color: "#2f3640",
                     margin: "8px 0px 18px 0",
                   }}
@@ -304,7 +339,7 @@ export default function ConnectWalletModal() {
                   fontSize: "12px",
                   boxShadow: "rgb(0 0 0 / 40%) 0px 2px 15px -3px",
                   width: "100%",
-                  margin: "0 0 5px 0",
+                  margin: "0 0 10px 0",
                 }}
                 variant="contained"
                 disabled={isLoginButtonDisabled}
@@ -426,6 +461,16 @@ export default function ConnectWalletModal() {
 
               <div className="Registration-messages-div">
                 <p
+                  style={{
+                    display: usernameRequirementsError,
+                    maxWidth: "275px",
+                  }}
+                  className="Wrong-credentials-message username-require"
+                  id="usernameRequirementsError"
+                >
+                  Login require: min 8 characters, no spaces!
+                </p>
+                <p
                   style={{ display: passMismatchError }}
                   className="Wrong-credentials-message"
                   id="passMismatchError"
@@ -438,6 +483,24 @@ export default function ConnectWalletModal() {
                   id="userExistsError"
                 >
                   Username is already taken!
+                </p>
+                <p
+                  style={{
+                    display: passwordRequirementsError,
+                    maxWidth: "260px",
+                  }}
+                  className="Wrong-credentials-message password-require"
+                  id="passwordRequirementsError"
+                >
+                  Password require: at least 1: lowercase, uppercase, number.
+                  Minimum 8 characters, no spaces!
+                </p>
+                <p
+                  style={{ display: accessMessage, maxWidth: "280px" }}
+                  className="Wrong-credentials-message accessMessage"
+                  id="accessMessage"
+                >
+                  Your login and password are very strong!
                 </p>
               </div>
 
@@ -452,7 +515,7 @@ export default function ConnectWalletModal() {
                   fontSize: "12px",
                   boxShadow: "rgb(0 0 0 / 40%) 0px 2px 15px -3px",
                   width: "100%",
-                  margin: "10px 0 5px 0",
+                  margin: "10px 0 10px 0",
                 }}
                 variant="contained"
                 disabled={isRegistrButtonDisabled}
@@ -469,6 +532,9 @@ export default function ConnectWalletModal() {
                   setRegistrPassword("");
                   setRegistrPasswordRepeat("");
                   setPassMismatchError("none");
+                  setPasswordRequirementsError("none");
+                  setUsernameRequirementsError("none");
+                  setAccessMessage("none");
                   dispatch(setIsRegistrButtonDisabled(true));
                 }}
               >

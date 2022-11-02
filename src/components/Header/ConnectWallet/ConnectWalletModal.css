@@ -51,16 +51,18 @@
 }
 
 .Wrong-credentials-div {
-    height: 40px;
+    height: 50px;
     display: flex;
     justify-content: center;
     align-items: center;
     transition: 1s;
+    width: 260px;
 }
 
 .Registration-messages-div {
-    height: 40px;
+    height: 90px;
     display: flex;
+    flex-direction:column;
     justify-content: center;
     align-items: center;
 }
@@ -68,7 +70,13 @@
 .Wrong-credentials-message {
     font-size: 14px;
     color: red;
-    margin: 0;
+    margin: 5px 0;
+}
+.Wrong-credentials-message.password-require, .Wrong-credentials-message.username-require{
+    color: rgb(201, 82, 38);
+}
+.Wrong-credentials-message.accessMessage{
+    color:green;
 }
 
 .form-for-password-field {
