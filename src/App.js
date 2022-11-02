@@ -1,6 +1,6 @@
 import "./App.css";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
 import Home from "./pages/HomePage/Home";
@@ -11,7 +11,29 @@ import Exchanges from "./pages/ExchangesPage/Exchanges";
 import AssetID from "./pages/AssetsPage/Asset";
 import ErrorPage from "./pages/ErrorPage/ErrorPage";
 
+import {connection} from "./pages/HomePage/testSocketThree"
+
+function test(connection) {
+  connection.onopen = () => {
+    const subscriptions = {
+      throttle: "10s",
+      uuids: ["Qwsogvtv82FCd", "razxDUgYGNAdQ"],
+    };
+    connection.send(JSON.stringify(subscriptions));
+    connection.onmessage = function (msg) {
+      let receivedData = JSON.parse(msg.data);
+      console.log(receivedData);
+    };
+  };
+}
+
 function App() {
+
+  useEffect(()=> {
+    test(connection)
+    return ()=> {connection.close()}
+  },[])
+
   return (
     <BrowserRouter>
       <div className="App">

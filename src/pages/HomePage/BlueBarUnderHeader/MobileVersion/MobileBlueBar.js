@@ -47,7 +47,6 @@ export default function MobileBlueBar({ marketCap, exchangeVol, assets, exchange
                         <p>BTC Dom Index:</p>
                         <p>{btcDomIndex}</p>
                     </div>
-
                 </AccordionDetails>
             </Accordion>
         </div>

@@ -10,6 +10,9 @@ import { addToWatchlist, removeFromWatchlist } from "../../../userManager/active
 import MainTableHead from "./MainTableHead";
 import { addToWatchlistRedux, removeFromWatchlistRedux } from "../../../store/WatchlistReducer";
 import { addToFetchSlice } from "../../../store/FetchSlice";
+import { API_KEY } from "../../../secrets";
+
+import Loader from "../../../components/Loader/LoaderComponent";
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -29,10 +32,8 @@ function getComparator(order, orderBy) {
 
 export default function MainTable(props) {
   const watchlist = useSelector((state) => state.watchlistSlice.watchlist);
-  
   const [order, setOrder] = useState("asc");
   const [orderBy, setOrderBy] = useState("rank");
-  const [selectedForWatchlist, setSelectedForWatchlist] = useState(watchlist); // Watchlist array test
   const [coins, error, loading] = props.FetchCoins();
   const [wsInitialized, setWsInitialized] = useState(false);
   const dispatch = useDispatch();
@@ -49,7 +50,7 @@ export default function MainTable(props) {
   }, [coins, dispatch]);
 
   let fetchedCoins = useSelector((state) => state.fetchSlice.fetchCoins);
-  // console.log(fetchedCoins);
+
 
   // getUUIDs - Function for getting the ID-s of the coins
   function getUUIDs() {
@@ -65,7 +66,7 @@ export default function MainTable(props) {
     
   //   if (fetchedCoins?.length && !wsInitialized) {
   //     const connection = new WebSocket(
-  //       "wss://api.coinranking.com/v2/real-time/rates?x-access-token=coinrankingf8578fd99a951143edc7ee38782623b8b680181be6137259"
+  //       `wss://api.coinranking.com/v2/real-time/rates?x-access-token=${API_KEY}`
   //     );
   //     setWsInitialized(true);
   //     let uuidsReqArr = getUUIDs();
@@ -116,31 +117,31 @@ export default function MainTable(props) {
 
     const isLogged = JSON.parse(localStorage.getItem("activeUser"));
     if (isLogged === null) {
-      console.log(isLogged); // for the watchlsit tests
       return;
     }
 
-    const selectedIndex = selectedForWatchlist.indexOf(uuid);
+    const selectedIndex = watchlist.indexOf(uuid);
     let newSelected = [];
     if (selectedIndex === -1) {
       addToWatchlist(uuid);
-      newSelected = [...selectedForWatchlist, uuid];
+      newSelected = [...watchlist, uuid];
       dispatch(addToWatchlistRedux(newSelected));
     } else {
       removeFromWatchlist(uuid);
       newSelected = newSelected.concat(
-        selectedForWatchlist.slice(0, selectedIndex),
-        selectedForWatchlist.slice(selectedIndex + 1)
+        watchlist.slice(0, selectedIndex),
+        watchlist.slice(selectedIndex + 1)
       );
       dispatch(removeFromWatchlistRedux(newSelected));
     }
-    setSelectedForWatchlist(newSelected);
   };
 
-  const isSelected = (uuid) => selectedForWatchlist.indexOf(uuid) !== -1;
+  const isSelected = (uuid) => watchlist.indexOf(uuid) !== -1;
 
   return (
-    <Box sx={{ width: "100%" }}>
+    <>
+      {loading ? (<Loader class={"HomepageLoader"} sizing={80}/>) : 
+      ( <Box sx={{ width: "100%" }}>
       <Paper sx={{ width: "100%", mb: 2 }}>
         <TableContainer>
           <Table
@@ -149,7 +150,7 @@ export default function MainTable(props) {
             aria-label="collapsible table"
           >
             <MainTableHead
-              numSelected={selectedForWatchlist.length}
+              numSelected={watchlist.length}
               order={order}
               orderBy={orderBy}
               onRequestSort={handleRequestSort}
@@ -175,6 +176,7 @@ export default function MainTable(props) {
           </Table>
         </TableContainer>
       </Paper>
-    </Box>
+    </Box>)}
+    </>
   );
 }
