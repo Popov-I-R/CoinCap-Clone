@@ -15,6 +15,7 @@ import { FormGroup, FormControlLabel, Checkbox } from "@mui/material";
 import LockIcon from "../../Icons/Lock-Icon-PNG-Graphic-Cave.png";
 import DollarsBackground from "./backgroundDollars.png";
 import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import {
   setIsRegistrButtonDisabled,
   setIsLoginButtonDisabled,
@@ -46,6 +47,7 @@ export default function ConnectWalletModal() {
   const isLogin = useSelector((state) => state.disabler.isLogin);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const changeLoginButtonCondition = (username, password) => {
     if (username && password) {
@@ -145,6 +147,7 @@ export default function ConnectWalletModal() {
       dispatch(setMyBalance(0));
       dispatch(setIsLogin());
       dispatch(addToWatchlistRedux([]));
+      navigate("/")
     }
   }
 
