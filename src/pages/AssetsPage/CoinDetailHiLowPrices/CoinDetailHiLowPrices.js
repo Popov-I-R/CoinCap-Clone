@@ -5,7 +5,6 @@ import { useSelector } from "react-redux";
 export default function CoinDetailHiLowPrices() {
   const symbol = useSelector((state) => state.blueBarAssets.symbol);
   const name = useSelector((state) => state.blueBarAssets.name);
-  const price = useSelector((state) => state.blueBarAssets.price);
   const iconUrl = useSelector((state) => state.blueBarAssets.iconUrl);
   const change = useSelector((state) => state.blueBarAssets.change);
   const high = useSelector((state) => state.blueBarAssets.high);
