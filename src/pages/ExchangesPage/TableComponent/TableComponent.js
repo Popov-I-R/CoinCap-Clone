@@ -86,7 +86,6 @@ export default function ExchangesTable() {
       fetch(`https://api.coinranking.com/v2/exchanges?limit=${limitPage}&offset=0&orderBy=24hVolume&orderDirection=desc`,optionsReq)
       .then((res) => res.json())
       .then((data) => {
-        console.log(data.data.exchanges)
         setExchanges(data.data.exchanges)})
   }, []);
 

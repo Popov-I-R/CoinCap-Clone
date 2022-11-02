@@ -6,18 +6,44 @@ import MainTable from "./TableComponent/TableComponent";
 import getCoins from "../../AxiosHooks/getCoins";
 import axios from "../../apis/coinranking";
 import { Button } from "@mui/material";
+import { connection } from "./testSocketThree";
+
+// import TestSocketTwo from "./testSocketTwo";
 
 import { API_KEY } from "../../secrets";
 
-import { useDispatch, useSelector } from "react-redux";
-import { addToFetchSlice } from "../../store/FetchSlice";
+import { connect, useDispatch, useSelector } from "react-redux";
+// import { addToFetchSlice } from "../../store/FetchSlice";
+// import testSocket from "./testSocket";
 // import { addSocketData } from "../../store/WebSocketSlice";
 
 export default function Home() {
+
+  function test(connection) {
+    connection.onopen = () => {
+      
+      const subscriptions = {
+        // throttle: "10s",
+        uuids: [
+          'Qwsogvtv82FCd',
+          'razxDUgYGNAdQ',
+        ],
+      };
+      connection.send(JSON.stringify(subscriptions));
+      connection.onmessage = function (msg) {
+        let receivedData = JSON.parse(msg.data);
+        console.log(receivedData);
+    };
+  }
+  }
+  
+
+
+  // testSocket()
   let fetchedCoins = useSelector((state) => state.fetchSlice.fetchCoins);
   const dispatch = useDispatch();
 
-  let [initLimitCoins,setInitLimitCoins] = useState(20)
+  let [initLimitCoins, setInitLimitCoins] = useState(20);
 
   function FetchCoins() {
     const coinsLimit = 20;
@@ -36,34 +62,31 @@ export default function Home() {
         },
       },
     });
-   
+
     return [coins, error, loading];
   }
 
-  function handleData() {
-    setInitLimitCoins(initLimitCoins += 20)
+  // function handleData() {
+  //   setInitLimitCoins(initLimitCoins += 20)
 
-    let limit = initLimitCoins
-    const options = {
-      method: 'GET',
-      headers: {
-        'X-RapidAPI-Key': '30027b2007mshd40995eb9b5a54ap1361c1jsncf2e7eda5150',
-        'X-RapidAPI-Host': 'coinranking1.p.rapidapi.com'
-      }
-    };
-    
-    fetch(`https://coinranking1.p.rapidapi.com/coins?referenceCurrencyUuid=yhjMzLPhuIDl&timePeriod=24h&tiers%5B0%5D=1&orderBy=marketCap&orderDirection=desc&limit=${initLimitCoins}&offset=0`, options)
-      .then(response => response.json())
-      .then(response => {
-        dispatch(addToFetchSlice(response.data.coins))
-      }
-        // console.log(response.data.coins)
-        )
-      .catch(err => console.error(err));
-    
-  }
+  //   let limit = initLimitCoins
+  //   const options = {
+  //     method: 'GET',
+  //     headers: {
+  //       'X-RapidAPI-Key': '30027b2007mshd40995eb9b5a54ap1361c1jsncf2e7eda5150',
+  //       'X-RapidAPI-Host': 'coinranking1.p.rapidapi.com'
+  //     }
+  //   };
 
+  //   fetch(`https://coinranking1.p.rapidapi.com/coins?referenceCurrencyUuid=yhjMzLPhuIDl&timePeriod=24h&tiers%5B0%5D=1&orderBy=marketCap&orderDirection=desc&limit=${initLimitCoins}&offset=0`, options)
+  //     .then(response => response.json())
+  //     .then(response => {
+  //       dispatch(addToFetchSlice(response.data.coins))
+  //     }
+  //       )
+  //     .catch(err => console.error(err));
 
+  // }
 
   return (
     <>
@@ -72,7 +95,7 @@ export default function Home() {
         <MainTable FetchCoins={FetchCoins} />
       </div>
       <Button
-        onClick={()=> {handleData()}}
+        // onClick={()=> {handleData()}}
         style={{
           borderRadius: 40,
           backgroundColor: "rgb(24, 198, 131)",
@@ -85,6 +108,7 @@ export default function Home() {
       >
         Load More
       </Button>
+      {/* <TestSocketTwo></TestSocketTwo> */}
     </>
   );
 }
