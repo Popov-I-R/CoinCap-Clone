@@ -78,9 +78,9 @@ export default function InputSearch() {
     };
   }
 
-  let debounceHandler = debounce(myFunc, 1000);
+  let debounceHandler = debounce(searchCoins, 1000);
 
-  function myFunc(e) {
+  function searchCoins(e) {
     const value = e.target.value;
     if (value !== "") {
       fetch(

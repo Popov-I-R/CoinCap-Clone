@@ -2,63 +2,47 @@ import React from "react";
 import { useState, useEffect } from "react";
 import Highcharts from "highcharts/highstock";
 import HighchartsReact from "highcharts-react-official";
-import getHistory from "../../AxiosHooks/getHistory";
-import axios from "../../apis/coinranking";
 import { useSelector } from "react-redux";
+import { API_KEY } from "../../secrets"; 
+
+
+
 function MainGraph(props) {
-  
-  // const symbol = props.symbol;
   const symbol = useSelector((state) => state.blueBarAssets.symbol);
-    
-  const [history, error, loading] = getHistory({
-    axiosInstance: axios,
-    method: `GET`,
-    url: `coin/${props.uuid}/history?timePeriod=${props.timePeriod}`,
-  });
-  
+  const[history, setHistory] = useState([]);
+
+  useEffect(()=>{
+   fetch(`https://api.coinranking.com/v2/coin/${props.uuid}/history?timePeriod=${props.timePeriod}`, {
+    method: "GET",
+    headers: {
+      "x-access-token": API_KEY,
+    },
+  })
+    .then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+    })
+    .then(data =>{
+      setHistory(data.data.history)
+    })
+  },[props.uuid])
+
   let data = [];
   for (const key of history) {
     let coinStats = [key.timestamp * 1000, Number(key.price)];
     data.unshift(coinStats);
   }
-
+  
   const options = {
-    // xAxis: {
-    //   minRange: 1
-    // },
     time: {
-      useUTC: false
-  },
+      useUTC: false,
+    },
     rangeSelector: {
       enabled: props.rangeSelectorEnabler,
       allButtonsEnabled: true,
       inputEnabled: false,
       buttons: [
-        // {
-        //   type: "hour",
-        //   count: 1,
-        //   text: "1h",
-        //   events: {
-        //     click: function () {
-        //       alert("Clicked button test");
-        //     },
-        //   },
-        // },
-        // {
-        //   type: "hour",
-        //   count: 3,
-        //   text: "3h",
-        // },
-        // {
-        //   type: "hour",
-        //   count: 12,
-        //   text: "12h",
-        // },
-        // {
-        //   type: "hour",
-        //   count: 24,
-        //   text: "24h",
-        // },
         {
           type: "day",
           count: 7,
@@ -89,7 +73,6 @@ function MainGraph(props) {
           count: 5,
           text: "5y",
         },
-
         {
           type: "ytd",
           text: "YTD",
@@ -118,7 +101,9 @@ function MainGraph(props) {
       },
     ],
   };
-  return (
+
+  
+return (
     <div id="container">
       <HighchartsReact
         highcharts={Highcharts}
