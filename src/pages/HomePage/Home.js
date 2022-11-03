@@ -104,6 +104,7 @@ export default function Home() {
           boxShadow: "rgb(0 0 0 / 40%) 0px 2px 15px -3px",
           minWidth: "150px",
           color: "white",
+          margin: "20px"
         }}
       >
         Load More

@@ -6,6 +6,7 @@ import watchlistSlice from "./WatchlistReducer";
 import  blueBarAssets  from "./BlueBarAssets";
 import fetchSlice from "./FetchSlice";
 import socketSlice from "./WebSocketSlice";
+import portfolioSlice from "./PortfolioSlice";
 
 export const store = configureStore({
     reducer: {
@@ -15,6 +16,7 @@ export const store = configureStore({
         watchlistSlice: watchlistSlice,
         blueBarAssets: blueBarAssets,
         fetchSlice: fetchSlice,
+        portfolio: portfolioSlice,
         // socketSlice: socketSlice,
     }
 });

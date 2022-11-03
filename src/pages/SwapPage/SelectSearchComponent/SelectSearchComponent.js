@@ -57,6 +57,9 @@ const SelectSearchComponent = ({
         }
 
         setMakeRequest(false);
+      })
+      .catch(err =>{
+        console.log("sometimes this api gives empty response")
       });
   }, [makeRequest]);
 

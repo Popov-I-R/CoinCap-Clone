@@ -1,20 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
 import PieChart from "./PieChart";
 import "../HomePage/Home.css";
 import "./MainWrapper.css";
 import BoxSx from "./BoxComponent";
 import "./PortfolioOverview.css";
 import ModalComponent from "./ModalComponent";
+import { useSelector } from "react-redux";
+import { useEffect } from "react";
 
 export default function Portfolio() {
-  const myAssets = [
-    ["Task", "Hours per Day"],
-    ["ETH", 11 * 1200],
-    ["ADA", 2 * 0.4],
-    ["BNB", 2 * 130],
-    ["BTC", 1 * 1000],
-  ];
+  const myBalance = useSelector((state) => state.portfolio.myPortfolioBalance);
+  const [activeBalance, setActiveBalance] = useState([]);
 
+  useEffect(() => {
+    const objToArray = Object.entries(myBalance);
+
+    objToArray.unshift(["Task", "Hours per Day"]);
+    setActiveBalance(objToArray);
+  }, [myBalance]);
+  
+  
   return (
     <div className="MainWrapperPortfolioPage">
       <div className="PortfolioSection">
@@ -23,8 +28,7 @@ export default function Portfolio() {
         </div>
         <ModalComponent></ModalComponent>
       </div>
-
-      <PieChart data={myAssets} />
+      <PieChart data={activeBalance} />
     </div>
   );
 }
