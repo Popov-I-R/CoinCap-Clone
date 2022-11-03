@@ -20,6 +20,7 @@ import {
   setHigh,
   setLow,
   setAverage,
+  setUUID
 } from "../../store/BlueBarAssets";
 import { useEffect } from "react";
 
@@ -44,9 +45,10 @@ const AssetID = () => {
       .then((data) => {
         const coin = data.data.coin;
         dispatch(setRank(coin.rank));
+        dispatch(setUUID(coin.uuid));
         dispatch(setSymbol(coin.symbol));
         dispatch(setName(coin.name));
-        dispatch(setPrice(Number(coin.price).toFixed(3)));
+        dispatch(setPrice(Number(coin.price).toFixed(6)));
         const marketCap =
           coin.marketCap > 1000000000
             ? `${(coin.marketCap / 1000000000).toFixed(3)}b`

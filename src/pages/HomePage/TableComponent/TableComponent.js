@@ -6,16 +6,13 @@ import Paper from "@mui/material/Paper";
 import RowComponent from "./TableRowComponent";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addToWatchlist, removeFromWatchlist } from "../../../userManager/activeUser";
 import MainTableHead from "./MainTableHead";
-import { addToWatchlistRedux, removeFromWatchlistRedux } from "../../../store/WatchlistReducer";
 import { addToFetchSlice } from "../../../store/FetchSlice";
-import { API_KEY } from "../../../secrets";
-
 import Loader from "../../../components/Loader/LoaderComponent";
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
+    console.log(orderBy)
     return -1;
   }
   if (b[orderBy] > a[orderBy]) {
@@ -31,112 +28,22 @@ function getComparator(order, orderBy) {
 }
 
 export default function MainTable(props) {
-  const watchlist = useSelector((state) => state.watchlistSlice.watchlist);
+  let fetchedCoins = useSelector((state) => state.fetchSlice.fetchCoins);
   const [order, setOrder] = useState("asc");
   const [orderBy, setOrderBy] = useState("rank");
   const [coins, error, loading] = props.FetchCoins();
-  const [wsInitialized, setWsInitialized] = useState(false);
   const dispatch = useDispatch();
 
-  const [pageInitialized, setPageInitialized] = useState(true);
-
   useEffect(() => {
-    let convertedNameCoinsArray = [...coins];
-    dispatch(
-      addToFetchSlice(
-        convertedNameCoinsArray
-      )
-    );
+    let currentFetchedCoins = [...coins];
+    dispatch(addToFetchSlice(currentFetchedCoins));
   }, [coins, dispatch]);
-
-  let fetchedCoins = useSelector((state) => state.fetchSlice.fetchCoins);
-
-
-  // getUUIDs - Function for getting the ID-s of the coins
-  function getUUIDs() {
-    let uuids = fetchedCoins.map((e) => {
-      return e.uuid;
-    });
-    return uuids;
-  }
-
-  // ------------------ SOCKET START ------------------
-
-  // useEffect(() => {
-    
-  //   if (fetchedCoins?.length && !wsInitialized) {
-  //     const connection = new WebSocket(
-  //       `wss://api.coinranking.com/v2/real-time/rates?x-access-token=${API_KEY}`
-  //     );
-  //     setWsInitialized(true);
-  //     let uuidsReqArr = getUUIDs();
-      
-  //     connection.onopen = () => {
-  //       const subscriptions = {
-  //         throttle: "10s",
-  //         uuids: uuidsReqArr,
-  //       };
-
-  //       connection.send(JSON.stringify(subscriptions));
-  //       connection.onmessage = function (msg) {
-  //         let receivedData = JSON.parse(msg.data);
-  //         console.log(receivedData);
-
-  //         let newArr = [];
-  //         newArr = fetchedCoins.slice().map((e) => {
-  //           if (e.uuid === receivedData.currencyUuid) {
-  //             let newObj = { ...e };
-  //             newObj.price = receivedData.price;
-  //             return newObj;
-  //           } else {
-  //             return e;
-  //           }
-  //         });
-
-  //         dispatch(addToFetchSlice(newArr));
-  //       };
-  //     };
-  //   }
-
-
-  // }, [fetchedCoins]);
-
-  
-
-  
-  // ------------------ SOCKET END ------------------
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
     setOrder(isAsc ? "desc" : "asc");
     setOrderBy(property);
   };
-
-  const handleClickAddToWatchlist = (event, uuid) => {
-    event.stopPropagation();
-
-    const isLogged = JSON.parse(localStorage.getItem("activeUser"));
-    if (isLogged === null) {
-      return;
-    }
-
-    const selectedIndex = watchlist.indexOf(uuid);
-    let newSelected = [];
-    if (selectedIndex === -1) {
-      addToWatchlist(uuid);
-      newSelected = [...watchlist, uuid];
-      dispatch(addToWatchlistRedux(newSelected));
-    } else {
-      removeFromWatchlist(uuid);
-      newSelected = newSelected.concat(
-        watchlist.slice(0, selectedIndex),
-        watchlist.slice(selectedIndex + 1)
-      );
-      dispatch(removeFromWatchlistRedux(newSelected));
-    }
-  };
-
-  const isSelected = (uuid) => watchlist.indexOf(uuid) !== -1;
 
   return (
     <>
@@ -150,7 +57,6 @@ export default function MainTable(props) {
             aria-label="collapsible table"
           >
             <MainTableHead
-              numSelected={watchlist.length}
               order={order}
               orderBy={orderBy}
               onRequestSort={handleRequestSort}
@@ -160,15 +66,12 @@ export default function MainTable(props) {
                 .slice()
                 .sort(getComparator(order, orderBy))
                 .map((row, index) => {
-                  const isItemSelected = isSelected(row.uuid);
                   const labelId = { "aria-label": "Checkbox Heart" };
                   return (
                     <RowComponent
                       key={row.uuid}
                       row={row}
-                      handleClickAddToWatchlist={handleClickAddToWatchlist}
                       labelId={labelId}
-                      isItemSelected={isItemSelected}
                     />
                   );
                 })}

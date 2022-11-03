@@ -3,43 +3,18 @@ import { useEffect } from "react";
 import BlueBarAdaptive from "./BlueBarUnderHeader/BlueBarAdaptive";
 import "./Home.css";
 import MainTable from "./TableComponent/TableComponent";
-import getCoins from "../../AxiosHooks/getCoins";
+import getCoins from "../../axiosHooks/getCoins";
 import axios from "../../apis/coinranking";
 import { Button } from "@mui/material";
-import { connection } from "./testSocketThree";
-
-// import TestSocketTwo from "./testSocketTwo";
+import MainGreenButton from "../../components/MainGreenButton";
+import { addToFetchSlice } from "../../store/FetchSlice";
 
 import { API_KEY } from "../../secrets";
 
-import { connect, useDispatch, useSelector } from "react-redux";
-// import { addToFetchSlice } from "../../store/FetchSlice";
-// import testSocket from "./testSocket";
-// import { addSocketData } from "../../store/WebSocketSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function Home() {
 
-  function test(connection) {
-    connection.onopen = () => {
-      
-      const subscriptions = {
-        // throttle: "10s",
-        uuids: [
-          'Qwsogvtv82FCd',
-          'razxDUgYGNAdQ',
-        ],
-      };
-      connection.send(JSON.stringify(subscriptions));
-      connection.onmessage = function (msg) {
-        let receivedData = JSON.parse(msg.data);
-        console.log(receivedData);
-    };
-  }
-  }
-  
-
-
-  // testSocket()
   let fetchedCoins = useSelector((state) => state.fetchSlice.fetchCoins);
   const dispatch = useDispatch();
 
@@ -66,27 +41,41 @@ export default function Home() {
     return [coins, error, loading];
   }
 
-  // function handleData() {
-  //   setInitLimitCoins(initLimitCoins += 20)
+  function handleData() {
+    setInitLimitCoins(initLimitCoins += 20)
 
-  //   let limit = initLimitCoins
-  //   const options = {
-  //     method: 'GET',
-  //     headers: {
-  //       'X-RapidAPI-Key': '30027b2007mshd40995eb9b5a54ap1361c1jsncf2e7eda5150',
-  //       'X-RapidAPI-Host': 'coinranking1.p.rapidapi.com'
-  //     }
-  //   };
+    let limit = initLimitCoins
+    const options = {
+      method: 'GET',
+      headers: {
+        'X-RapidAPI-Key': '30027b2007mshd40995eb9b5a54ap1361c1jsncf2e7eda5150',
+        'X-RapidAPI-Host': 'coinranking1.p.rapidapi.com'
+      }
+    };
 
-  //   fetch(`https://coinranking1.p.rapidapi.com/coins?referenceCurrencyUuid=yhjMzLPhuIDl&timePeriod=24h&tiers%5B0%5D=1&orderBy=marketCap&orderDirection=desc&limit=${initLimitCoins}&offset=0`, options)
-  //     .then(response => response.json())
-  //     .then(response => {
-  //       dispatch(addToFetchSlice(response.data.coins))
-  //     }
-  //       )
-  //     .catch(err => console.error(err));
+    fetch(`https://coinranking1.p.rapidapi.com/coins?referenceCurrencyUuid=yhjMzLPhuIDl&timePeriod=24h&tiers%5B0%5D=1&orderBy=marketCap&orderDirection=desc&limit=${initLimitCoins}&offset=0`, options)
+      .then(response => response.json())
+      .then(response => {
+        let getNeededData = response.data.coins.map(coin => {
+          if (coin.price) {
+            coin.price = +coin.price
+          } if(coin.marketCap) {
+            coin.marketCap = +coin.marketCap
+          } 
+            if(coin.change) {
+              coin.change = +coin.change
+            }
+          return coin
+        })
 
-  // }
+        dispatch(addToFetchSlice(getNeededData))
+      }
+
+
+        )
+      .catch(err => console.error(err));
+
+  }
 
   return (
     <>
@@ -94,20 +83,8 @@ export default function Home() {
       <div className="MainWrapper">
         <MainTable FetchCoins={FetchCoins} />
       </div>
-      <Button
-        // onClick={()=> {handleData()}}
-        style={{
-          borderRadius: 40,
-          backgroundColor: "rgb(24, 198, 131)",
-          padding: "7px 16px",
-          fontSize: "12px",
-          boxShadow: "rgb(0 0 0 / 40%) 0px 2px 15px -3px",
-          minWidth: "150px",
-          color: "white",
-        }}
-      >
-        Load More
-      </Button>
+      <MainGreenButton text={"Load More"} function={handleData}>
+      </MainGreenButton>
       {/* <TestSocketTwo></TestSocketTwo> */}
     </>
   );

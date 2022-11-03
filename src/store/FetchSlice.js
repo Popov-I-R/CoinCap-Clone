@@ -2,7 +2,6 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   fetchCoins: [],
-//   requestFulfilled: false,
 };
 
 const fetchSlice = createSlice({
@@ -11,7 +10,6 @@ const fetchSlice = createSlice({
   reducers: {
     addToFetchSlice(state, action) {
       state.fetchCoins = action.payload;
-    //   state.requestFulfilled = true;
     },
   },
 });

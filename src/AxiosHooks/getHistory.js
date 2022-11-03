@@ -18,9 +18,7 @@ const useAxios = (configObj) => {
       try {
         const res = await axiosInstance[method.toLowerCase()](url, {
           ...requestConfig,
-          //   signal: controller.signal,
         });
-
         setResponse(res.data.data.history);
       } catch (err) {
         handleError();
@@ -30,8 +28,6 @@ const useAxios = (configObj) => {
     };
 
     fetchData();
-    // useEffect cleanup function
-    return () => controller.abort();
   }, []);
 
   return [response, error, loading];

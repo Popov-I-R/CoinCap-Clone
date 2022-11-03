@@ -3,7 +3,7 @@ import "./BlueBarAdaptive.css";
 import DesktopBlueBar from "../BlueBarUnderHeader/DesktopVersion/DesktopBlueBar";
 import MobileBlueBar from "../BlueBarUnderHeader/MobileVersion/MobileBlueBar";
 import axios from "../../../apis/coinranking";
-import useAxiosGlobal from "../../../AxiosHooks/getGlobalStats";
+import useAxiosGlobal from "../../../axiosHooks/getGlobalStats";
 
 export default function BlueBarAdaptive() {
 

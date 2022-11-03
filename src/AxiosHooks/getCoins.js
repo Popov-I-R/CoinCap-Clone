@@ -13,15 +13,24 @@ const useAxios = (configObj) => {
   }
 
   useEffect(() => {
-    const controller = new AbortController();
     const fetchData = async () => {
       try {
         const res = await axiosInstance[method.toLowerCase()](url, {
           ...requestConfig,
-          //   signal: controller.signal,
         });
-
-        setResponse(res.data.data.coins);
+        let getNeededData = res.data.data.coins.map((coin) => {
+          if (coin.price) {
+            coin.price = +coin.price;
+          }
+          if (coin.marketCap) {
+            coin.marketCap = +coin.marketCap;
+          }
+          if (coin.change) {
+            coin.change = +coin.change;
+          }
+          return coin;
+        });
+        setResponse(getNeededData);
       } catch (err) {
         handleError();
       } finally {
@@ -30,8 +39,6 @@ const useAxios = (configObj) => {
     };
 
     fetchData();
-    // useEffect cleanup function
-    return () => controller.abort();
   }, []);
 
   return [response, error, loading];
