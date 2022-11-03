@@ -21,15 +21,20 @@ import {
   setLow,
   setAverage,
 } from "../../store/BlueBarAssets";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import BlueBarLoader from "./BlueBarForDetailsOfCoin/BlueBarLoader";
+import CoinDetailPricesLoader from "./CoinDetailHiLowPrices/CoinDetailPricesLoader";
 
 const AssetID = () => {
   const { assetIdentificator } = useParams();
   const timePeriod = "5y";
   const rangeSelectorEnabler = true;
+  const [isDisplayLoader, setIsDisplayLoader] = useState(true);
+  
 
   const dispatch = useDispatch();
   useEffect(() => {
+    setIsDisplayLoader(true);
     fetch(`https://api.coinranking.com/v2/coin/${assetIdentificator}`, {
       method: "GET",
       headers: {
@@ -70,15 +75,16 @@ const AssetID = () => {
         const min = Math.min(...coin.sparkline);
         dispatch(setLow(min.toFixed(2)));
         dispatch(setAverage(((max + min) / 2).toFixed(2)));
+        setIsDisplayLoader(false);
       })
       .catch((err) => console.log("Hmmm... something went wrong"));
   }, [assetIdentificator]);
 
   return (
     <div>
-      <BlueBarForDetailsOfCoin></BlueBarForDetailsOfCoin>
+      {isDisplayLoader ? <BlueBarLoader /> : <BlueBarForDetailsOfCoin />}
       <div className="Assets-page">
-        <CoinDetailHiLowPrices />
+        {isDisplayLoader ? <CoinDetailPricesLoader />: <CoinDetailHiLowPrices />}
         <MainGraph
           uuid={assetIdentificator}
           rangeSelectorEnabler={rangeSelectorEnabler}

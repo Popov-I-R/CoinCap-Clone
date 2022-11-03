@@ -4,18 +4,18 @@ import defaultIconUrl from "../components/Icons/QuestionCoin.png";
 
 const initialState = {
   rank: 0,
-  name: "ExCoin",
-  symbol: "EXN",
-  price: 123,
-  marketCap: "123.434b",
-  volume: "789.784b",
-  supply: "56.734m",
+  name: "",
+  symbol: "",
+  price: "",
+  marketCap: "",
+  volume: "",
+  supply: "",
   website: "",
   iconUrl: defaultIconUrl,
-  change: 0.05,
-  high: 125,
-  low: 121,
-  average: 123,
+  change: "",
+  high: "",
+  low: "",
+  average: "",
 };
 
 export const blueBarAssets = createSlice({
