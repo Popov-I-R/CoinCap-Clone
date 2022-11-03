@@ -5,7 +5,6 @@ export const userManager = (function () {
       this.id = id;
       this.username = username;
       this.password = password;
-      // this.watchlistIDs = ["Qwsogvtv82FCd"]
       this.watchlistIDs = []
       this.assets = [];
       this.money = 3000;
@@ -38,9 +37,7 @@ export const userManager = (function () {
       if (!this.checkForExistingUser(username)) {
         const id = this.users[this.users.length - 1]?.id || 0;
         this.users.push(new User(username, password, id+1));
-
         localStorage.setItem("users", JSON.stringify(this.users));
-
         return true;
       }
       return false;

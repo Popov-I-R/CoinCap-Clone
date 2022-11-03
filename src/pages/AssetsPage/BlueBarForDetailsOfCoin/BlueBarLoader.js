@@ -3,7 +3,6 @@ import { useSelector } from "react-redux";
 import Loader from "../../../components/Loader/LoaderComponent";
 
 export default function BlueBarLoader() {
-
   const website = useSelector((state) => state.blueBarAssets.website);
 
   return (

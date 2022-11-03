@@ -13,8 +13,6 @@ export default function BlueBarForDetailsOfCoin() {
   const supply = useSelector((state) => state.blueBarAssets.supply);
   const website = useSelector((state) => state.blueBarAssets.website);
 
-
-
   return (
     <div className="ui raised attached very padded segment asset-header">
       <div className="ui container stackable two column grid">

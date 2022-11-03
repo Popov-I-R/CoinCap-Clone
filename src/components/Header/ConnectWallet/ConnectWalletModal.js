@@ -16,15 +16,10 @@ import LockIcon from "../../Icons/Lock-Icon-PNG-Graphic-Cave.png";
 import DollarsBackground from "./backgroundDollars.png";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import {
-  setIsRegistrButtonDisabled,
-  setIsLoginButtonDisabled,
-  setIsLogin,
-} from "../../../store/IsLoginSlice";
+import {setIsRegistrButtonDisabled, setIsLoginButtonDisabled, setIsLogin} from "../../../store/IsLoginSlice";
 import { userManager } from "../../../userManager/UserManager";
 import { setMyBalance } from "../../../store/SwapSlice";
 import { setMyPortfolioBalance } from "../../../store/PortfolioSlice";
-
 import { addToWatchlistRedux } from "../../../store/WatchlistSlice";
 import { getActiveUser } from "../../../userManager/activeUser";
 
@@ -39,12 +34,8 @@ const style = {
 };
 
 export default function ConnectWalletModal() {
-  const isRegistrButtonDisabled = useSelector(
-    (state) => state.disabler.isRegistrButtonDisabled
-  );
-  const isLoginButtonDisabled = useSelector(
-    (state) => state.disabler.isLoginButtonDisabled
-  );
+  const isRegistrButtonDisabled = useSelector((state) => state.disabler.isRegistrButtonDisabled);
+  const isLoginButtonDisabled = useSelector((state) => state.disabler.isLoginButtonDisabled);
   const isLogin = useSelector((state) => state.disabler.isLogin);
 
   const dispatch = useDispatch();
@@ -59,11 +50,8 @@ export default function ConnectWalletModal() {
   };
 
   function changeRegistrButtonCondition(username, password, passwordRepeat) {
-    //     setAccessMessage
-
     const passw = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
     setUserExistsError("none");
-
     if (username && password && passwordRepeat) {
       dispatch(setIsRegistrButtonDisabled(false));
       setAccessMessage("block");
@@ -162,10 +150,8 @@ export default function ConnectWalletModal() {
   const [wrongCredentials, setWrongCredentials] = useState("hidden");
   const [passMismatchError, setPassMismatchError] = useState("none");
   const [userExistsError, setUserExistsError] = useState("none");
-  const [usernameRequirementsError, setUsernameRequirementsError] =
-    useState("none");
-  const [passwordRequirementsError, setPasswordRequirementsError] =
-    useState("none");
+  const [usernameRequirementsError, setUsernameRequirementsError] = useState("none");
+  const [passwordRequirementsError, setPasswordRequirementsError] = useState("none");
   const [accessMessage, setAccessMessage] = useState("none");
 
   const [loginUsername, setLoginUsername] = useState("");
@@ -177,6 +163,7 @@ export default function ConnectWalletModal() {
 
   const [typeOfPasswordField, setTypeOfPasswordField] = useState("password");
   const [flagForShowPassword, setFlagForShowPassword] = useState(true);
+
   const showHidePassword = () => {
     setFlagForShowPassword(!flagForShowPassword);
     if (flagForShowPassword) {
@@ -190,13 +177,7 @@ export default function ConnectWalletModal() {
     <>
       <Button
         className="Connect-wallet-button"
-        onClick={
-          !isLogin
-            ? handleOpen
-            : () => {
-                logout();
-              }
-        }
+        onClick={!isLogin ? handleOpen : () => {logout()}}
         style={{
           borderRadius: 40,
           backgroundColor: "rgb(24, 198, 131)",
@@ -231,9 +212,7 @@ export default function ConnectWalletModal() {
         closeAfterTransition
         BackdropComponent={Backdrop}
         sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
-        BackdropProps={{
-          timeout: 500,
-        }}
+        BackdropProps={{timeout: 500}}
       >
         <Fade in={open} className="Modal-connect-wallet">
           <Box className="Wallet-modal-box" sx={style}>
@@ -246,13 +225,9 @@ export default function ConnectWalletModal() {
               className="LogRegCntnr Login-container"
             >
               <h2>Login</h2>
-
               <Box
                 className="Input-box Input-box-login"
-                sx={{
-                  display: "flex",
-                  alignItems: "flex-end",
-                }}
+                sx={{display: "flex", alignItems: "flex-end"}}
               >
                 <AccountCircle
                   sx={{ color: "action.active", mr: 1, my: 0.5 }}
@@ -274,10 +249,7 @@ export default function ConnectWalletModal() {
 
               <Box
                 className="Input-box Input-box-login"
-                sx={{
-                  display: "flex",
-                  alignItems: "flex-end",
-                }}
+                sx={{display: "flex", alignItems: "flex-end"}}
               >
                 {flagForShowPassword ? (
                   <VisibilityOffIcon
@@ -322,11 +294,7 @@ export default function ConnectWalletModal() {
 
               <FormGroup>
                 <FormControlLabel
-                  sx={{
-                    visibility: "hidden",
-                    color: "#2f3640",
-                    margin: "8px 0px 18px 0",
-                  }}
+                  sx={{visibility: "hidden", color: "#2f3640", margin: "8px 0px 18px 0"}}
                   control={<Checkbox />}
                   label="Remember me"
                 />
@@ -334,9 +302,7 @@ export default function ConnectWalletModal() {
 
               <Button
                 className="Sign-in-button"
-                onClick={() => {
-                  tryLogin(loginUsername, loginPassword);
-                }}
+                onClick={() => {tryLogin(loginUsername, loginPassword)}}
                 style={{
                   borderRadius: 10,
                   backgroundColor: "rgb(24, 198, 131)",
@@ -466,10 +432,7 @@ export default function ConnectWalletModal() {
 
               <div className="Registration-messages-div">
                 <p
-                  style={{
-                    display: usernameRequirementsError,
-                    maxWidth: "275px",
-                  }}
+                  style={{display: usernameRequirementsError, maxWidth: "275px"}}
                   className="Wrong-credentials-message username-require"
                   id="usernameRequirementsError"
                 >

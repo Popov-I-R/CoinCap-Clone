@@ -1,7 +1,6 @@
 import React from "react";
 import "./DesktopBlueBar.css"
 
-
 export default function DesktopBlueBar({ marketCap, exchangeVol, assets, exchanges, markets, btcDomIndex }) {
 
     return (

@@ -42,12 +42,8 @@ export default function Settings() {
                 onClose={handleClose}
                 closeAfterTransition
                 BackdropComponent={Backdrop}
-                sx={{
-                    backdropFilter: "blur(5px)",
-                  }}
-                BackdropProps={{
-                    timeout: 500,
-                }}
+                sx={{backdropFilter: "blur(5px)"}}
+                BackdropProps={{timeout: 500}}
             >
                 <Fade in={open}
                     className="Modal-settings">
@@ -61,7 +57,8 @@ export default function Settings() {
                             <AddIcon
                                 onClick={handleClose}
                                 className='Close-settings-btn'
-                                sx={{ fontSize: 40 }} />
+                                sx={{ fontSize: 40 }}
+                            />
 
                         </div>
                         <hr></hr>
@@ -69,9 +66,7 @@ export default function Settings() {
                             <SettingsContainer />
                         </div>
                     </Box>
-
                 </Fade>
-
             </Modal>
         </div>
     );

@@ -4,10 +4,12 @@ import Highcharts from "highcharts/highstock";
 import HighchartsReact from "highcharts-react-official";
 import { useSelector } from "react-redux";
 import { API_KEY } from "../../secrets";
+import { useNavigate } from "react-router-dom";
 
 function MainGraph(props) {
   const symbol = useSelector((state) => state.blueBarAssets.symbol);
   const [history, setHistory] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch(
@@ -26,7 +28,8 @@ function MainGraph(props) {
       })
       .then((data) => {
         setHistory(data.data.history);
-      });
+      })
+      .catch((err) => navigate("*"));
   }, [props.uuid]);
 
   let data = [];

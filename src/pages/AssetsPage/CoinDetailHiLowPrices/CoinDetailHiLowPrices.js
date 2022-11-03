@@ -25,10 +25,7 @@ export default function CoinDetailHiLowPrices() {
 
   return (
     <div className="coin-detail-container">
-<div>
-
-</div>
-     <div>
+      <div>
         {" "}
         <CheckboxComponent checkForUUID={uuid}></CheckboxComponent>
       </div>
@@ -43,7 +40,7 @@ export default function CoinDetailHiLowPrices() {
           <p>{formattedToday}</p>
         </div>
       </div>
- 
+
       <div className="coin-detail-block">
         <div>
           <span>

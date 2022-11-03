@@ -1,11 +1,14 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import BlueBarForDetailsOfCoin from "./BlueBarForDetailsOfCoin/BlueBarForDetailsOfCoin";
 import CoinDetailHiLowPrices from "./CoinDetailHiLowPrices/CoinDetailHiLowPrices";
 import "./Asset.css";
 import MainGraph from "./MainGraph";
 import { useDispatch } from "react-redux";
 import { API_KEY } from "../../secrets";
+import { useEffect, useState } from "react";
+import BlueBarLoader from "./BlueBarForDetailsOfCoin/BlueBarLoader";
+import CoinDetailPricesLoader from "./CoinDetailHiLowPrices/CoinDetailPricesLoader";
 import {
   setRank,
   setSymbol,
@@ -22,16 +25,14 @@ import {
   setAverage,
   setUUID
 } from "../../store/BlueBarAssets";
-import { useEffect, useState } from "react";
-import BlueBarLoader from "./BlueBarForDetailsOfCoin/BlueBarLoader";
-import CoinDetailPricesLoader from "./CoinDetailHiLowPrices/CoinDetailPricesLoader";
+
 
 const AssetID = () => {
   const { assetIdentificator } = useParams();
   const timePeriod = "5y";
   const rangeSelectorEnabler = true;
   const [isDisplayLoader, setIsDisplayLoader] = useState(true);
-  
+  const navigate = useNavigate();
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -85,7 +86,7 @@ const AssetID = () => {
         dispatch(setAverage(average));
         setIsDisplayLoader(false);
       })
-      .catch((err) => console.log("Hmmm... something went wrong"));
+      .catch((err) => navigate("*"));
   }, [assetIdentificator]);
 
   return (

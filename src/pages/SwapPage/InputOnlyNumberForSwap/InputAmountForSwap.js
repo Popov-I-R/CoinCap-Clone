@@ -3,12 +3,7 @@ import "./InputAmountForSwap.css";
 import { useState } from "react";
 import { useEffect } from "react";
 
-export default function InputAmountForSwap({
-  calculatedValue,
-  setNumberToCalc,
-  setFinalNumberToSwap,
-  cleaner,
-}) {
+export default function InputAmountForSwap({calculatedValue, setNumberToCalc, setFinalNumberToSwap, cleaner}) {
   const [inputValue, setInputValue] = useState("");
 
   useEffect(() => {

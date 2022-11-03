@@ -7,6 +7,7 @@ import InputAmountForSwap from "./InputOnlyNumberForSwap/InputAmountForSwap";
 import ConnectWalletModal from "../../components/Header/ConnectWallet/ConnectWalletModal";
 import { useSelector, useDispatch } from "react-redux";
 import Button from "@mui/material/Button";
+import { setMyPortfolioBalance } from "../../store/PortfolioSlice";
 import {
   setFirstCoinIconUrl,
   setSecondCoinIconUrl,
@@ -17,7 +18,7 @@ import {
   setSecondChosenCoinPrice,
   setRate,
 } from "../../store/SwapSlice";
-import { setMyPortfolioBalance } from "../../store/PortfolioSlice";
+
 
 export default function SwapComponent() {
   const isLogin = useSelector((state) => state.disabler.isLogin);
@@ -26,12 +27,8 @@ export default function SwapComponent() {
   const myBalance = useSelector((state) => state.swaper.myBalance);
   const rateFirstCoin = useSelector((state) => state.swaper.rateFirstCoin);
   const rateSecondCoin = useSelector((state) => state.swaper.rateSecondCoin);
-  const firstChosenCoinPrice = useSelector(
-    (state) => state.swaper.firstChosenCoinPrice
-  );
-  const secondChosenCoinPrice = useSelector(
-    (state) => state.swaper.secondChosenCoinPrice
-  );
+  const firstChosenCoinPrice = useSelector((state) => state.swaper.firstChosenCoinPrice);
+  const secondChosenCoinPrice = useSelector((state) => state.swaper.secondChosenCoinPrice);
   const rate = useSelector((state) => state.swaper.rate);
 
   const [rateDisplayd, setRateDisplayd] = useState("hidden");
@@ -48,7 +45,6 @@ export default function SwapComponent() {
 
   const dispatch = useDispatch();
  
-
   useEffect(() => {
     if (rateFirstCoin.length > 0 && rateSecondCoin.length > 0) {
       setRateDisplayd("visible");
@@ -58,12 +54,7 @@ export default function SwapComponent() {
 
   useEffect(() => {
     if (rateFirstCoin.length > 0 && rateSecondCoin.length > 0) {
-      setSecondCalculatedValue(
-        (
-          numberToCalc1 *
-          (firstChosenCoinPrice / secondChosenCoinPrice)
-        ).toFixed(5)
-      );
+      setSecondCalculatedValue((numberToCalc1 * (firstChosenCoinPrice / secondChosenCoinPrice)).toFixed(5));
     }
     if (numberToCalc1 === 0) {
       setSecondCalculatedValue("");
@@ -72,12 +63,7 @@ export default function SwapComponent() {
 
   useEffect(() => {
     if (rateFirstCoin.length > 0 && rateSecondCoin.length > 0) {
-      setFirstCalculatedValue(
-        (
-          numberToCalc2 /
-          (firstChosenCoinPrice / secondChosenCoinPrice)
-        ).toFixed(5)
-      );
+      setFirstCalculatedValue((numberToCalc2 /(firstChosenCoinPrice / secondChosenCoinPrice)).toFixed(5));
     }
     if (numberToCalc2 === 0) {
       setFirstCalculatedValue("");
@@ -85,12 +71,7 @@ export default function SwapComponent() {
   }, [numberToCalc2]);
 
   const swap = () => {
-    if (
-      rateFirstCoin.length > 0 &&
-      rateSecondCoin.length > 0 &&
-      firstFinalNumberToSwap > 0 &&
-      secondFinalNumberToSwap > 0
-    ) {
+    if (rateFirstCoin.length > 0 && rateSecondCoin.length > 0 && firstFinalNumberToSwap > 0 && secondFinalNumberToSwap > 0) {
       const thisUser = JSON.parse(localStorage.getItem("activeUser"));
       const sellCoins = Number(firstFinalNumberToSwap);
       const getCoins = Number(secondFinalNumberToSwap);
@@ -101,11 +82,9 @@ export default function SwapComponent() {
         setTimeout(() => {
           setDisplaySuccess("none");
         }, 4500);
-        thisUser.myBalance[rateFirstCoin] =
-          thisUser.myBalance[rateFirstCoin] - sellCoins;
+        thisUser.myBalance[rateFirstCoin] = thisUser.myBalance[rateFirstCoin] - sellCoins;
         if (thisUser.myBalance[rateSecondCoin]) {
-          thisUser.myBalance[rateSecondCoin] =
-            thisUser.myBalance[rateSecondCoin] + getCoins;
+          thisUser.myBalance[rateSecondCoin] = thisUser.myBalance[rateSecondCoin] + getCoins;
         } else {
           thisUser.myBalance[rateSecondCoin] = getCoins;
         }

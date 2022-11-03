@@ -16,7 +16,7 @@ export const disabler = createSlice({
     setIsRegistrButtonDisabled: (state, action) => {
       state.isRegistrButtonDisabled = action.payload;
     },
-    setIsLogin: (state, action) => {
+    setIsLogin: (state) => {
       state.isLogin = !state.isLogin;
     }
   },

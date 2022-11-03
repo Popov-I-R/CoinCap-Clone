@@ -9,6 +9,7 @@ import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import { API_KEY } from "../../secrets";
 import Loader from "../../components/Loader/LoaderComponent"
+import { useNavigate } from "react-router-dom";
 
 
 export default function Portfolio() {
@@ -16,8 +17,7 @@ export default function Portfolio() {
   const [activeBalance, setActiveBalance] = useState([]);
   const [total, setTotal] = useState(0);
   const [isDisplayLoader, setIsDisplayLoader] = useState(true);
-
-
+  const navigate = useNavigate();
 
   useEffect(() => {
     setIsDisplayLoader(true);
@@ -55,7 +55,8 @@ export default function Portfolio() {
         setActiveBalance(objToArray);
         setTotal(sum);
         setIsDisplayLoader(false)
-      });
+      })
+      .catch((err) => navigate("*"));
   }, [myBalance]);
 
   return (

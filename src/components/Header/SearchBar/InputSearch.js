@@ -1,14 +1,13 @@
 import React from "react";
 import "./InputSearch.css";
 import { API_KEY } from "../../../secrets";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
-
 
 export default function InputSearch() {
   const [searchedCoins, setSearchedCoins] = useState([]);
   const [isOptionDisplayed, setIsOptionDisplayed] = useState("none");
+  const navigate = useNavigate();
 
   function debounce(func, time) {
     let timerID;
@@ -23,8 +22,7 @@ export default function InputSearch() {
   function searchCoins(e) {
     const value = e.target.value;
     if (value !== "") {
-      fetch(
-        `https://api.coinranking.com/v2/search-suggestions?query=${value}`,
+      fetch(`https://api.coinranking.com/v2/search-suggestions?query=${value}`,
         {
           method: "GET",
           headers: {
@@ -41,7 +39,8 @@ export default function InputSearch() {
           const coins = data.data.coins;
           setSearchedCoins(coins);
           setIsOptionDisplayed("flex");
-        });
+        })
+        .catch((err) => navigate("*"));
     } else {
       setSearchedCoins([]);
     }

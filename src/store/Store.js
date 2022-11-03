@@ -16,9 +16,7 @@ export const store = configureStore({
         blueBarAssets: blueBarAssets,
         fetchSlice: fetchSlice,
         portfolio: portfolioSlice,
-        // socketSlice: socketSlice,
     }
 });
-
 
 export default store;
