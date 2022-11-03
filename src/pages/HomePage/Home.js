@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import BlueBarAdaptive from "./BlueBarUnderHeader/BlueBarAdaptive";
 import "./Home.css";
 import MainTable from "./TableComponent/TableComponent";
-import getCoins from "../../axiosHooks/getCoins";
+import getCoins from "../../AxiosHooks/getCoins";
 import axios from "../../apis/coinranking";
 import { Button } from "@mui/material";
 import MainGreenButton from "../../components/MainGreenButton";

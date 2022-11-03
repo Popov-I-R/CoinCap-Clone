@@ -5,6 +5,7 @@ import swaper from "./SwapSlice";
 import watchlistSlice from "./WatchlistSlice";
 import  blueBarAssets  from "./BlueBarAssets";
 import fetchSlice from "./FetchSlice";
+import portfolioSlice from "./PortfolioSlice"
 
 export const store = configureStore({
     reducer: {

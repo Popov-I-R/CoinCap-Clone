@@ -4,7 +4,7 @@ import DesktopBlueBar from "../BlueBarUnderHeader/DesktopVersion/DesktopBlueBar"
 import DesktopBlueBarLoader from "./DesktopVersion/DesktopBlueBarLoader";
 import MobileBlueBar from "../BlueBarUnderHeader/MobileVersion/MobileBlueBar";
 import axios from "../../../apis/coinranking";
-import useAxiosGlobal from "../../../axiosHooks/getGlobalStats";
+import useAxiosGlobal from "../../../AxiosHooks/getGlobalStats";
 
 export default function BlueBarAdaptive() {
   const globalStats = (function GLOBAL() {

@@ -12,7 +12,6 @@ import Loader from "../../../components/Loader/LoaderComponent";
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
-    console.log(orderBy)
     return -1;
   }
   if (b[orderBy] > a[orderBy]) {
