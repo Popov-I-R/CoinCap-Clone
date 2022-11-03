@@ -8,14 +8,19 @@ import ModalComponent from "./ModalComponent";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import { API_KEY } from "../../secrets";
+import Loader from "../../components/Loader/LoaderComponent"
+
 
 export default function Portfolio() {
   const myBalance = useSelector((state) => state.portfolio.myPortfolioBalance);
   const [activeBalance, setActiveBalance] = useState([]);
   const [total, setTotal] = useState(0);
+  const [isDisplayLoader, setIsDisplayLoader] = useState(true);
+
 
 
   useEffect(() => {
+    setIsDisplayLoader(true);
     const keys = Object.keys(myBalance);
     const objToArray = Object.entries(myBalance);
     let sum = 0;
@@ -49,6 +54,7 @@ export default function Portfolio() {
         objToArray.unshift(["Task", "Hours per Day"]);
         setActiveBalance(objToArray);
         setTotal(sum);
+        setIsDisplayLoader(false)
       });
   }, [myBalance]);
 
@@ -60,7 +66,7 @@ export default function Portfolio() {
         </div>
         <ModalComponent></ModalComponent>
       </div>
-      <PieChart data={activeBalance} />
+      {isDisplayLoader ? <Loader sizing={100} />: <PieChart data={activeBalance} />}
     </div>
   );
 }
