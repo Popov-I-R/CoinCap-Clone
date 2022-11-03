@@ -14,6 +14,8 @@ export const store = configureStore({
         watchlistSlice: watchlistSlice,
         blueBarAssets: blueBarAssets,
         fetchSlice: fetchSlice,
+        portfolio: portfolioSlice,
+        // socketSlice: socketSlice,
     }
 });
 

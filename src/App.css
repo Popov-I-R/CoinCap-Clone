@@ -1,6 +1,8 @@
 @import url(https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic&subset=latin);
 
-html, body, #root {
+html,
+body,
+#root {
   height: 100%;
 }
 
@@ -14,12 +16,21 @@ body {
   color: rgba(0, 0, 0, 0.87);
 }
 
-body,h1,h2,h3,h4,h5 {
+body,
+h1,
+h2,
+h3,
+h4,
+h5 {
   padding: 0;
   font-family: Lato, Helvetica Neue, Arial, Helvetica, sans-serif;
 }
 
-h1,h2,h3,h4,h5 {
+h1,
+h2,
+h3,
+h4,
+h5 {
   line-height: 1.28571429em;
   margin: calc(2rem - 0.14285714em) 0 1rem;
   font-weight: 700;
@@ -55,7 +66,8 @@ h5 {
   font-weight: 700;
 }
 
-a, a:hover {
+a,
+a:hover {
   font-family: Lato, Helvetica, Arial, sans-serif;
   text-decoration: none;
   color: black;
@@ -97,15 +109,22 @@ p {
 
 /* Track */
 ::-webkit-scrollbar-track {
-  background: #f1f1f1; 
+  background: #f1f1f1;
 }
- 
+
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #888; 
+  background: #888;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #555; 
+  background: #555;
+}
+
+
+
+.Desktop-blue-bar-item .MuiCircularProgress-circle,
+.ui.raised.attached.very.padded.segment.asset-header .MuiCircularProgress-circle {
+  color: #c2b6d7;
 }

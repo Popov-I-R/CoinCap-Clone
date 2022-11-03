@@ -23,6 +23,7 @@ import {
 } from "../../../store/IsLoginSlice";
 import { userManager } from "../../../userManager/UserManager";
 import { setMyBalance } from "../../../store/SwapSlice";
+import { setMyPortfolioBalance } from "../../../store/PortfolioSlice";
 
 import { addToWatchlistRedux } from "../../../store/WatchlistSlice";
 import { getActiveUser } from "../../../userManager/activeUser";
@@ -130,6 +131,7 @@ export default function ConnectWalletModal() {
       const activeUser = getActiveUser();
       const currentWatchlist = activeUser.watchlistIDs;
       dispatch(addToWatchlistRedux(currentWatchlist));
+      dispatch(setMyPortfolioBalance(JSON.parse(localStorage.getItem("activeUser")).myBalance))
     } else {
       setLoginUsername("");
       setLoginPassword("");

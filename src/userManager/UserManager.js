@@ -12,8 +12,8 @@ export const userManager = (function () {
       this.theme = "light";
       this.myBalance = {
         USDT: 3500,
-        BTC: 2,
-        ETH: 8, 
+        BTC: 0.2,
+        ETH: 3, 
         BNB: 25,
         XRP: 120,
       };

@@ -17,6 +17,7 @@ import {
   setSecondChosenCoinPrice,
   setRate,
 } from "../../store/SwapSlice";
+import { setMyPortfolioBalance } from "../../store/PortfolioSlice";
 
 export default function SwapComponent() {
   const isLogin = useSelector((state) => state.disabler.isLogin);
@@ -116,6 +117,7 @@ export default function SwapComponent() {
           setDisplayDenied("none");
         }, 5000);
       }
+      dispatch(setMyPortfolioBalance(thisUser.myBalance));
       localStorage.setItem("activeUser", JSON.stringify(thisUser));
       const updatedUsers = JSON.parse(localStorage.getItem("users"));
       updatedUsers.map((user) => {
