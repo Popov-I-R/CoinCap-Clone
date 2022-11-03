@@ -10,12 +10,11 @@ import { visuallyHidden } from "@mui/utils";
 const headCells = MainHeadCells()
 
 export default function MainTableHead(props) {
-
     const { order, orderBy, onRequestSort } = props;
+    
     const createSortHandler = (property) => (event) => {
       onRequestSort(event, property);
     };
-    
     return (
       <TableHead>
         <TableRow>

@@ -11,28 +11,7 @@ import Exchanges from "./pages/ExchangesPage/Exchanges";
 import AssetID from "./pages/AssetsPage/Asset";
 import ErrorPage from "./pages/ErrorPage/ErrorPage";
 
-import {connection} from "./pages/HomePage/testSocketThree"
-
-function test(connection) {
-  connection.onopen = () => {
-    const subscriptions = {
-      throttle: "10s",
-      uuids: ["Qwsogvtv82FCd", "razxDUgYGNAdQ"],
-    };
-    connection.send(JSON.stringify(subscriptions));
-    connection.onmessage = function (msg) {
-      let receivedData = JSON.parse(msg.data);
-      console.log(receivedData);
-    };
-  };
-}
-
 function App() {
-
-  useEffect(()=> {
-    test(connection)
-    return ()=> {connection.close()}
-  },[])
 
   return (
     <BrowserRouter>

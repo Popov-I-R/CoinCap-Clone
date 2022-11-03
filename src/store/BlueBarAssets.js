@@ -61,6 +61,9 @@ export const blueBarAssets = createSlice({
     setAverage: (state, action) => {
       state.average = action.payload;
     },
+    setUUID: (state, action) => {
+      state.uuid = action.payload;
+    }
   },
 });
 
@@ -77,6 +80,7 @@ export const {
   setChange,
   setHigh,
   setLow,
-  setAverage
+  setAverage,
+  setUUID
 } = blueBarAssets.actions;
 export default blueBarAssets.reducer;

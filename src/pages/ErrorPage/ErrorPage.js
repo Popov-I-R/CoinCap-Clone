@@ -1,7 +1,9 @@
 import React from "react";
 import "./ErrorPage.css";
+import { useNavigate } from "react-router-dom";
 
 export default function ErrorPage() {
+  const navigate = useNavigate()
   return (
     <div>
       <h1>404 Error Page</h1>
@@ -24,6 +26,10 @@ export default function ErrorPage() {
         >
           Go To HomePage
         </a>
+      </div>
+      <div className="link-container">
+      <span>or</span>
+      <button className="more-link" onClick={() => navigate(-1)}>Go back</button>
       </div>
     </div>
   );

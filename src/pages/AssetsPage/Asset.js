@@ -20,6 +20,7 @@ import {
   setHigh,
   setLow,
   setAverage,
+  setUUID
 } from "../../store/BlueBarAssets";
 import { useEffect, useState } from "react";
 import BlueBarLoader from "./BlueBarForDetailsOfCoin/BlueBarLoader";
@@ -49,6 +50,7 @@ const AssetID = () => {
       .then((data) => {
         const coin = data.data.coin;
         dispatch(setRank(coin.rank));
+        dispatch(setUUID(coin.uuid));
         dispatch(setSymbol(coin.symbol));
         dispatch(setName(coin.name));
         const price = coin.price > 0.01 ? (Number(coin.price).toFixed(4)) : (Number(coin.price).toFixed(7))

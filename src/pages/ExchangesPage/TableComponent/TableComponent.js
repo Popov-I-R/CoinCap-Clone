@@ -1,5 +1,4 @@
 import * as React from "react";
-import { alpha } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -13,6 +12,7 @@ import { visuallyHidden } from "@mui/utils";
 import RowComponent from "./TableRowComponent";
 import {TableHeadCells} from "./TableHeadCells"
 import  { useState, useEffect } from "react";
+import { API_KEY } from "../../../secrets";
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -71,15 +71,13 @@ function MainTableHead(props) {
 export default function ExchangesTable() {
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("rank");
-
   const [arrOfFakeResponse, setExchanges] = useState([]);
  
   useEffect(() => {
-    // let arr = [];
     const optionsReq = {
         method: "GET",
         headers: {
-          "x-access-token": "coinrankingf8578fd99a951143edc7ee38782623b8b680181be6137259"
+          "x-access-token": API_KEY
         },
       };
     const limitPage = 25
@@ -88,7 +86,6 @@ export default function ExchangesTable() {
       .then((data) => {
         setExchanges(data.data.exchanges)})
   }, []);
-
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";

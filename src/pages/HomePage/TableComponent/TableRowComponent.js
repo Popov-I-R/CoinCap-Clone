@@ -1,40 +1,24 @@
 import CollapseTable from "./CollapseTableComponent";
 import { useState } from "react";
 import { TableRow, TableCell } from "@mui/material";
-import Checkbox from "@mui/material/Checkbox";
-import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
-import Favorite from "@mui/icons-material/Favorite";
 import SparkLine from "./SparklineComponent/SparklineComponent";
 import "./SparklineComponent/Sparkline.css";
 import "./TableComponent.css";
 import { Link } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import Tooltip from "@mui/material/Tooltip";
-import { API_KEY } from "../../../secrets";
-import {
-  setSymbol
-} from "../../../store/BlueBarAssets";
+import { useDispatch } from "react-redux";
+import { setSymbol } from "../../../store/BlueBarAssets";
+import CheckboxComponent from "../../../components/Checkbox";
 
 export default function RowComponent(props) {
   const [open, setOpen] = useState(false);
   const labelId = props.labelId;
   const dispatch = useDispatch();
-  const watchlist = useSelector((state) => state.watchlistSlice.watchlist);
   
-
-  function checkForCoin(uuid) {
-    if (watchlist.includes(uuid)) {
-      return true
-    }
-    return false
-  }
-
-
   function handleOpen (symbol){
     dispatch(setSymbol(symbol));
-    setOpen(!open)
+    setOpen(!open);
   }
-  const isLogged = JSON.parse(localStorage.getItem("activeUser"));
+
   return (
     <>
       <TableRow
@@ -44,27 +28,10 @@ export default function RowComponent(props) {
         tabIndex={-1}
       >
         <TableCell padding="checkbox">
-        {isLogged ? ( 
-          <Checkbox
-              checked={checkForCoin(props.row.uuid)}
-              onClick={(event) =>
-                props.handleClickAddToWatchlist(event, props.row.uuid)
-              }
-              {...labelId}
-              icon={<FavoriteBorder />}
-              checkedIcon={<Favorite />}
-            />) : (<Tooltip title="You need to be logged in for this future" placement="right-start">
-            <Checkbox
-              checked={checkForCoin(props.row.uuid)}
-              onClick={(event) =>
-                props.handleClickAddToWatchlist(event, props.row.uuid)
-              }
-              {...labelId}
-              icon={<FavoriteBorder />}
-              checkedIcon={<Favorite />}
-            />
-          </Tooltip>)}
-          
+          <CheckboxComponent
+            checkForUUID={props.row.uuid}
+            labelId={labelId}>
+            </CheckboxComponent>
         </TableCell>
         <TableCell
           align="center"
@@ -88,21 +55,9 @@ export default function RowComponent(props) {
             </div>
           </div>
         </TableCell>
-        <TableCell align="right">{`$${Number(props.row.price).toFixed(
-          2
-        )}`}</TableCell>
-        <TableCell align="right">{`$${Number(
-          props.row.marketCap
-        ).toLocaleString(undefined, {
-          minimumFractionDigits: 2,
-          maximumFractionDigits: 2,
-        })}`}</TableCell>
-        <TableCell align="right">{`$${Number(
-          props.row["24hVolume"]
-        ).toLocaleString(undefined, {
-          minimumFractionDigits: 2,
-          maximumFractionDigits: 2,
-        })}`}</TableCell>
+        <TableCell align="right">{`$${Number(props.row.price).toFixed(2)}`}</TableCell>
+        <TableCell align="right">{`$${Number(props.row.marketCap).toLocaleString(undefined, {minimumFractionDigits: 2,maximumFractionDigits: 2})}`}</TableCell>
+        <TableCell align="right">{`$${Number(props.row["24hVolume"]).toLocaleString(undefined, {minimumFractionDigits: 2,maximumFractionDigits: 2})}`}</TableCell>
         <TableCell align="right">{`${props.row.change}%`}</TableCell>
         <TableCell align="right">
           <SparkLine

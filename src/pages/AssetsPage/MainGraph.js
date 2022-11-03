@@ -3,37 +3,38 @@ import { useState, useEffect } from "react";
 import Highcharts from "highcharts/highstock";
 import HighchartsReact from "highcharts-react-official";
 import { useSelector } from "react-redux";
-import { API_KEY } from "../../secrets"; 
-
-
+import { API_KEY } from "../../secrets";
 
 function MainGraph(props) {
   const symbol = useSelector((state) => state.blueBarAssets.symbol);
-  const[history, setHistory] = useState([]);
+  const [history, setHistory] = useState([]);
 
-  useEffect(()=>{
-   fetch(`https://api.coinranking.com/v2/coin/${props.uuid}/history?timePeriod=${props.timePeriod}`, {
-    method: "GET",
-    headers: {
-      "x-access-token": API_KEY,
-    },
-  })
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
+  useEffect(() => {
+    fetch(
+      `https://api.coinranking.com/v2/coin/${props.uuid}/history?timePeriod=${props.timePeriod}`,
+      {
+        method: "GET",
+        headers: {
+          "x-access-token": API_KEY,
+        },
       }
-    })
-    .then(data =>{
-      setHistory(data.data.history)
-    })
-  },[props.uuid])
+    )
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+      })
+      .then((data) => {
+        setHistory(data.data.history);
+      });
+  }, [props.uuid]);
 
   let data = [];
   for (const key of history) {
     let coinStats = [key.timestamp * 1000, Number(key.price)];
     data.unshift(coinStats);
   }
-  
+
   const options = {
     time: {
       useUTC: false,
@@ -102,8 +103,7 @@ function MainGraph(props) {
     ],
   };
 
-  
-return (
+  return (
     <div id="container">
       <HighchartsReact
         highcharts={Highcharts}

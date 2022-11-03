@@ -25,7 +25,7 @@ import { userManager } from "../../../userManager/UserManager";
 import { setMyBalance } from "../../../store/SwapSlice";
 import { setMyPortfolioBalance } from "../../../store/PortfolioSlice";
 
-import { addToWatchlistRedux } from "../../../store/WatchlistReducer";
+import { addToWatchlistRedux } from "../../../store/WatchlistSlice";
 import { getActiveUser } from "../../../userManager/activeUser";
 
 const style = {

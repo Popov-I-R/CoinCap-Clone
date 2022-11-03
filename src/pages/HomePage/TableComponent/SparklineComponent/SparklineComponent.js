@@ -9,8 +9,7 @@ export default function SparkLine(props) {
           <SparklinesLine
             style={{ stroke: "#8ed53f", strokeWidth: "1", fill: "green" }}
           />
-          <SparklinesSpots style={{fill: "green"}}
-          />
+          <SparklinesSpots style={{ fill: "green" }} />
         </Sparklines>
       );
     } else {
@@ -19,13 +18,11 @@ export default function SparkLine(props) {
           <SparklinesLine
             style={{ stroke: "#f90000", strokeWidth: "1", fill: "red" }}
           />
-          <SparklinesSpots style={{fill: "red"}}/>
+          <SparklinesSpots style={{ fill: "red" }} />
         </Sparklines>
       );
     }
   }
 
-  return <div className="sparkContainer">
-          {isPositive(props)}
-        </div>;
+  return <div className="sparkContainer">{isPositive(props)}</div>;
 }

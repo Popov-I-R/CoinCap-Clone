@@ -1,6 +1,7 @@
 import "./CoinDetailHiLowPrices.css";
 import React from "react";
 import { useSelector } from "react-redux";
+import CheckboxComponent from "../../../components/Checkbox";
 
 export default function CoinDetailHiLowPrices() {
   const symbol = useSelector((state) => state.blueBarAssets.symbol);
@@ -10,10 +11,11 @@ export default function CoinDetailHiLowPrices() {
   const high = useSelector((state) => state.blueBarAssets.high);
   const low = useSelector((state) => state.blueBarAssets.low);
   const average = useSelector((state) => state.blueBarAssets.average);
+  const uuid = useSelector((state) => state.blueBarAssets.uuid);
 
   const today = new Date();
   const yyyy = today.getFullYear();
-  let mm = today.getMonth() + 1; 
+  let mm = today.getMonth() + 1;
   let dd = today.getDate();
 
   if (dd < 10) dd = "0" + dd;
@@ -23,6 +25,13 @@ export default function CoinDetailHiLowPrices() {
 
   return (
     <div className="coin-detail-container">
+<div>
+
+</div>
+     <div>
+        {" "}
+        <CheckboxComponent checkForUUID={uuid}></CheckboxComponent>
+      </div>
       <div className="coin-detail-block">
         <div className="icon-container">
           <img src={iconUrl}></img>
@@ -34,6 +43,7 @@ export default function CoinDetailHiLowPrices() {
           <p>{formattedToday}</p>
         </div>
       </div>
+ 
       <div className="coin-detail-block">
         <div>
           <span>
