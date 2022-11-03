@@ -1,11 +1,11 @@
 import * as React from "react";
 import "./PortfolioOverview.css";
 
-export default function BoxSx() {
+export default function BoxSx({total}) {
   return (
     <div className="portfolio-overview">
       <div className="portfolio-container">
-        <span>$94,476.76</span>
+        <span>{total}</span>
         <span>Total Balance</span>
       </div>
       <div className="portfolio-container">

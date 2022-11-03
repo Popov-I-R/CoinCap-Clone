@@ -51,7 +51,8 @@ const AssetID = () => {
         dispatch(setRank(coin.rank));
         dispatch(setSymbol(coin.symbol));
         dispatch(setName(coin.name));
-        dispatch(setPrice(Number(coin.price).toFixed(3)));
+        const price = coin.price > 0.01 ? (Number(coin.price).toFixed(4)) : (Number(coin.price).toFixed(7))
+        dispatch(setPrice(price));
         const marketCap =
           coin.marketCap > 1000000000
             ? `${(coin.marketCap / 1000000000).toFixed(3)}b`
@@ -70,11 +71,16 @@ const AssetID = () => {
         dispatch(setWebsite(coin.websiteUrl));
         dispatch(setIconUrl(coin.iconUrl));
         dispatch(setChange(coin.change));
-        const max = Math.max(...coin.sparkline);
-        dispatch(setHigh(max.toFixed(2)));
-        const min = Math.min(...coin.sparkline);
-        dispatch(setLow(min.toFixed(2)));
-        dispatch(setAverage(((max + min) / 2).toFixed(2)));
+        let max = Math.max(...coin.sparkline);
+        max = max > 0.01 ? max.toFixed(4) : max.toFixed(7);
+        dispatch(setHigh(max));
+        let min = Math.min(...coin.sparkline);
+        min = min > 0.01 ? min.toFixed(4) : min.toFixed(7);
+        dispatch(setLow(min));
+        const maxNum = Number(max);
+        const minNum = Number(min);
+        const average = ((maxNum + minNum) / 2) < 0.01 ? (((maxNum + minNum) / 2).toFixed(7)) : (((maxNum + minNum) / 2).toFixed(4));
+        dispatch(setAverage(average));
         setIsDisplayLoader(false);
       })
       .catch((err) => console.log("Hmmm... something went wrong"));

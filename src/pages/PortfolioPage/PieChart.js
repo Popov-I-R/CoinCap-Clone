@@ -4,7 +4,7 @@ import { Chart } from "react-google-charts";
 
 export default function PieChart(props) {
   const options = {
-    title: "My Coins",
+    title: "My Coins ($usd)",
     is3D: true,
     sliceVisibilityThreshold: .00000000000000001,
     backgroundColor: { fill:'transparent' }
