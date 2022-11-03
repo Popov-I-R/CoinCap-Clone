@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 const useAxios = (configObj) => {
   const { axiosInstance, method, url, requestConfig = {} } = configObj;
   const [response, setResponse] = useState([]);
-  const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
@@ -30,6 +29,6 @@ const useAxios = (configObj) => {
     fetchData();
   }, []);
 
-  return [response, error, loading];
+  return [response, loading];
 };
 export default useAxios;

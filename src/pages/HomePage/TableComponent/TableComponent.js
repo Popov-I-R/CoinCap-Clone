@@ -30,7 +30,7 @@ export default function MainTable(props) {
   let fetchedCoins = useSelector((state) => state.fetchSlice.fetchCoins);
   const [order, setOrder] = useState("asc");
   const [orderBy, setOrderBy] = useState("rank");
-  const [coins, error, loading] = props.FetchCoins();
+  const [coins, loading] = props.FetchCoins();
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -46,39 +46,42 @@ export default function MainTable(props) {
 
   return (
     <>
-      {loading ? (<Loader class={"HomepageLoader"} sizing={80}/>) : 
-      ( <Box sx={{ width: "100%" }}>
-      <Paper sx={{ width: "100%", mb: 2 }}>
-        <TableContainer>
-          <Table
-            sx={{ minWidth: 750, columns: 8, background: "#FAFAFA" }}
-            aria-labelledby="tableTitle"
-            aria-label="collapsible table"
-          >
-            <MainTableHead
-              order={order}
-              orderBy={orderBy}
-              onRequestSort={handleRequestSort}
-            />
-            <TableBody sx={{ background: "white" }}>
-              {fetchedCoins
-                .slice()
-                .sort(getComparator(order, orderBy))
-                .map((row, index) => {
-                  const labelId = { "aria-label": "Checkbox Heart" };
-                  return (
-                    <RowComponent
-                      key={row.uuid}
-                      row={row}
-                      labelId={labelId}
-                    />
-                  );
-                })}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      </Paper>
-    </Box>)}
+      {loading ? (
+        <Loader class={"HomepageLoader"} sizing={80} />
+      ) : (
+        <Box sx={{ width: "100%" }}>
+          <Paper sx={{ width: "100%", mb: 2 }}>
+            <TableContainer>
+              <Table
+                sx={{ minWidth: 750, columns: 8, background: "#FAFAFA" }}
+                aria-labelledby="tableTitle"
+                aria-label="collapsible table"
+              >
+                <MainTableHead
+                  order={order}
+                  orderBy={orderBy}
+                  onRequestSort={handleRequestSort}
+                />
+                <TableBody sx={{ background: "white" }}>
+                  {fetchedCoins
+                    .slice()
+                    .sort(getComparator(order, orderBy))
+                    .map((row, index) => {
+                      const labelId = { "aria-label": "Checkbox Heart" };
+                      return (
+                        <RowComponent
+                          key={row.uuid}
+                          row={row}
+                          labelId={labelId}
+                        />
+                      );
+                    })}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          </Paper>
+        </Box>
+      )}
     </>
   );
 }

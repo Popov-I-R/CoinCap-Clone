@@ -1,6 +1,5 @@
 import React from "react";
 import "./Footer.css";
-
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -15,7 +14,6 @@ import LogoLinkComponent from "./LogoLinkComponent";
 export default function Footer() {
   return (
     <Container className="Footer-Body">
-      {/* <div className="Main-Wrapper"> */}
       <Row className="Footer-Container" xs="auto">
         <FooterColumnTitle>COINCAP.IO</FooterColumnTitle>
         <FooterLink link="https://coincap.io/methodology">
@@ -74,7 +72,6 @@ export default function Footer() {
           alt="App-store-logo"
         ></LogoLinkComponent>
       </Row>
-      {/* </div> */}
     </Container>
   );
 }

@@ -1,6 +1,5 @@
 import "./App.css";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { useState,useEffect } from "react";
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
 import Home from "./pages/HomePage/Home";
@@ -22,7 +21,7 @@ function App() {
             <Route path="*" element={<ErrorPage/>} />
             <Route path="/" element={<Home />} />
             <Route path="/coins" element={<Navigate to="/" replace />} />
-            <Route path="/exchanges" element={<Exchanges />} />
+            <Route path="/top-40-exchanges" element={<Exchanges />} />
             <Route path="/swap" element={<Swap />} />
             <Route path="/my-watchlist" element={<Watchlist/>} />
             <Route path="/my-watchlist/assets/:assetIdentificator" element={<AssetID/>} />

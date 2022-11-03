@@ -7,13 +7,12 @@ import { API_KEY } from "../../secrets";
 import { useNavigate } from "react-router-dom";
 
 function MainGraph(props) {
+  const navigate = useNavigate();
   const symbol = useSelector((state) => state.blueBarAssets.symbol);
   const [history, setHistory] = useState([]);
-  const navigate = useNavigate();
 
   useEffect(() => {
-    fetch(
-      `https://api.coinranking.com/v2/coin/${props.uuid}/history?timePeriod=${props.timePeriod}`,
+    fetch(`https://api.coinranking.com/v2/coin/${props.uuid}/history?timePeriod=${props.timePeriod}`,
       {
         method: "GET",
         headers: {
@@ -25,11 +24,13 @@ function MainGraph(props) {
         if (res.ok) {
           return res.json();
         }
+          throw new Error("Someting went wrong")
       })
       .then((data) => {
         setHistory(data.data.history);
       })
-      .catch((err) => navigate("*"));
+      .catch((err) => navigate("*"))
+      .catch(error => {navigate("/*")})
   }, [props.uuid]);
 
   let data = [];

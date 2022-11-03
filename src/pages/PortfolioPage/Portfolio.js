@@ -4,7 +4,6 @@ import "../HomePage/Home.css";
 import "./MainWrapper.css";
 import BoxSx from "./BoxComponent";
 import "./PortfolioOverview.css";
-import ModalComponent from "./ModalComponent";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import { API_KEY } from "../../secrets";
@@ -65,7 +64,6 @@ export default function Portfolio() {
         <div className="PortfolioBoxSection">
           <BoxSx total={total}></BoxSx>
         </div>
-        <ModalComponent></ModalComponent>
       </div>
       {isDisplayLoader ? <Loader sizing={100} />: <PieChart data={activeBalance} />}
     </div>

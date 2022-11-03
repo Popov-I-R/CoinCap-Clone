@@ -50,7 +50,7 @@ import ConnectWalletModal from "./ConnectWallet/ConnectWalletModal";
 const setupHeaderMobileIcon = (name) => {
   if (name === "Coins") {
     return <FaBitcoin />;
-  } else if (name === "Exchanges") {
+  } else if (name === "Top 40 Exchanges") {
     return <FaExchangeAlt />;
   } else if (name === "Swap") {
     return <TbExchange />;
@@ -90,11 +90,11 @@ const checkPage = (page) => {
 };
 
 const drawerWidth = 215;
-const navItems = ["Coins", "Exchanges", "Swap", "My watchlist", "My portfolio"];
-const navItemsNoAutorisation = ["Coins", "Exchanges", "Swap"];
+const navItems = ["Coins", "Top 40 Exchanges", "Swap", "My watchlist", "My portfolio"];
+const navItemsNoAutorisation = ["Coins", "Top 40 Exchanges", "Swap"];
 const navItemsMobile = [
   "Coins",
-  "Exchanges",
+  "Top 40 Exchanges",
   "Swap",
   "API",
   "Settings",
@@ -103,7 +103,7 @@ const navItemsMobile = [
 ];
 const navItemsMobileNoAutorisation = [
   "Coins",
-  "Exchanges",
+  "Top 40 Exchanges",
   "Swap",
   "API",
   "Settings",

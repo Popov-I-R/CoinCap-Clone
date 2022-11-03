@@ -9,22 +9,8 @@ import { API_KEY } from "../../secrets";
 import { useEffect, useState } from "react";
 import BlueBarLoader from "./BlueBarForDetailsOfCoin/BlueBarLoader";
 import CoinDetailPricesLoader from "./CoinDetailHiLowPrices/CoinDetailPricesLoader";
-import {
-  setRank,
-  setSymbol,
-  setName,
-  setPrice,
-  setMarketCap,
-  setVolume,
-  setSupply,
-  setWebsite,
-  setIconUrl,
-  setChange,
-  setHigh,
-  setLow,
-  setAverage,
-  setUUID
-} from "../../store/BlueBarAssets";
+import {setRank,setSymbol,setName,setPrice,setMarketCap,setVolume,setSupply,
+  setWebsite,setIconUrl,setChange,setHigh,setLow,setAverage,setUUID} from "../../store/BlueBarAssets";
 
 
 const AssetID = () => {
@@ -99,7 +85,6 @@ const AssetID = () => {
           rangeSelectorEnabler={rangeSelectorEnabler}
           timePeriod={timePeriod}
         >
-          {" "}
         </MainGraph>
       </div>
     </div>

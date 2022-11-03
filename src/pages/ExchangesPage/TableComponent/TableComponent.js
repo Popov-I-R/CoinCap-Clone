@@ -80,7 +80,7 @@ export default function ExchangesTable() {
           "x-access-token": API_KEY
         },
       };
-    const limitPage = 25
+    const limitPage = 40
       fetch(`https://api.coinranking.com/v2/exchanges?limit=${limitPage}&offset=0&orderBy=24hVolume&orderDirection=desc`,optionsReq)
       .then((res) => res.json())
       .then((data) => {

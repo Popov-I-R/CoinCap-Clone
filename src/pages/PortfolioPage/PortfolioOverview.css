@@ -15,8 +15,6 @@
 }
 
 .portfolio-container {
-    /* border: 1px solid blue; */
-    /* box-shadow: rgb(0 0 0 / 40%) 0px 2px 15px -3px; */
     box-shadow: rgb(0 0 0 / 30%) 2px 12px 15px -5px;
     border-bottom: 20px;
 }

@@ -2,7 +2,7 @@ import React from "react";
 import MainTable from "../HomePage/TableComponent/TableComponent";
 import BlueBarAdaptive from "../HomePage/BlueBarUnderHeader/BlueBarAdaptive";
 import "../HomePage/Home.css";
-import useAxios from "../../AxiosHooks/getCoins";
+import useAxios from "../../axiosHooks/getCoins";
 import axios from "../../apis/coinranking";
 import { useSelector } from "react-redux";
 import "./Watchlist.css"
