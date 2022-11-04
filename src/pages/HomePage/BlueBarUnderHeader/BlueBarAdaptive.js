@@ -8,7 +8,7 @@ import useAxiosGlobal from "../../../axiosHooks/getGlobalStats";
 
 export default function BlueBarAdaptive() {
   const globalStats = (function GLOBAL() {
-    const [stats, error, loading] = useAxiosGlobal({
+    const [stats, loading] = useAxiosGlobal({
       axiosInstance: axios,
       method: `GET`,
       url: `stats`,
@@ -18,9 +18,9 @@ export default function BlueBarAdaptive() {
         },
       },
     });
-    return [stats, error, loading];
+    return [stats, loading];
   })();
-  const [stats, error, loading] = globalStats;
+  const [stats, loading] = globalStats;
 
   return (
     <div>
@@ -29,14 +29,20 @@ export default function BlueBarAdaptive() {
           <DesktopBlueBarLoader />
         ) : (
           <DesktopBlueBar
-            marketCap={`$${(Number(stats.totalMarketCap)/1000000000).toLocaleString(
+            marketCap={`${(Number(stats.totalMarketCap)/1000000000).toLocaleString(
               undefined,
               { minimumFractionDigits: 0, maximumFractionDigits: 1 }
-            )}b`}
-            exchangeVol={String(stats.total24hVolume).slice(0, 2) + ` Billions`}
-            assets={stats.totalCoins}
+            )} T`}
+            exchangeVol={String(stats.total24hVolume).slice(0, 2) + ` B`}
+            assets={`${(Number(stats.totalCoins)/1).toLocaleString(
+              undefined,
+              { minimumFractionDigits: 0, maximumFractionDigits: 1 }
+            )}`}
             exchanges={stats.totalExchanges}
-            markets={stats.totalMarkets}
+            markets={`${(Number(stats.totalMarkets)/1).toLocaleString(
+              undefined,
+              { minimumFractionDigits: 0, maximumFractionDigits: 1 }
+            )}`}
             btcDomIndex={`${Number(stats.btcDominance).toFixed(2)}%`}
           />
         )}
@@ -47,10 +53,9 @@ export default function BlueBarAdaptive() {
             undefined,
             { minimumFractionDigits: 0, maximumFractionDigits: 1 }
           )}`}
-          exchangeVol={String(stats.total24hVolume).slice(0, 2) + ` Billions`}
+          exchangeVol={String(stats.total24hVolume).slice(0, 2) + ` B`}
           assets={stats.totalCoins}
           exchanges={stats.totalExchanges}
-          markets={stats.totalMarkets}
           btcDomIndex={`${Number(stats.btcDominance).toFixed(2)}%`}
         />
       </div>

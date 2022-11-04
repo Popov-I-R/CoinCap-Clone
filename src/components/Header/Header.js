@@ -1,6 +1,5 @@
 import React from "react";
 import { useSelector } from "react-redux";
-// import PropTypes from 'prop-types';
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider";
@@ -9,26 +8,17 @@ import IconButton from "@mui/material/IconButton";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
-// import ListItemText from '@mui/material/ListItemText';
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-
-// import for modal on settings button;
 import Backdrop from "@mui/material/Backdrop";
 import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
 import AddIcon from "@mui/icons-material/Add";
-import "./SettingsGear/Settings.css";
-import SettingsContainer from "./SettingsGear/SettingsContainer";
-import setIcon from "./SettingsGear/setIcon.png";
-
 import { Link } from "react-router-dom";
 import "./Header.css";
-import Settings from "./SettingsGear/Settings";
-import InputSearch from "./SearchBar/InputSearch";
 
-// Icons
+import InputSearch from "./SearchBar/InputSearch";
 import headerLogo from "./header_logo.svg";
 import { FaBitcoin } from "react-icons/fa";
 import { FaExchangeAlt } from "react-icons/fa";
@@ -38,14 +28,7 @@ import FormatAlignJustifyIcon from "@mui/icons-material/FormatAlignJustify";
 import { TbExchange } from "react-icons/tb";
 import { GiProgression } from "react-icons/gi";
 import { MdStarBorder } from "react-icons/md";
-
-// Mobile Select Control Start
-
-import MobileSelectCurrency from "./MobileMenuSelectComponents/MobileSelectCurrency";
-
 import ConnectWalletModal from "./ConnectWallet/ConnectWalletModal";
-
-// Mobile select control end
 
 const setupHeaderMobileIcon = (name) => {
   if (name === "Coins") {
@@ -67,7 +50,6 @@ const setupHeaderMobileIcon = (name) => {
   return false;
 };
 
-//styles for modal on settings bitton;
 const style = {
   position: "absolute",
   top: "35%",
@@ -97,7 +79,6 @@ const navItemsMobile = [
   "Top 40 Exchanges",
   "Swap",
   "API",
-  "Settings",
   "My Watchlist",
   "My Portfolio",
 ];
@@ -106,7 +87,6 @@ const navItemsMobileNoAutorisation = [
   "Top 40 Exchanges",
   "Swap",
   "API",
-  "Settings",
 ];
 
 function Header(props) {
@@ -141,7 +121,6 @@ function Header(props) {
                     to={item.toLowerCase().split(" ").join("-")}
                   >
                     <ListItemButton sx={{ textAlign: "center" }}>
-                      {/* <ListItemText primary={item} />  */}
                       <ListItemButton
                         className="Flex-Column"
                         sx={{ textAlign: "center" }}
@@ -150,7 +129,6 @@ function Header(props) {
                           {setupHeaderMobileIcon(item)}
                         </div>
                         <div className="Mobile-Links-Header">{item}</div>
-                        {/* <ListItemText primary={item} /> */}
                       </ListItemButton>
                     </ListItemButton>
                   </Link>
@@ -159,7 +137,6 @@ function Header(props) {
                     onClick={handleOpen}
                     sx={{ textAlign: "center" }}
                   >
-                    {/* <ListItemText primary={item} />  */}
                     <ListItemButton
                       className="Flex-Column"
                       sx={{ textAlign: "center" }}
@@ -168,7 +145,6 @@ function Header(props) {
                         {setupHeaderMobileIcon(item)}
                       </div>
                       <div className="Mobile-Links-Header">{item}</div>
-                      {/* <ListItemText primary={item} /> */}
                     </ListItemButton>
                   </ListItemButton>
                 )}
@@ -182,7 +158,6 @@ function Header(props) {
                     to={item.toLowerCase().split(" ").join("-")}
                   >
                     <ListItemButton sx={{ textAlign: "center" }}>
-                      {/* <ListItemText primary={item} />  */}
                       <ListItemButton
                         className="Flex-Column"
                         sx={{ textAlign: "center" }}
@@ -191,7 +166,6 @@ function Header(props) {
                           {setupHeaderMobileIcon(item)}
                         </div>
                         <div className="Mobile-Links-Header">{item}</div>
-                        {/* <ListItemText primary={item} /> */}
                       </ListItemButton>
                     </ListItemButton>
                   </Link>
@@ -200,7 +174,6 @@ function Header(props) {
                     onClick={handleOpen}
                     sx={{ textAlign: "center" }}
                   >
-                    {/* <ListItemText primary={item} />  */}
                     <ListItemButton
                       className="Flex-Column"
                       sx={{ textAlign: "center" }}
@@ -209,14 +182,12 @@ function Header(props) {
                         {setupHeaderMobileIcon(item)}
                       </div>
                       <div className="Mobile-Links-Header">{item}</div>
-                      {/* <ListItemText primary={item} /> */}
                     </ListItemButton>
                   </ListItemButton>
                 )}
               </ListItem>
             ))}
       </List>
-
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
@@ -235,11 +206,7 @@ function Header(props) {
           <Box className="Settings-modal-box" sx={style}>
             <div className="Close-settings-div">
               <div className="setLogoDiv">
-                <img
-                  className="settings-logo"
-                  src={setIcon}
-                  alt="settings"
-                ></img>
+
                 <h1>Settings</h1>
               </div>
               <AddIcon
@@ -250,7 +217,7 @@ function Header(props) {
             </div>
             <hr></hr>
             <div>
-              <SettingsContainer />
+
             </div>
           </Box>
         </Fade>
@@ -266,8 +233,6 @@ function Header(props) {
         <ConnectWalletModal />
       </Box>
       <Divider />
-      <MobileSelectCurrency />
-      
     </Box>
   );
 
@@ -376,7 +341,7 @@ function Header(props) {
               padding: "10px 20px",
             }}
           >
-            <Settings />
+
           </Box>
           <Box sx={{ display: { xs: "none", sm: "none", md: "block" } }}>
             <ConnectWalletModal />
@@ -385,7 +350,6 @@ function Header(props) {
       </AppBar>
       <Box component="nav">
         <Drawer
-          // BackdropProps={{ invisible: true}}
           container={container}
           variant="temporary"
           open={mobileOpen}
@@ -393,8 +357,6 @@ function Header(props) {
           ModalProps={{
             keepMounted: true,
             width: "200px",
-            // disableEnforceFocus: true
-            //  Лоша, практика, но в норигиналният сайт също е така.
           }}
           sx={{
             display: { xs: "block", sm: "block" },

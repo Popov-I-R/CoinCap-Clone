@@ -34,7 +34,7 @@ export function TableHeadCells() {
           id: "recommended",
           numeric: true,
           disablePadding: false,
-          label: "Is Recommended",
+          label: "Recommended",
         },
       ];
       return headCells

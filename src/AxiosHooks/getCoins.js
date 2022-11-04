@@ -21,6 +21,9 @@ const useAxios = (configObj) => {
           if (coin.price) {
             coin.price = +coin.price;
           }
+          if(coin["24hVolume"]){
+            coin["24hVolume"] = +coin["24hVolume"];
+          }
           if (coin.marketCap) {
             coin.marketCap = +coin.marketCap;
           }

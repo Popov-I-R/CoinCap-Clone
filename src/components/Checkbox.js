@@ -55,7 +55,7 @@ export default function CheckboxComponent(props) {
         />
       ) : (
         <Tooltip
-          title="You need to be logged in for this future"
+          title="You need to be logged in for this feature"
           placement="right-start"
         >
           <Checkbox
